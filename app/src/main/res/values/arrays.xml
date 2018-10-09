@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="program_list">
+		<item>高清直播</item>
+		<item>热门</item>
+		<item>搞笑</item>
+		<item>美食</item>
+		<item>吃秀</item>
+		<item>音乐</item>
+		<item>舞蹈</item>
+		<item>明星名人</item>
+		<item>女神</item>
+		<item>涨姿势</item>
+		<item>男神</item>
+		<item>逛拍</item>
+    </string-array>
+
+	<string-array name="scale_list">
+		<item>全屏</item>
+		<item>16:9</item>
+		<item>4:3</item>
+		<item>原始比例</item>
+	</string-array>
+
+</resources>

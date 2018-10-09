@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/header_overlay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    app:layout_behavior="com.victor.clips.widget.HeaderOverlayBehavior"
+    tools:ignore="MergeRootFrame">
+
+    <FrameLayout
+        android:id="@+id/texts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.AppCompatTextView style="@style/HeaderItemTextStyle"/>
+        <android.support.v7.widget.AppCompatTextView style="@style/HeaderItemTextStyle"/>
+        <android.support.v7.widget.AppCompatTextView style="@style/HeaderItemTextStyle"/>
+        <android.support.v7.widget.AppCompatTextView style="@style/HeaderItemTextStyle"/>
+        <android.support.v7.widget.AppCompatTextView style="@style/HeaderItemTextStyle"/>
+        <android.support.v7.widget.AppCompatTextView style="@style/HeaderItemTextStyle"/>
+        <android.support.v7.widget.AppCompatTextView style="@style/HeaderItemTextStyle"/>
+        <android.support.v7.widget.AppCompatTextView style="@style/HeaderItemTextStyle"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/lines"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View style="@style/HeaderItemLineStyle"/>
+        <View style="@style/HeaderItemLineStyle"/>
+        <View style="@style/HeaderItemLineStyle"/>
+        <View style="@style/HeaderItemLineStyle"/>
+        <View style="@style/HeaderItemLineStyle"/>
+        <View style="@style/HeaderItemLineStyle"/>
+        <View style="@style/HeaderItemLineStyle"/>
+        <View style="@style/HeaderItemLineStyle"/>
+
+    </FrameLayout>
+
+</FrameLayout>
