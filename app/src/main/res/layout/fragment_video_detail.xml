@@ -14,11 +14,11 @@
 
 
     <TextView
-        android:id="@+id/txtTitle"
+        android:id="@+id/mTvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="32dp"
+        android:textSize="28dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"
@@ -27,36 +27,36 @@
 
 
     <TextView
-        android:id="@+id/txtYear"
+        android:id="@+id/mTvViewCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+        app:layout_constraintTop_toBottomOf="@+id/mTvTitle"
         android:text="2018" />
 
     <TextView
-        android:id="@+id/txtDuration"
+        android:id="@+id/mTvDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintStart_toEndOf="@+id/txtYear"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+        app:layout_constraintStart_toEndOf="@+id/mTvViewCount"
+        app:layout_constraintTop_toBottomOf="@+id/mTvTitle"
         android:text="2h 36min" />
 
     <TextView
-        android:id="@+id/txtGenre"
+        android:id="@+id/mTvRating"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
-        app:layout_constraintStart_toEndOf="@+id/txtDuration"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+        app:layout_constraintStart_toEndOf="@+id/mTvDuration"
+        app:layout_constraintTop_toBottomOf="@+id/mTvTitle"
         android:text="Action,Adeventure,Fanatasy" />
 
     <android.support.constraint.Guideline
@@ -88,10 +88,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/txtGenre">
+        app:layout_constraintTop_toBottomOf="@+id/mTvRating">
 
         <TextView
-            android:id="@+id/txtDescription"
+            android:id="@+id/mTvType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"

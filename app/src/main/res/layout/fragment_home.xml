@@ -7,20 +7,14 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvMovies"
+        android:id="@+id/mRvHome"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/row_home_feed"
-        android:visibility="gone"/>
-
-    <com.victor.clips.widget.gallery.GalleryRecyclerView
-        android:id="@+id/mRvHot"
-        android:layout_width="match_parent"
-        android:layout_height="540dp"
-        app:helper="LinearSnapHelper" />
+        tools:listitem="@layout/rv_home_item"
+        app:layoutManager="LinearLayoutManager"/>
 
 </android.support.constraint.ConstraintLayout>

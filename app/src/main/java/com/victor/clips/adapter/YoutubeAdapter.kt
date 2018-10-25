@@ -6,11 +6,9 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import com.victor.clips.R
 import com.victor.clips.data.YoutubeInfo
-import com.victor.clips.holder.LiveContentViewHolder
 import com.victor.clips.holder.YoutubeContentViewHolder
 import com.victor.clips.util.ImageUtils
-import kotlinx.android.synthetic.main.rv_youtube_item.view.*
-import kotlinx.android.synthetic.main.rv_live_cell_item.view.*
+import kotlinx.android.synthetic.main.rv_home_item.view.*
 
 /*
  * -----------------------------------------------------------------
@@ -31,13 +29,14 @@ class YoutubeAdapter(context: Context, listener: AdapterView.OnItemClickListener
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return YoutubeContentViewHolder(mLayoutInflater!!.inflate(R.layout.rv_youtube_item, parent, false))
+        return YoutubeContentViewHolder(mLayoutInflater!!.inflate(R.layout.rv_home_item, parent, false))
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: YoutubeInfo, position: Int) {
         val contentViewHolder = viewHolder as YoutubeContentViewHolder
 
-        ImageUtils.instance.loadImage(contentViewHolder.itemView.mIvYoutubePoster, data.poster)
+        contentViewHolder.itemView.txtDescription.setText(data.url)
+        ImageUtils.instance.loadImage(contentViewHolder.itemView.imgPoster, data.poster)
         contentViewHolder.setOnItemClickListener(mOnItemClickListener)
     }
 

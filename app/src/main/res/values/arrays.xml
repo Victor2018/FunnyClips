@@ -22,4 +22,20 @@
 		<item>原始比例</item>
 	</string-array>
 
+	<integer-array name="beautiful">
+		<item>@mipmap/beauty1</item>
+		<item>@mipmap/beauty2</item>
+		<item>@mipmap/beauty3</item>
+		<item>@mipmap/beauty4</item>
+		<item>@mipmap/beauty5</item>
+		<item>@mipmap/beauty6</item>
+		<item>@mipmap/beauty7</item>
+		<item>@mipmap/beauty8</item>
+		<item>@mipmap/beauty9</item>
+		<item>@mipmap/beauty10</item>
+		<item>@mipmap/beauty11</item>
+		<item>@mipmap/beauty12</item>
+		<item>@mipmap/beauty13</item>
+	</integer-array>
+
 </resources>

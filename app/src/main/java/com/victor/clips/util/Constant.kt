@@ -17,6 +17,8 @@ class Constant {
             const val REQUEST_VIMEO    = 0x1002
             const val SOCKET_TIME_OUT    = 0x1003
             const val NETWORK_ERROR    = 0x1004
+            const val SHOW_HOME_DATA    = 0x1005
+            const val SHOW_YOUTUBE_DETAIL    = 0x1006
         }
     }
 

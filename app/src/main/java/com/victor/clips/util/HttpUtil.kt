@@ -9,11 +9,7 @@ import java.io.IOException
 import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
-import android.net.NetworkInfo
-import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
-import com.victor.player.library.util.Constant.VIMEO_URL
-import android.text.TextUtils
 import java.net.*
 
 

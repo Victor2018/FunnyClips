@@ -26,7 +26,6 @@ class LiveFragment : BaseFragment(),AdapterView.OnItemClickListener, LiveView {
     var livePresenter: LivePresenterImpl? = null
 
     var liveAdapter: LiveAdapter? = null
-    var mOnItemPhotoChangedListener: YoutubeAdapter.OnItemPhotoChangedListener? = null
 
     override fun getLayoutResource(): Int {
         return R.layout.fragment_live

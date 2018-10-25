@@ -9,6 +9,7 @@ import android.support.transition.ChangeBounds
 import android.support.transition.Transition
 import android.support.transition.TransitionManager
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewCompat
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnticipateOvershootInterpolator
@@ -75,13 +76,12 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         animationTouchListener = VideoTouchHandler(this, this)
         frmVideoContainer.setOnTouchListener(animationTouchListener)
         animationTouchListener.show()
-        fragmentSwitch(R.id.frmVideoContainer,PlayerFragment())
-        fragmentSwitch(R.id.frmDetailsContainer,VideoDetailFragment())
         animationTouchListener.isExpanded = true
     }
 
     private fun fragmentSwitch(containRedId:Int,toFragment: Fragment) {
         val ft = supportFragmentManager.beginTransaction()
+
         ft.replace(containRedId, toFragment)
         ft.commitAllowingStateLoss()
     }
@@ -256,6 +256,11 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 }
             })
         })
+    }
+
+    fun playYoutube (url: String?) {
+        fragmentSwitch(R.id.frmVideoContainer,PlayerFragment.newInstance(url))
+        fragmentSwitch(R.id.frmDetailsContainer,VideoDetailFragment.newInstance(url))
     }
 
 }
