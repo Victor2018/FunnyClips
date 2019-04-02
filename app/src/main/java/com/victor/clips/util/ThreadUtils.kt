@@ -3,11 +3,9 @@ package com.victor.clips.util
 import android.os.Handler
 import android.os.Looper
 
-
-
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: ThreadUtils.java
  * Author: Victor

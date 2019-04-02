@@ -21,7 +21,7 @@ import java.util.*
 
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: HomeFragment.java
  * Author: Victor
@@ -68,8 +68,8 @@ class HomeFragment : BaseFragment(),AdapterView.OnItemClickListener {
 
     fun initialize () {
         homeActivity = activity as HomeActivity?
-        spiderHelper = SpiderHelper(App.instance())
-        youtubeAdapter = YoutubeAdapter(App.instance(),this)
+        spiderHelper = SpiderHelper(App.get())
+        youtubeAdapter = YoutubeAdapter(App.get(),this)
         mRvHome.addItemDecoration(SimpleDividerItemDecoration(context))
         mRvHome.adapter = youtubeAdapter
         mRvHome.setHasFixedSize(true)

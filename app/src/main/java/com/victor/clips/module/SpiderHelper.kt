@@ -1,8 +1,6 @@
 package com.victor.clips.module
 
-import android.app.WallpaperManager
 import android.content.Context
-import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Message
@@ -12,7 +10,7 @@ import java.util.HashMap
 
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: SpiderHelper.java
  * Author: Victor

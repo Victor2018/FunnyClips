@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.adapter_media_type_item.view.*
 
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: LiveCellAdapter.java
  * Author: Victor
@@ -54,7 +54,7 @@ class LiveAdapter(context: Context, listener: AdapterView.OnItemClickListener) :
         contentViewHolder.itemView.recyclerView.setOnFlingListener(null)
         LinearSnapHelper().attachToRecyclerView(contentViewHolder.itemView.recyclerView)
 
-        var cellAdapter = LiveCellAdapter(App.instance(),mOnItemClickListener!!)
+        var cellAdapter = LiveCellAdapter(App.get(),mOnItemClickListener!!)
         cellAdapter.add(data.channels)
 
         contentViewHolder.itemView.recyclerView.adapter = cellAdapter

@@ -1,7 +1,7 @@
 package com.victor.clips.presenter
 
 import com.victor.clips.data.LiveReq
-import com.victor.clips.view.LiveView
+import com.victor.clips.view.DailySelectionView
 import org.victor.khttp.library.annotation.HttpParms
 import org.victor.khttp.library.data.Request
 import org.victor.khttp.library.inject.HttpInject
@@ -17,17 +17,17 @@ import org.victor.khttp.library.presenter.impl.BasePresenterImpl
  * Description: 
  * -----------------------------------------------------------------
  */
-class LivePresenterImpl(var liveView: LiveView?): BasePresenterImpl() {
+class DailySelectionPresenterImpl(var dailySelectionView: DailySelectionView?): BasePresenterImpl() {
     /*Presenter作为中间层，持有View和Model的引用*/
     override fun onComplete(data: Any?, msg: String) {
-        liveView?.OnLive(data,msg)
+        dailySelectionView?.OnDailySelection(data,msg)
     }
 
     override fun detachView() {
-        liveView = null
+        dailySelectionView = null
     }
 
-    @HttpParms (method = Request.GET,responseCls = LiveReq::class)
+    @HttpParms (method = Request.GET,responseCls = String::class)
     override fun sendRequest(url: String, header: HashMap<String, String>?, parms: String?) {
         HttpInject.inject(this);
         super.sendRequest(url, header, parms)

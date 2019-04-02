@@ -7,7 +7,7 @@ import com.victor.clips.util.AppConfig
 
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: ToastUtils.java
  * Author: Victor
@@ -25,7 +25,7 @@ class ToastUtils {
          */
         fun showDebug(msg: String) {
             if (AppConfig.MODEL_DEBUG) {
-                Toast.makeText(App.instance(), msg, Toast.LENGTH_SHORT).show()
+                Toast.makeText(App.get(), msg, Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -37,7 +37,7 @@ class ToastUtils {
         fun showDebug(@IntegerRes resId: Int) {
             if (AppConfig.MODEL_DEBUG) {
                 val text = ResUtils.getStringRes(resId)
-                Toast.makeText(App.instance(), text, Toast.LENGTH_SHORT).show()
+                Toast.makeText(App.get(), text, Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -47,7 +47,7 @@ class ToastUtils {
          * @param msg
          */
         fun showShort(msg: CharSequence) {
-            Toast.makeText(App.instance(), msg, Toast.LENGTH_SHORT).show()
+            Toast.makeText(App.get(), msg, Toast.LENGTH_SHORT).show()
         }
 
         /**
@@ -57,7 +57,7 @@ class ToastUtils {
          */
         fun showShort(resId: Int) {
             val text = ResUtils.getStringRes(resId)
-            Toast.makeText(App.instance(), text, Toast.LENGTH_SHORT).show()
+            Toast.makeText(App.get(), text, Toast.LENGTH_SHORT).show()
         }
 
         /**
@@ -66,7 +66,7 @@ class ToastUtils {
          * @param msg
          */
         fun showLong(msg: CharSequence) {
-            Toast.makeText(App.instance(), msg, Toast.LENGTH_LONG).show()
+            Toast.makeText(App.get(), msg, Toast.LENGTH_LONG).show()
         }
 
         /**
@@ -76,7 +76,7 @@ class ToastUtils {
          */
         fun showLong(resId: Int) {
             val text = ResUtils.getStringRes(resId)
-            Toast.makeText(App.instance(), text, Toast.LENGTH_LONG).show()
+            Toast.makeText(App.get(), text, Toast.LENGTH_LONG).show()
         }
     }
 }

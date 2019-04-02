@@ -12,7 +12,7 @@ import com.victor.clips.app.App
 
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: ImgBlurUtil.java
  * Author: Victor
@@ -51,7 +51,7 @@ class ImgBlurUtil {
                     return fastBlur(bitmap, mScale, radius)
                 } else {
                     Log.d(TAG, "blur render script  algorithm")
-                    return rsBlur(App.instance(), bitmap, radius, mScale)
+                    return rsBlur(App.get(), bitmap, radius, mScale)
                 }
             } else {
                 Log.d(TAG, "blur fast algorithm")

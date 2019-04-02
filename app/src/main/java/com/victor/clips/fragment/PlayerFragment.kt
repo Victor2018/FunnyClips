@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_player.*
 
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: TrendingFragment.java
  * Author: Victor
@@ -69,7 +69,7 @@ class PlayerFragment : BaseFragment(),AdapterView.OnItemClickListener,OnExtractL
     }
 
     fun initialize () {
-        playHelper = PlayHelper(App.instance(),videoPlayer,mHandler)
+        playHelper = PlayHelper(App.get(),videoPlayer,mHandler)
     }
 
     fun initData () {

@@ -4,25 +4,243 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+def releaseTime() {
+    return new Date().format("yyyy_MM_dd_HHmm", TimeZone.getTimeZone("GMT+08:00"))
+}
+
+/**
+ * 读取版本配置
+ */
+def Properties mVersionProps = getProperty();
+/**
+ * 读取版本名
+ */
+def String mVersionCode = mVersionProps['VERSION_CODE'];
+/**
+ * 读取版本名
+ */
+def String mVersionName = mVersionProps['VERSION_NAME'];
+/**
+ * 模式
+ */
+def String mModelOnline = String.valueOf(mVersionProps['MODEL_ONLINE']);
+/**
+ * 日志调试模式
+ */
+def String mModelDebug = String.valueOf(mVersionProps['MODEL_DEBUG']);
+/**
+ * 构建编号
+ */
+def String mBuildCode = String.valueOf(mVersionProps['BUILD_CODE']);
+/**
+ * 编译apk文件名称
+ */
+def String mBuildName = String.valueOf(mVersionProps['BUILD_NAME']);
+/**
+ * 指定输出目录
+ */
+def mOutputDir = "${rootDir}/app/build/outputs/apk";
+/**
+ * fir api token
+ */
+def mFirApiToken = String.valueOf(mVersionProps['FIR_API_TOKEN'])
+/**
+ * fir上传url地址
+ */
+def mFirUploadUrl = String.valueOf(mVersionProps['FIR_UPLOAD_URL'])
+/**
+ * 是否上传到fir
+ */
+def mUpLoadToFir = String.valueOf(mVersionProps['UPLOAD_TO_FIR'])
+/**
+ * 上传至fir渠道名称
+ */
+def mUpLoadChannel = String.valueOf(mVersionProps['UPLOAD_CHANNEL'])
+/**
+ * 腾讯buglyId
+ */
+def mBuglyAppID = String.valueOf(mVersionProps['BUGLY_APPID'])
+
 android {
     compileSdkVersion 27
+
+    signingConfigs {
+        release {
+            storeFile file('../docs/victor_keystore.jks')
+            storePassword "android"
+            keyAlias "victor"
+            keyPassword "android"
+            v2SigningEnabled false  //禁用v2签名方式
+        }
+    }
+
     defaultConfig {
         applicationId "com.victor.clips"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode Integer.valueOf(mVersionCode)
+        versionName mVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "int", "BUILD_CODE", mBuildCode
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
     }
     buildTypes {
         release {
-            minifyEnabled false
+            zipAlignEnabled true
+            //去掉无用资源
+            shrinkResources true
+
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            buildConfigField "boolean", "MODEL_ONLINE", "true"
+            buildConfigField "boolean", "MODEL_DEBUG", "false"
+            manifestPlaceholders = [BUGLY_APPID : "${mBuglyAppID}", BUGLY_APP_VERSION: "${mVersionName}",
+                                    BUGLY_APP_CHANNEL: "main", BUGLY_ENABLE_DEBUG: "false"]
         }
+        debug {
+            signingConfig signingConfigs.release
+            buildConfigField "boolean", "MODEL_ONLINE", "false"
+            buildConfigField "boolean", "MODEL_DEBUG", "true"
+            manifestPlaceholders = [BUGLY_APPID : "${mBuglyAppID}dev", BUGLY_APP_VERSION: "${mVersionName}",
+                                    BUGLY_APP_CHANNEL: "main", BUGLY_ENABLE_DEBUG: "true"]
+        }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    //移除lint检测的error
+    lintOptions {
+        abortOnError false
     }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    flavorDimensions 'main'
+    productFlavors {
+        main {
+            dimension 'main'
+            // 每个环境包名不同
+            applicationId "com.victor.clips"
+            //注意，这里是添加，在 string.xml 不能有这个字段，会重名！！！
+//            resValue "string", "app_name", "FunnyClips"
+            // 动态修改 常量 字段
+            buildConfigField "boolean", "MODEL_ONLINE", "true"
+            buildConfigField "boolean", "MODEL_DEBUG", "false"
+            buildConfigField "boolean", "IS_LONGTV", "false"
+            manifestPlaceholders = [BUGLY_APPID : "${mBuglyAppID}", BUGLY_APP_VERSION: "${mVersionName}",
+                                    BUGLY_APP_CHANNEL: "main", BUGLY_ENABLE_DEBUG: "false"]
+        }
+    }
+
+    // 自定义输出配置，这里我们加上APK版本号1.0
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = "${mBuildName}_v${defaultConfig.versionName}_${mBuildCode}_${variant.productFlavors[0].name}.apk"
+        }
+    }
+}
+
+/**
+ * 获取构建版本
+ * @return
+ */
+def getProperty() {
+    def Properties buildProps = new Properties()
+    buildProps.load(new FileInputStream(file('../docs/build.properties')))
+    return buildProps;
+}
+/**
+ * 打包成功之后
+ * 输出相应的日志记录
+ * 保留此次打包的记录
+ * 包括版本名称
+ * 构建时间
+ * 提交记录等
+ */
+def buildLog(String output, String vName, String vCode, String buildVerCode, String buildName, String modelOnline, String modelDebug, String firApiToken, String firUploadUrl, String upLoadToFir, String uploadChannel) {
+    File outputFile = new File(output)
+    if (!outputFile.exists())
+        outputFile.mkdirs()
+    FileWriter fw = new FileWriter(output + File.separator + "log.txt")
+    StringBuilder builder = new StringBuilder();
+    builder.append("[构建时间]=" + releaseTime())
+    builder.append("\r\n")
+    builder.append("[版本编号]=" + vCode)
+    builder.append("\r\n")
+    builder.append("[版本名称]=" + vName)
+    builder.append("\r\n")
+    builder.append("[编译版本]=" + buildVerCode)
+    builder.append("\r\n")
+    builder.append("[线上环境]=" + modelOnline)
+    builder.append("\r\n")
+    builder.append("[调试模式]=" + modelDebug)
+    builder.append("\r\n")
+    builder.append("[上传标记]=" + upLoadToFir)
+    builder.append("\r\n")
+    builder.append("[上传渠道]=" + uploadChannel)
+    fw.write(builder.toString())
+    fw.flush();
+    fw.close();
+
+    if (Boolean.valueOf(upLoadToFir)) {
+        uploadToFir(vName, buildVerCode, buildName, firApiToken, firUploadUrl, uploadChannel);
+    }
+}
+
+def uploadToFir(String verName, String buildVerCode, String buildName, String firApiToken, String firUploadUrl, String uploadChannel) {
+    def appName = buildName
+    def bundleId = project.android.defaultConfig.applicationId
+    def iconPath = "${rootDir}/app/src/${uploadChannel}/res/mipmap-xxhdpi/ic_launcher.png"
+    if (!uploadChannel.equals("main")) {
+        iconPath = "$rootDir/app/${uploadChannel}/res/mipmap-xxhdpi/ic_launcher.png"
+    }
+    def fileName = "${buildName}_v${verName}_${buildVerCode}_${uploadChannel}.apk"
+    def apkPath = "${rootDir}/app/build/outputs/apk/${uploadChannel}/release/${fileName}"
+
+    def changeLog = "1,添加自动上传fir功能;2,修复自动上传fir更新日志乱码问题;3,添加上传渠道配置"
+
+    //执行Python脚本
+    def process = "python $rootDir/docs/upToFir.py ${firUploadUrl} ${appName} ${bundleId} ${verName} ${firApiToken} ${iconPath} ${apkPath} ${buildVerCode} ${changeLog}".execute()
+    println("************************** upload to fir start **************************")
+    println("appName------------>" + appName)
+    println("bundleId----------->" + bundleId)
+    println("iconPath----------->" + iconPath)
+    println("fileName----------->" + fileName)
+    println("apkPath------------>" + apkPath)
+    println("changeLog---------->" + changeLog)
+    println("buildVerCode------->" + buildVerCode)
+    println("uploadChannel------>" + uploadChannel)
+    //获取Python脚本日志，便于出错调试
+    ByteArrayOutputStream result = new ByteArrayOutputStream()
+    def is = process.getInputStream()
+    byte[] buffer = new byte[1024]
+    int size = is.read(buffer);
+    while (size != -1) {
+        result.write(buffer, 0, size)
+        size = is.read(buffer);
+    }
+    println("upload reponse result = " + result.toString("UTF-8"))
+    println("************************** upload to fir success **************************")
+}
+
+build {
+    doLast {
+        buildLog(mOutputDir, mVersionName, mVersionCode, mBuildCode, mBuildName, mModelOnline, mModelDebug, mFirApiToken, mFirUploadUrl, mUpLoadToFir, mUpLoadChannel)
+        copy {
+            from "$buildDir/outputs/mapping"
+            into mOutputDir
+        }
     }
 }
 

@@ -1,15 +1,14 @@
 package com.victor.clips.util
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.PixelFormat
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.renderscript.RenderScript
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.text.TextUtils
-import android.transition.Transition
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
@@ -18,12 +17,11 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
-import com.victor.clips.app.App
 import java.io.File
 
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: ImageUtils.java
  * Author: Victor
@@ -35,7 +33,6 @@ class ImageUtils {
     val TAG = "ImageUtils"
     private val animDuration = 500
 
-    private val sContext = App.instance()
     private object Holder {
         val instance = ImageUtils()
 
@@ -56,16 +53,16 @@ class ImageUtils {
      * @param imageView
      * @param url
      */
-    fun loadAvatar(imageView: ImageView?, url: String) {
+    fun loadAvatar(context: Context,imageView: ImageView?, url: String) {
         if (imageView == null)
             return
         if (TextUtils.isEmpty(url)) {
             val colorDrawable = ColorDrawable(ColorUtil.getDefaultRandomColor())
             imageView.setImageDrawable(colorDrawable)
         } else {
-            loadImage(imageView, url)
+            loadImage(context,imageView, url)
 
-            Glide.with(sContext)
+            Glide.with(context)
                     .load(url)
                     .apply(options!!.placeholder(ColorUtil.getDefaultRandomColor())
                     .error(ColorUtil.getDefaultRandomColor()))
@@ -73,7 +70,7 @@ class ImageUtils {
                         override fun onResourceReady(resource: Drawable, transition: com.bumptech.glide.request.transition.Transition<in Drawable>?) {
                             if (resource != null) {
                                 val bd = resource as BitmapDrawable
-                                val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(sContext.resources, bd.bitmap)
+                                val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(context.resources, bd.bitmap)
                                 circularBitmapDrawable.isCircular = true
                                 imageView.setImageDrawable(circularBitmapDrawable)
                             }
@@ -88,47 +85,47 @@ class ImageUtils {
      * @param imageView
      * @param url
      */
-    fun loadImage(imageView: ImageView?, url: String?): Target<*>? {
-        return if (imageView == null) null else Glide.with(sContext)
+    fun loadImage(context: Context,imageView: ImageView?, url: String?): Target<*>? {
+        return if (imageView == null) null else Glide.with(context)
                 .load(url).apply(options!!.placeholder(ColorUtil.getDefaultRandomColor())
                         .error(ColorUtil.getDefaultRandomColor()))
                 .transition(DrawableTransitionOptions().crossFade(animDuration))
                 .into(imageView)
     }
 
-    fun loadImage(imageView: ImageView?, url: String, placeDrawable: Int, showPlaceDrawable: Boolean): Target<*>? {
+    fun loadImage(context: Context,imageView: ImageView?, url: String, placeDrawable: Int, showPlaceDrawable: Boolean): Target<*>? {
         if (imageView == null)
             return null
         return if (showPlaceDrawable) {
-            Glide.with(sContext)
+            Glide.with(context)
                     .load(url).apply(options!!.placeholder(placeDrawable)
                             .error(placeDrawable))
                     .transition(DrawableTransitionOptions().crossFade(animDuration))
                     .into(imageView)
-        } else Glide.with(sContext)
+        } else Glide.with(context)
                 .load(url).apply(options!!.error(placeDrawable))
                 .transition(DrawableTransitionOptions().crossFade(animDuration))
                 .into(imageView)
     }
 
-    fun loadImage(imageView: ImageView?, url: String, placeDrawable: Drawable): Target<*>? {
-        return if (imageView == null) null else Glide.with(sContext)
+    fun loadImage(context: Context,imageView: ImageView?, url: String, placeDrawable: Drawable): Target<*>? {
+        return if (imageView == null) null else Glide.with(context)
                 .load(url).apply(options!!.placeholder(placeDrawable)
                         .error(placeDrawable))
                 .transition(DrawableTransitionOptions().crossFade(animDuration))
                 .into(imageView)
     }
 
-    fun loadImage(imageView: ImageView?, bitmap: Bitmap): Target<*>? {
-        return if (imageView == null) null else Glide.with(sContext)
+    fun loadImage(context: Context,imageView: ImageView?, bitmap: Bitmap): Target<*>? {
+        return if (imageView == null) null else Glide.with(context)
                 .load(bitmap).apply(options!!.placeholder(ColorUtil.getDefaultRandomColor())
                         .error(ColorUtil.getDefaultRandomColor()))
                 .transition(DrawableTransitionOptions().crossFade(animDuration))
                 .into(imageView)
     }
 
-    fun loadImage(imageView: ImageView?, url: String, placeDrawable: Int): Target<*>? {
-        return if (imageView == null) null else Glide.with(sContext)
+    fun loadImage(context: Context,imageView: ImageView?, url: String, placeDrawable: Int): Target<*>? {
+        return if (imageView == null) null else Glide.with(context)
                 .load(url).apply(options!!.placeholder(placeDrawable).fitCenter()
                         .error(placeDrawable))
                 .transition(DrawableTransitionOptions().crossFade(animDuration))
@@ -141,10 +138,10 @@ class ImageUtils {
      * @param imageView
      * @param file
      */
-    fun loadImage(imageView: ImageView?, file: File) {
+    fun loadImage(context: Context,imageView: ImageView?, file: File) {
         if (imageView == null)
             return
-        Glide.with(sContext)
+        Glide.with(context)
                 .load(file)
                 .apply(options!!.placeholder(ColorUtil.getDefaultRandomColor())
                 .error(ColorUtil.getDefaultRandomColor()))
@@ -158,17 +155,17 @@ class ImageUtils {
      * @param imageView
      * @param drawableRes
      */
-    fun loadImage(imageView: ImageView?, drawableRes: Int) {
+    fun loadImage(context: Context,imageView: ImageView?, drawableRes: Int) {
         if (imageView == null)
             return
-        loadImage(imageView, drawableRes, ColorUtil.getDefaultRandomColor())
+        loadImage(context,imageView, drawableRes, ColorUtil.getDefaultRandomColor())
     }
 
 
-    fun loadImage(imageView: ImageView?, drawableRes: Int, placeDrawable: Int) {
+    fun loadImage(context: Context,imageView: ImageView?, drawableRes: Int, placeDrawable: Int) {
         if (imageView == null)
             return
-        Glide.with(sContext).load(drawableRes).apply(options!!.placeholder(placeDrawable)
+        Glide.with(context).load(drawableRes).apply(options!!.placeholder(placeDrawable)
                 .error(placeDrawable)).transition(DrawableTransitionOptions()
                 .crossFade(animDuration)).into(imageView)
     }
@@ -179,12 +176,12 @@ class ImageUtils {
      * @param imageView
      * @param url
      */
-    fun imageGauss(imageView: ImageView?, url: String, radius: Int) {
+    fun imageGauss(context: Context,imageView: ImageView?, url: String, radius: Int) {
         if (imageView == null) {
             Loger.e(TAG, "imageView == null")
             return
         }
-        Glide.with(sContext)
+        Glide.with(context)
                 .load(url)
                 .apply(options!!.placeholder(ColorUtil.getDefaultRandomColor())
                         .error(ColorUtil.getDefaultRandomColor()))
@@ -212,12 +209,12 @@ class ImageUtils {
         return bitmap
     }
 
-    fun imageGauss(imageView: ImageView?, url: String) {
+    fun imageGauss(context: Context,imageView: ImageView?, url: String) {
         if (imageView == null) {
             Loger.e(TAG, "imageView == null")
             return
         }
-        imageGauss(imageView, url, 10)
+        imageGauss(context,imageView, url, 10)
     }
 
     fun imageGauss(imageView: ImageView, bitmap: Bitmap) {

@@ -18,7 +18,7 @@ import org.victor.khttp.library.presenter.impl.BasePresenterImpl
  * -----------------------------------------------------------------
  */
 class ProgramPresenterImpl(var programView: ProgramView?): BasePresenterImpl() {
-
+    /*Presenter作为中间层，持有View和Model的引用*/
     override fun onComplete(data: Any?, msg: String) {
         programView?.OnProgram(data,msg)
     }

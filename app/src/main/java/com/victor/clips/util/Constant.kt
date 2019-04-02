@@ -2,7 +2,7 @@ package com.victor.clips.util
 
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: WebConfig.kt
  * Author: Victor

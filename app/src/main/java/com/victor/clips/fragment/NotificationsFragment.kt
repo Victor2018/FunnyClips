@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.fragment_trending.*
 
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: TrendingFragment.java
  * Author: Victor

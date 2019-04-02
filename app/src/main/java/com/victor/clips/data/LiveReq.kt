@@ -2,7 +2,7 @@ package com.victor.clips.data
 
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: LiveReq.java
  * Author: Victor

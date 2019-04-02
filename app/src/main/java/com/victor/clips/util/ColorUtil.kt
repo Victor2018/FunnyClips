@@ -6,7 +6,7 @@ import java.util.*
 
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: ColorUtil.java
  * Author: Victor
@@ -18,10 +18,10 @@ class ColorUtil {
     companion object {
         fun getDefaultRandomColor(): Int {
             val colors = intArrayOf(
-                    App.instance().getResources().getColor(R.color.color_E6FCFC),
-                    App.instance().getResources().getColor(R.color.color_E6FBFD),
-                    App.instance().getResources().getColor(R.color.color_E5FAFE),
-                    App.instance().getResources().getColor(R.color.color_E5F9FE))
+                    App.get().getResources().getColor(R.color.color_E6FCFC),
+                    App.get().getResources().getColor(R.color.color_E6FBFD),
+                    App.get().getResources().getColor(R.color.color_E5FAFE),
+                    App.get().getResources().getColor(R.color.color_E5F9FE))
             val random = Random()
             return colors[random.nextInt(colors.size)]
         }

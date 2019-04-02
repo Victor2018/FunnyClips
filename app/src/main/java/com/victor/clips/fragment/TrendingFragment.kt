@@ -4,11 +4,16 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import com.victor.clips.R
+import com.victor.clips.presenter.DailySelectionPresenterImpl
+import com.victor.clips.util.AppUtil
+import com.victor.clips.util.DeviceUtils
+import com.victor.clips.util.WebConfig
+import com.victor.clips.view.DailySelectionView
 import kotlinx.android.synthetic.main.fragment_trending.*
 
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: TrendingFragment.java
  * Author: Victor
@@ -16,7 +21,9 @@ import kotlinx.android.synthetic.main.fragment_trending.*
  * Description: 
  * -----------------------------------------------------------------
  */
-class TrendingFragment : BaseFragment(),AdapterView.OnItemClickListener{
+class TrendingFragment : BaseFragment(),AdapterView.OnItemClickListener,DailySelectionView {
+
+    var dailySelectionPresenter: DailySelectionPresenterImpl? = null
 
     override fun getLayoutResource(): Int {
         return R.layout.fragment_trending
@@ -35,14 +42,23 @@ class TrendingFragment : BaseFragment(),AdapterView.OnItemClickListener{
 
     fun initialize () {
         txtLabel.text = "Trending Videos"
+        dailySelectionPresenter = DailySelectionPresenterImpl(this);
     }
 
     fun initData () {
+        sendDailySelectionRequest()
     }
 
+    fun sendDailySelectionRequest () {
+        dailySelectionPresenter?.sendRequest(WebConfig.getRequestUrl(String.format(WebConfig.DAILY_SELECTION_URL,
+                DeviceUtils.getUDID(),DeviceUtils.getPhoneModel())),null,null)
+    }
 
     override fun onItemClick(parentView: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
+    }
+
+    override fun OnDailySelection(data: Any?, msg: String) {
     }
 
 }

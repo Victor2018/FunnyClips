@@ -1,5 +1,10 @@
 package com.victor.clips.util
 
+import android.content.Context
+import android.net.Uri
+import com.victor.clips.BuildConfig
+import java.util.HashMap
+
 /*
  * -----------------------------------------------------------------
  * Copyright (C) 2018-2028, by longtv, All rights reserved.
@@ -19,5 +24,37 @@ class WebConfig {
         const val LIVE_URL: String = "https://raw.githubusercontent.com/Victor2018/SeagullTv/master/docs/channels.json"
         const val CATEGORY_URL: String = "https://raw.githubusercontent.com/Victor2018/SeagullTv/master/docs/category.json"
         const val YOUTUBE_HOT_URL: String = "https://www.youtube.com/channel/UCF0pVplsI8R5kcAqgtoRqoA"
+
+        const val EYEPETIZER_BASE_URL: String = "http://baobab.kaiyanapp.com/api/"
+        const val DAILY_SELECTION_URL: String = "v2/feed?&num=1&udid=d2807c895f0348a180148c9dfa6f2feeac0781b5&deviceModel=EML-AL00"//每日精选
+        const val FIND_FOLLOW_URL: String = "v4/tabs/follow?udid=%s&deviceModel=%s"//发现-关注
+        const val FIND_CATEGORIES_URL: String = "v4/categories?udid=%s&deviceModel=%s"//发现-分类
+        const val HOT_WEEKLY_URL: String = "v4/rankList/videos?strategy=weekly&udid=%s&deviceModel=%s"//热门-周排行
+        const val HOT_MONTHLY_URL: String = "v4/rankList/videos?strategy=monthly&udid=%s&deviceModel=%s"//热门-月排行
+        const val HOT_TOTAL_RANKING_URL: String = "v4/rankList/videos?strategy=historical&udid=%s&deviceModel=%s"//热门-总排行
+
+        fun getServer(): String? {
+            if (BuildConfig.MODEL_ONLINE) {
+                return EYEPETIZER_BASE_URL
+            }
+            return EYEPETIZER_BASE_URL
+        }
+        fun getServerIp(): String? {
+            val uri = Uri.parse(getServer())
+            return uri.host
+        }
+
+        fun getRequestUrl(api: String): String {
+            return getServer() + api
+        }
+
+        fun getHttpHeaderParm(context: Context): HashMap<String, String> {
+            val header = HashMap<String, String>()
+            header["appName"] = "hometownNews "
+            header["appVersion"] = AppUtil.getAppVersionName(context)
+            header["systemType"] = "Android"
+            return header
+        }
+
     }
 }

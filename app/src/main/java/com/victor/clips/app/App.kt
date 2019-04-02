@@ -4,7 +4,7 @@ import android.app.Application
 
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: App.kt
  * Author: Victor
@@ -15,7 +15,7 @@ import android.app.Application
 class App : Application () {
     companion object {
         private var instance : App ?= null
-        fun instance() = instance!!
+        fun get() = instance!!
     }
 
     override fun onCreate() {

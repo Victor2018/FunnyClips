@@ -9,7 +9,7 @@ import com.victor.clips.app.App
 
 /*
  * -----------------------------------------------------------------
- * Copyright (C) 2018-2028, by longtv, All rights reserved.
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
  * File: ResUtils.java
  * Author: Victor
@@ -22,7 +22,7 @@ class ResUtils {
 
         fun getStringRes(id: Int): String {
             try {
-                return App.instance().getResources().getString(id)
+                return App.get().getResources().getString(id)
             } catch (e: Resources.NotFoundException) {
                 e.printStackTrace()
                 return ""
@@ -32,7 +32,7 @@ class ResUtils {
 
         fun getStringRes(id: Int, vararg args: Any): String {
             try {
-                return App.instance().getResources().getString(id, args)
+                return App.get().getResources().getString(id, args)
             } catch (e: Resources.NotFoundException) {
                 e.printStackTrace()
                 return ""
@@ -48,7 +48,7 @@ class ResUtils {
          */
         fun getStringArrayRes(id: Int): Array<String>? {
             try {
-                return App.instance().getResources().getStringArray(id)
+                return App.get().getResources().getStringArray(id)
             } catch (e: Resources.NotFoundException) {
                 e.printStackTrace()
                 return null
@@ -64,7 +64,7 @@ class ResUtils {
          */
         fun getDimenPixRes(id: Int): Int {
             try {
-                return App.instance().getResources().getDimensionPixelOffset(id)
+                return App.get().getResources().getDimensionPixelOffset(id)
             } catch (e: Resources.NotFoundException) {
                 e.printStackTrace()
                 return -1
@@ -80,7 +80,7 @@ class ResUtils {
          */
         fun getDimenFloatPixRes(id: Int): Float {
             try {
-                return App.instance().getResources().getDimension(id)
+                return App.get().getResources().getDimension(id)
             } catch (e: Resources.NotFoundException) {
                 e.printStackTrace()
                 return -1f
@@ -97,7 +97,7 @@ class ResUtils {
         @ColorInt
         fun getColorRes(id: Int): Int {
             try {
-                return ContextCompat.getColor(App.instance(), id)
+                return ContextCompat.getColor(App.get(), id)
             } catch (e: Resources.NotFoundException) {
                 e.printStackTrace()
                 return -1
@@ -113,7 +113,7 @@ class ResUtils {
          */
         fun getDrawableRes(id: Int): Drawable? {
             try {
-                return ContextCompat.getDrawable(App.instance(), id)
+                return ContextCompat.getDrawable(App.get(), id)
             } catch (e: Resources.NotFoundException) {
                 e.printStackTrace()
                 return null
@@ -130,11 +130,11 @@ class ResUtils {
          * @return
          */
         fun getResources(): Resources {
-            return App.instance().getResources()
+            return App.get().getResources()
         }
 
         fun getDrawableByName(name: String): Int {
-            return getResources().getIdentifier(name, "drawable", App.instance().getPackageName())
+            return getResources().getIdentifier(name, "drawable", App.get().getPackageName())
         }
 
         /**
