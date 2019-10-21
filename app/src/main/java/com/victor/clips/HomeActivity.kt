@@ -47,13 +47,11 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSupportActionBar(toolbar)
         initialize()
     }
 
     fun initialize () {
         setSupportActionBar(toolbar)
-        toolbar.setTitle("TV shows")
 
         //禁止点击放大移动位置
         bottomNavigation.disableShiftMode(true)

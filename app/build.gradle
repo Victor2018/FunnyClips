@@ -260,7 +260,7 @@ dependencies {
     //屏幕适配库
     implementation 'com.github.Victor2018:ScreenMatchLib:v1.1'
     //kotlin 网络请求库
-    implementation 'com.github.Victor2018:KHttpLib:v1.5'
+    implementation 'com.github.Victor2018:KHttpLib:v1.7'
     //播放器
     implementation 'com.github.Victor2018:KPlayer:v1.1'
     //fastjson库

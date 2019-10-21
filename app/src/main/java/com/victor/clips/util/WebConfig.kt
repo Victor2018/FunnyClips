@@ -25,8 +25,11 @@ class WebConfig {
         const val CATEGORY_URL: String = "https://raw.githubusercontent.com/Victor2018/SeagullTv/master/docs/category.json"
         const val YOUTUBE_HOT_URL: String = "https://www.youtube.com/channel/UCF0pVplsI8R5kcAqgtoRqoA"
 
-        const val EYEPETIZER_BASE_URL: String = "http://baobab.kaiyanapp.com/api/"
-        const val DAILY_SELECTION_URL: String = "v2/feed?&num=1&udid=d2807c895f0348a180148c9dfa6f2feeac0781b5&deviceModel=EML-AL00"//每日精选
+        const val EYEPETIZER_BASE_URL: String = "https://baobab.kaiyanapp.com/api/"
+        const val CATEGORY_DETAIL_URL: String = "v4/categories/videoList?&id=%d&udid=d2807c895f0348a180148c9dfa6f2feeac0781b5&deviceModel=%s"//首页banner
+        const val RELATED_VIDEO_URL: String = "v4/video/related?&id=%d&udid=d2807c895f0348a180148c9dfa6f2feeac0781b5&deviceModel=%s"
+        const val BANNER_URL: String = "v2/feed?num=1&udid=%s&deviceModel=%s"//首页banner
+        const val DAILY_SELECTION_URL: String = "v4/tabs/selected"//每日精选
         const val FIND_FOLLOW_URL: String = "v4/tabs/follow?udid=%s&deviceModel=%s"//发现-关注
         const val FIND_CATEGORIES_URL: String = "v4/categories?udid=%s&deviceModel=%s"//发现-分类
         const val HOT_WEEKLY_URL: String = "v4/rankList/videos?strategy=weekly&udid=%s&deviceModel=%s"//热门-周排行

@@ -36,7 +36,7 @@ class LiveCellAdapter(context: Context, listener: AdapterView.OnItemClickListene
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: LiveInfo, position: Int) {
         val contentViewHolder = viewHolder as LiveCellContentViewHolder
-        ImageUtils.instance.loadImage(contentViewHolder.itemView.mIvPoster, data.icon)
+        ImageUtils.instance.loadImage(mContext!!,contentViewHolder.itemView.mIvPoster, data.icon)
         contentViewHolder.itemView.mTvTitle.setText(data.channel_name)
         contentViewHolder.setOnItemClickListener(mOnItemClickListener)
     }

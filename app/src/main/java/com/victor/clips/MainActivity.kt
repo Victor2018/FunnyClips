@@ -1,44 +1,34 @@
 package com.victor.clips
 
-import android.animation.ObjectAnimator
-import android.graphics.Rect
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewPager
-import android.support.v7.graphics.drawable.DrawerArrowDrawable
+import android.support.v4.view.GravityCompat
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.FrameLayout
-import com.victor.clips.adapter.HeaderAdapter
-import com.victor.clips.adapter.HomeViewPagerAdapter
 import com.victor.clips.data.ProgramReq
-import com.victor.clips.fragment.*
 import com.victor.clips.presenter.ProgramPresenterImpl
-import com.victor.clips.util.ExampleDataSet
-import com.victor.clips.util.HeaderItemTransformer
 import com.victor.clips.util.WebConfig
 import com.victor.clips.view.ProgramView
-import com.victor.clips.widget.HeaderLayout
-import com.victor.clips.widget.HeaderLayoutManager
-import com.victor.clips.widget.NavigationToolBarLayout
-import com.victor.clips.widget.SimpleSnapHelper
+import kotlinx.android.synthetic.main.toolbar.*
+import com.victor.clips.util.DensityUtil
+import android.support.v4.view.ViewCompat
+import android.support.v7.app.ActionBarDrawerToggle
+import android.view.KeyEvent
+import android.view.View
+import com.victor.clips.util.SnackbarUtil
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.ArrayList
-import kotlin.math.ceil
-import kotlin.math.max
+import kotlinx.android.synthetic.main.content_main.*
+import android.view.animation.DecelerateInterpolator
+import com.victor.clips.fragment.CategoryFragment
+import com.victor.clips.util.Constant
 
-class MainActivity : BaseActivity(),ProgramView {
-    private val itemCount = 40
-    private val dataSet = ExampleDataSet()
 
-    private var isExpanded = true
-    private var prevAnchorPosition = 0
-    var fragments = ArrayList<Fragment>()
+class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListener,
+        View.OnClickListener,ProgramView {
 
-    var programPresenter: ProgramPresenterImpl? = null
+    var currentFragment: Fragment? = null
+    var actionBarShown = true
 
     override fun getLayoutResource(): Int {
         return R.layout.activity_main
@@ -48,30 +38,80 @@ class MainActivity : BaseActivity(),ProgramView {
         super.onCreate(savedInstanceState)
         initialize()
         initData()
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
-
-        val header = findViewById<NavigationToolBarLayout>(R.id.navigation_toolbar_layout)
-        val viewPager = findViewById<ViewPager>(R.id.pager)
-
-        initActionBar()
-        initViewPager(header, viewPager)
-        initHeader(header, viewPager)
     }
 
     fun initialize () {
-        programPresenter = ProgramPresenterImpl(this);
+        switchFragment(CategoryFragment())
+
+        setSupportActionBar(toolbar);
+
+        injectViewsAndSetUpToolbar();
+        // 左上角 Menu 按钮
+        val toggle = ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer.addDrawerListener(toggle)
+        toggle.syncState()
+
+        navigationView.setNavigationItemSelectedListener(this);
+        fab.setOnClickListener(this)
     }
+
+    fun injectViewsAndSetUpToolbar() {
+        ViewCompat.setElevation(appbar_layout, DensityUtil.dip2px(this@MainActivity, 4.0f).toFloat())
+    }
+
+     fun switchFragment(fragment: Fragment) {
+        if (currentFragment == null || fragment.javaClass.name != currentFragment?.javaClass?.name) {
+            supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
+            currentFragment = fragment
+        }
+    }
+
+    fun showActionbar(show: Boolean, animate: Boolean) {
+        if (animate) {
+            autoShowOrHideActionBar(show)
+        } else {
+            if (show) {
+                supportActionBar!!.show()
+            } else {
+                supportActionBar!!.hide()
+            }
+        }
+    }
+
+    fun setToolbarAlpha(alpha: Float) {
+        appbar_layout.getBackground().setAlpha((alpha * 255).toInt())
+    }
+
+    protected fun autoShowOrHideActionBar(show: Boolean) {
+        if (show == actionBarShown) {
+            return
+        }
+        actionBarShown = show
+        onActionBarAutoShowOrHide(show)
+    }
+
+    protected fun onActionBarAutoShowOrHide(shown: Boolean) {
+        val view = appbar_layout
+        if (shown) {
+            view.animate()
+                    .translationY(0f)
+                    .alpha(1f)
+                    .setDuration(Constant.HEADER_HIDE_ANIM_DURATION.toLong())
+                    .setInterpolator(DecelerateInterpolator())
+        } else {
+            view.animate()
+                    .translationY((-view.getBottom()).toFloat())
+                    .alpha(0f)
+                    .setDuration(Constant.HEADER_HIDE_ANIM_DURATION.toLong())
+                    .setInterpolator(DecelerateInterpolator())
+        }
+    }
+
 
     fun initData (){
-        sendProgramRequest()
     }
 
-    fun sendProgramRequest () {
-        programPresenter?.sendRequest(WebConfig.CATEGORY_URL,null,null)
-    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -84,128 +124,43 @@ class MainActivity : BaseActivity(),ProgramView {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun initActionBar() {
-        val toolbar = navigation_toolbar_layout.toolBar
-        setSupportActionBar(toolbar)
-        supportActionBar?.apply {
-            setDisplayShowTitleEnabled(false)
-            setDisplayHomeAsUpEnabled(true)
-        }
-    }
-
-    private fun initViewPager(header: NavigationToolBarLayout, viewPager: ViewPager) {
-        fragments.add(LiveFragment())
-        fragments.add(HomeFragment())
-        fragments.add(TrendingFragment())
-        fragments.add(SubcriptionFragment())
-        fragments.add(NotificationsFragment())
-        fragments.add(LibraryFragment())
-//        viewPager.adapter = ViewPagerAdapter(itemCount, dataSet.viewPagerDataSet)
-        viewPager.adapter = HomeViewPagerAdapter(supportFragmentManager,this,fragments)
-
-        viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
-            override fun onPageSelected(position: Int) {
-                header.smoothScrollToPosition(position)
-            }
-        })
-    }
-
-    private fun initHeader(header: NavigationToolBarLayout, viewPager: ViewPager) {
-        val titleLeftOffset = resources.getDimensionPixelSize(R.dimen.title_left_offset)
-        val lineRightOffset = resources.getDimensionPixelSize(R.dimen.line_right_offset)
-        val lineBottomOffset = resources.getDimensionPixelSize(R.dimen.line_bottom_offset)
-        val lineTitleOffset = resources.getDimensionPixelSize(R.dimen.line_title_offset)
-
-        val headerOverlay = findViewById<FrameLayout>(R.id.header_overlay)
-        header.setItemTransformer(HeaderItemTransformer(headerOverlay,
-                titleLeftOffset, lineRightOffset, lineBottomOffset, lineTitleOffset))
-        header.setAdapter(HeaderAdapter(itemCount, dataSet.headerDataSet, headerOverlay))
-
-        header.addItemChangeListener(object : HeaderLayoutManager.ItemChangeListener {
-            override fun onItemChangeStarted(position: Int) {
-                prevAnchorPosition = position
-            }
-
-            override fun onItemChanged(position: Int) {
-                viewPager.currentItem = position
-            }
-        })
-
-        header.addItemClickListener(object : HeaderLayoutManager.ItemClickListener {
-            override fun onItemClicked(viewHolder: HeaderLayout.ViewHolder) {
-                viewPager.currentItem = viewHolder.position
-            }
-        })
-
-        SimpleSnapHelper().attach(header)
-        initDrawerArrow(header)
-        initHeaderDecorator(header)
-    }
-
-    private fun initDrawerArrow(header: NavigationToolBarLayout) {
-        val drawerArrow = DrawerArrowDrawable(this)
-        drawerArrow.color = ContextCompat.getColor(this, android.R.color.white)
-        drawerArrow.progress = 1f
-
-        header.addHeaderChangeStateListener(object : HeaderLayoutManager.HeaderChangeStateListener() {
-            private fun changeIcon(progress: Float) {
-                ObjectAnimator.ofFloat(drawerArrow, "progress", progress).start()
-                isExpanded = progress == 1f
-                if (isExpanded) {
-                    prevAnchorPosition = header.getAnchorPos()
-                }
-            }
-
-            override fun onMiddle() = changeIcon(0f)
-            override fun onExpanded() = changeIcon(1f)
-        })
-
-        val toolbar = header.toolBar
-        toolbar.navigationIcon = drawerArrow
-        toolbar.setNavigationOnClickListener {
-            if (!isExpanded) {
-                return@setNavigationOnClickListener
-            }
-            val anchorPos = header.getAnchorPos()
-            if (anchorPos == HeaderLayout.INVALID_POSITION) {
-                return@setNavigationOnClickListener
-            }
-
-            if (anchorPos == prevAnchorPosition) {
-                header.collapse()
-            } else {
-                header.smoothScrollToPosition(prevAnchorPosition)
+        when(item.itemId) {
+            R.id.action_share -> {
+                SnackbarUtil.ShortSnackbar(drawer,"share").show()
+                return true
             }
         }
+        return super.onOptionsItemSelected(item)
     }
 
-    private fun initHeaderDecorator(header: NavigationToolBarLayout) {
-        val decorator = object :
-                HeaderLayoutManager.ItemDecoration,
-                HeaderLayoutManager.HeaderChangeListener {
-
-            private val dp5 = resources.getDimensionPixelSize(R.dimen.decor_bottom)
-
-            private var bottomOffset = dp5
-
-            override fun onHeaderChanged(lm: HeaderLayoutManager, header: HeaderLayout, headerBottom: Int) {
-                val ratio = max(0f, headerBottom.toFloat() / header.height - 0.5f) / 0.5f
-                bottomOffset = ceil(dp5 * ratio).toInt()
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.nav_auto_update -> {
+                SnackbarUtil.ShortSnackbar(drawer,"auto update").show()
             }
-
-            override fun getItemOffsets(outRect: Rect, viewHolder: HeaderLayout.ViewHolder) {
-                outRect.bottom = bottomOffset
+            R.id.nav_clear -> {
+                SnackbarUtil.ShortSnackbar(drawer,"clear memory").show()
+            }
+            R.id.nav_copyright -> {
+                SnackbarUtil.ShortSnackbar(drawer,"copy right").show()
+            }
+            R.id.nav_theme -> {
+                SnackbarUtil.ShortSnackbar(drawer,"theme").show()
+            }
+            R.id.nav_about -> {
+                SnackbarUtil.ShortSnackbar(drawer,"about").show()
             }
         }
+        drawer.closeDrawer(GravityCompat.START);
+        return true
+    }
 
-        header.addItemDecoration(decorator)
-        header.addHeaderChangeListener(decorator)
+    override fun onClick(v: View?) {
+        when(v?.id) {
+            R.id.fab -> {
+                SnackbarUtil.ShortSnackbar(drawer,"github").show()
+            }
+        }
     }
 
     override fun OnProgram(data: Any?, msg: String) {
@@ -217,10 +172,20 @@ class MainActivity : BaseActivity(),ProgramView {
         }
     }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when(keyCode) {
+            KeyEvent.KEYCODE_BACK ->{
+                if (drawer.isDrawerOpen(GravityCompat.START)) {
+                    drawer.closeDrawer(GravityCompat.START);
+                    return true;
+                }
+            }
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        programPresenter!!.detachView()
-        programPresenter = null
     }
 
 }

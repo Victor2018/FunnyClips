@@ -11,6 +11,7 @@ import android.support.v7.view.ContextThemeWrapper
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import com.victor.clips.R
 
 /*
  * -----------------------------------------------------------------
@@ -41,12 +42,12 @@ class StatusBarUtil {
                     }
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                     window.statusBarColor = Color.TRANSPARENT
-                    /*if (navigationBarTranslucent) {
+                    if (navigationBarTranslucent) {
                         // 虚拟导航键
                         window.setNavigationBarColor(Color.TRANSPARENT);
                     } else {
-                        window.setNavigationBarColor(App.get().getResources().getColor(R.color.half_alpha));
-                    }*/
+                        window.setNavigationBarColor(activity.getResources().getColor(R.color.half_alpha));
+                    }
                 }
             }
         }

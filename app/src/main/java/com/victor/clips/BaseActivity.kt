@@ -29,7 +29,7 @@ abstract class BaseActivity: AppCompatActivity(),Observer {
 
     fun initializeSuper () {
         DataObservable.instance.addObserver(this)
-        StatusBarUtil.translucentStatusBar(this, false)
+        StatusBarUtil.translucentStatusBar(this, true,false,false)
     }
     override fun update(observable: Observable?, data: Any?) {
     }

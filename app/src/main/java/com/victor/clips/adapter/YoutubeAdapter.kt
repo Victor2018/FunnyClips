@@ -36,7 +36,7 @@ class YoutubeAdapter(context: Context, listener: AdapterView.OnItemClickListener
         val contentViewHolder = viewHolder as YoutubeContentViewHolder
 
         contentViewHolder.itemView.txtDescription.setText(data.url)
-        ImageUtils.instance.loadImage(contentViewHolder.itemView.imgPoster, data.poster)
+        ImageUtils.instance.loadImage(mContext!!,contentViewHolder.itemView.imgPoster, data.poster)
         contentViewHolder.setOnItemClickListener(mOnItemClickListener)
     }
 

@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_trending.*
  */
 class TrendingFragment : BaseFragment(),AdapterView.OnItemClickListener,DailySelectionView {
 
-    var dailySelectionPresenter: DailySelectionPresenterImpl? = null
 
     override fun getLayoutResource(): Int {
         return R.layout.fragment_trending
@@ -42,17 +41,11 @@ class TrendingFragment : BaseFragment(),AdapterView.OnItemClickListener,DailySel
 
     fun initialize () {
         txtLabel.text = "Trending Videos"
-        dailySelectionPresenter = DailySelectionPresenterImpl(this);
     }
 
     fun initData () {
-        sendDailySelectionRequest()
     }
 
-    fun sendDailySelectionRequest () {
-        dailySelectionPresenter?.sendRequest(WebConfig.getRequestUrl(String.format(WebConfig.DAILY_SELECTION_URL,
-                DeviceUtils.getUDID(),DeviceUtils.getPhoneModel())),null,null)
-    }
 
     override fun onItemClick(parentView: AdapterView<*>?, view: View?, position: Int, id: Long) {
 

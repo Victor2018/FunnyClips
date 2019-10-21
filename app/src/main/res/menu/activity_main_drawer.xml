@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/nav_auto_update"
+            android:icon="@mipmap/ic_update"
+            android:title="自动更新" />
+        <item
+            android:id="@+id/nav_clear"
+            android:icon="@mipmap/ic_clear"
+            android:title="清理缓存" />
+        <item
+            android:id="@+id/nav_copyright"
+            android:icon="@mipmap/ic_copyright"
+            android:title="版权声明" />
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_theme"
+                android:icon="@android:drawable/ic_dialog_dialer"
+                android:title="主题" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@mipmap/ic_about"
+                android:title="关于" />
+        </menu>
+    </item>
+
+</menu>
+

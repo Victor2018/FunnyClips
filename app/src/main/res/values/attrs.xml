@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="colorPrimaryCenter" format="color|reference" />
+    <attr name="colorTextIcon" format="color|reference" />
+    <attr name="colorPrimaryText" format="color|reference" />
+    <attr name="colorSecondText" format="color|reference" />
+    <attr name="colorBackground" format="color|reference" />
+    <attr name="colorDivider" format="color|reference" />
+    <attr name="colorBackgroundAccent" format="color|reference" />
+    <attr name="colorHint" format="color|reference" />
+    <attr name="menuBackground" format="reference" />
+    <attr name="md_title_color" format="reference" />
+    <attr name="md_link_color" format="reference" />
+    <attr name="md_positive_color" format="reference" />
+
     <declare-styleable name="NavigationToolBarr">
         <attr name="headerBackgroundLayout" format="reference"/>
         <attr name="headerOnScreenItemCount" format="integer"/>
@@ -22,5 +35,32 @@
             <enum name="PagerSnapHelper" value="1" />
         </attr>
 
+    </declare-styleable>
+
+    <declare-styleable name="VerticalTextView">
+        <attr name="text" format="string|reference"/>
+        <attr name="textColor" format="color|reference"/>
+        <attr name="textSize" format="dimension|reference"/>
+        <attr name="rowSpacing" format="dimension|reference"/>
+        <attr name="columnSpacing" format="dimension|reference"/>
+        <attr name="columnLength" format="integer"/>
+        <attr name="maxColumns" format="integer"/>
+        <attr name="atMostHeight" format="boolean"/>
+        <attr name="isCharCenter" format="boolean"/>
+        <attr name="textStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CircleBorderImageView">
+        <attr name="aiv_TextSizeRatio" format="reference|float" />
+        <attr name="aiv_TextMaskRatio" format="reference|float" />
+        <attr name="aiv_BoarderColor" format="reference|color" />
+        <attr name="aiv_TextColor" format="reference|color" />
+        <attr name="aiv_BoarderWidth" format="reference|dimension" />
+        <attr name="aiv_ShowBoarder" format="reference|boolean" />
+        <attr name="aiv_CornerRadius" format="reference|dimension" />
     </declare-styleable>
 </resources>

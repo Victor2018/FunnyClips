@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_680"
+    android:layout_margin="@dimen/dp_8"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="@dimen/dp_10"
+    app:cardElevation="@dimen/dp_5">
+    <ImageView
+        android:id="@+id/mIvPoster"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/default_img"
+        android:transitionName="@string/transition_album_img"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center_vertical"/>
+    <com.victor.clips.widget.ColorTextView
+        android:id="@+id/mTvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="@dimen/dp_20"
+        android:gravity="center"
+        android:text="从你的全世界路过"
+        android:textColor="?attr/colorPrimary"
+        android:textColorLink="?attr/colorPrimaryDark"
+        android:textSize="16sp"/>
+</android.support.v7.widget.CardView>
+
+
+

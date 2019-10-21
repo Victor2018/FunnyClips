@@ -5,16 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.victor.clips.widget.VerticalBannerView
+        android:id="@+id/mVBanner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextSwitcher
+        android:id="@+id/mTsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/dp_100"
+        tools:ignore="MissingConstraints" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mRvHome"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/rv_home_item"
-        app:layoutManager="LinearLayoutManager"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager"
+        tools:ignore="MissingConstraints" />
 
 </android.support.constraint.ConstraintLayout>

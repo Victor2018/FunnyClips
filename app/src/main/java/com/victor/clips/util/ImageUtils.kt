@@ -53,15 +53,13 @@ class ImageUtils {
      * @param imageView
      * @param url
      */
-    fun loadAvatar(context: Context,imageView: ImageView?, url: String) {
+    fun loadAvatar(context: Context,imageView: ImageView?, url: String?) {
         if (imageView == null)
             return
         if (TextUtils.isEmpty(url)) {
             val colorDrawable = ColorDrawable(ColorUtil.getDefaultRandomColor())
             imageView.setImageDrawable(colorDrawable)
         } else {
-            loadImage(context,imageView, url)
-
             Glide.with(context)
                     .load(url)
                     .apply(options!!.placeholder(ColorUtil.getDefaultRandomColor())
@@ -176,7 +174,7 @@ class ImageUtils {
      * @param imageView
      * @param url
      */
-    fun imageGauss(context: Context,imageView: ImageView?, url: String, radius: Int) {
+    fun imageGauss(context: Context,imageView: ImageView?, url: String?, radius: Int) {
         if (imageView == null) {
             Loger.e(TAG, "imageView == null")
             return
@@ -209,7 +207,7 @@ class ImageUtils {
         return bitmap
     }
 
-    fun imageGauss(context: Context,imageView: ImageView?, url: String) {
+    fun imageGauss(context: Context,imageView: ImageView?, url: String?) {
         if (imageView == null) {
             Loger.e(TAG, "imageView == null")
             return

@@ -1,23 +1,29 @@
 package com.victor.clips.fragment
 
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.AdapterView
-import com.alibaba.fastjson.JSON
 import com.victor.clips.HomeActivity
 import com.victor.clips.R
-import com.victor.clips.adapter.YoutubeAdapter
-import com.victor.clips.app.App
-import com.victor.clips.data.YoutubeReq
-import com.victor.clips.module.SpiderHelper
-import com.victor.clips.util.Constant
+import com.victor.clips.data.HomeItemInfo
 import com.victor.clips.util.Loger
 import com.victor.clips.util.WebConfig
 import com.victor.clips.widget.SimpleDividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
+import android.widget.*
+import com.victor.clips.adapter.TrendingAdapter
+import com.victor.clips.data.TrendingReq
+import com.victor.clips.presenter.DailySelectionPresenterImpl
+import com.victor.clips.view.DailySelectionView
+import com.victor.clips.widget.VerticalBannerView
+import android.util.TypedValue
+import com.victor.clips.MainActivity
+import android.widget.TextView
+import android.widget.ViewSwitcher
+import android.graphics.Color
+import android.view.animation.AnimationUtils
+
 
 /*
  * -----------------------------------------------------------------
@@ -29,27 +35,16 @@ import java.util.*
  * Description: 
  * -----------------------------------------------------------------
  */
-class HomeFragment : BaseFragment(),AdapterView.OnItemClickListener {
+class HomeFragment : BaseFragment(),AdapterView.OnItemClickListener,
+        VerticalBannerView.OnFlipListener, DailySelectionView {
 
     var TAG = "HomeFragment"
 
-    var spiderHelper:SpiderHelper? = null
-    var youtubeAdapter: YoutubeAdapter? = null
-    var homeActivity: HomeActivity? = null
+    var dailySelectionPresenter: DailySelectionPresenterImpl? = null
+    var trendingAdapter:TrendingAdapter? = null
+    var linearLayoutManager: LinearLayoutManager? = null
 
-    var mHandler = Handler(){
-        when(it.what) {
-            Constant.Msg.SHOW_HOME_DATA ->{
-                Log.e(TAG,"SHOW_HOME_DATA")
-                var mYoutubeReq = it.obj as YoutubeReq
-                Log.e(TAG,"SHOW_HOME_DATA-mYoutubeReq = " + JSON.toJSONString(mYoutubeReq))
-                youtubeAdapter!!.clear()
-                youtubeAdapter!!.add(mYoutubeReq!!.data)
-                youtubeAdapter!!.notifyDataSetChanged()
-            }
-        }
-        false
-    };
+    var homeActivity: HomeActivity? = null
 
     override fun getLayoutResource(): Int {
         return R.layout.fragment_home
@@ -67,38 +62,75 @@ class HomeFragment : BaseFragment(),AdapterView.OnItemClickListener {
     }
 
     fun initialize () {
+        dailySelectionPresenter = DailySelectionPresenterImpl(this);
+
         homeActivity = activity as HomeActivity?
-        spiderHelper = SpiderHelper(App.get())
-        youtubeAdapter = YoutubeAdapter(App.get(),this)
+        trendingAdapter = TrendingAdapter(context!!,this)
+
         mRvHome.addItemDecoration(SimpleDividerItemDecoration(context))
-        mRvHome.adapter = youtubeAdapter
+        mRvHome.adapter = trendingAdapter
         mRvHome.setHasFixedSize(true)
+
+        mVBanner.setOnFlipListener(this)
+
+        mTsTitle.setInAnimation(AnimationUtils.loadAnimation(homeActivity,R.anim.anim_bottom_enter));
+        mTsTitle.setOutAnimation(AnimationUtils.loadAnimation(homeActivity,R.anim.anim_top_exit));
+        mTsTitle.setFactory(ViewSwitcher.ViewFactory {
+            val tv = TextView(homeActivity)
+            tv.setSingleLine(true)
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 28f)
+            tv.setTextColor(Color.WHITE)
+            tv
+        })
 
     }
 
     fun initData () {
-        spiderHelper?.sendRequestWithParms(Constant.Msg.REQUEST_YOUTUBE,WebConfig.YOUTUBE_HOT_URL)
-//        spiderHelper?.sendRequestWithParms(Constant.Msg.REQUEST_VIMEO,"https://vimeo.com/categories/music")
+        sendDailySelectionRequest()
+
     }
+
+    fun sendDailySelectionRequest () {
+        dailySelectionPresenter?.sendRequest(WebConfig.getRequestUrl(WebConfig.DAILY_SELECTION_URL),null,null)
+    }
+
     override fun onItemClick(parentView: AdapterView<*>?, view: View?, position: Int, id: Long) {
         Loger.e(TAG,"onItemClick()......")
-        homeActivity?.playYoutube(youtubeAdapter?.getItem(position)?.url)
+        homeActivity?.playYoutube(trendingAdapter?.getItem(position)?.data!!.playUrl)
+    }
+
+
+    override fun OnDailySelection(data: Any?, msg: String) {
+        Loger.e(TAG,"onComplete-OnDailySelection()......")
+        var trendingReq = data as TrendingReq
+        var bannerList: MutableList<HomeItemInfo> = mutableListOf()
+        for (item in trendingReq.itemList!!) {
+            if ("video".equals(item.type)) {
+                bannerList.add(item)
+            }
+        }
+        trendingAdapter!!.clear()
+        trendingAdapter!!.add(bannerList)
+        trendingAdapter!!.notifyDataSetChanged()
+
+        mVBanner.setData(bannerList)
+        mVBanner.resumePlay()
+
+        mTsTitle.setText(trendingAdapter!!.getDatas()!!.get(0).data!!.title)
+    }
+
+    override fun onShowNext(flipper: ViewFlipper,position: Int) {
+        mTsTitle.setText(trendingAdapter!!.getDatas()!!.get(position).data!!.title)
     }
 
     override fun update(observable: Observable, data: Any) {
         super.update(observable, data)
-        if (data != null) {
-            if (data is YoutubeReq) {
-                var msg = mHandler.obtainMessage(Constant.Msg.SHOW_HOME_DATA,data);
-                mHandler.sendMessage(msg)
-            }
-        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        spiderHelper!!.onDestroy()
-        spiderHelper = null
+        dailySelectionPresenter!!.detachView()
+        dailySelectionPresenter = null
     }
 
 }

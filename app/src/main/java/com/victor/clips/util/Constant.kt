@@ -11,18 +11,13 @@ package com.victor.clips.util
  * -----------------------------------------------------------------
  */
 class Constant {
-    class Msg {
-        companion object {
-            const val REQUEST_YOUTUBE  = 0x1001
-            const val REQUEST_VIMEO    = 0x1002
-            const val SOCKET_TIME_OUT    = 0x1003
-            const val NETWORK_ERROR    = 0x1004
-            const val SHOW_HOME_DATA    = 0x1005
-            const val SHOW_YOUTUBE_DETAIL    = 0x1006
-        }
-    }
-
     companion object {
+        const val HEADER_HIDE_ANIM_DURATION = 300
+        const val BG_COLOR_MAX = 255f
+        const val BG_COLOR_MIN = 232f
+        const val INTENT_DATA_KEY = "INTENT_DATA_KEY"
+        const val INTENT_ACTION_KEY = "INTENT_ACTION_KEY"
+
         const val YOUTUBE_IMG_URL: String = "https://i.ytimg.com/vi/%s/hqdefault.jpg?sqp=-oaymwEWCMQBEG5IWvKriqkDCQgBFQAAiEIYAQ==&rs=AOn4CLBTZi8JCWrkzvXrj3TsxNGrbkmzpw"
         const val YOUTUBE_HOST = "www.youtube.com"
         const val YOUTUBE_HOST2 = "youtu.be"
@@ -31,6 +26,17 @@ class Constant {
         const val CATEGORY_URL: String = "https://raw.githubusercontent.com/Victor2018/SeagullTv/master/docs/category.json"
         const val YOUTUBE_HOT_URL: String = "https://www.youtube.com/channel/UCF0pVplsI8R5kcAqgtoRqoA"
 
+    }
+    class Msg {
+        companion object {
+            const val REQUEST_YOUTUBE  = 0x1001
+            const val REQUEST_VIMEO    = 0x1002
+            const val SOCKET_TIME_OUT    = 0x1003
+            const val NETWORK_ERROR    = 0x1004
+            const val SHOW_HOME_DATA    = 0x1005
+            const val SHOW_YOUTUBE_DETAIL    = 0x1006
+
+        }
     }
 
 }

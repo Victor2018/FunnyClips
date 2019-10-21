@@ -22,7 +22,7 @@
             android:background="@color/alpha_blue"
             android:textSize="@dimen/dp_22"
             android:textAlignment="center"
-            android:textColor="@color/color_90A4AE"
+            android:textColor="@color/white"
             tools:text="The Hobbit"
             android:gravity="center"
             android:lines="2"
