@@ -9,8 +9,6 @@ import android.widget.AdapterView
 import com.victor.clips.R
 import com.victor.clips.util.Constant
 import com.victor.clips.util.DateUtil
-import com.victor.kplayer.library.data.YoutubeReq
-import com.victor.kplayer.library.util.PlayUtil
 import kotlinx.android.synthetic.main.fragment_video_detail.*
 import org.victor.khttp.library.util.MainHandler
 import java.util.*
@@ -30,11 +28,6 @@ class VideoDetailFragment : BaseFragment(),AdapterView.OnItemClickListener,MainH
     override fun handleMainMessage(msg: Message?) {
         when (msg?.what) {
             Constant.Msg.SHOW_YOUTUBE_DETAIL -> {
-                mTvTitle.setText((msg.obj as YoutubeReq).title)
-                mTvRating.setText((msg.obj as YoutubeReq).rating)
-                mTvViewCount.setText("${(msg.obj as YoutubeReq).viewcount} views")
-                mTvDuration.setText(DateUtil.formatPlayTime((msg.obj as YoutubeReq).length * 1000))
-                mTvType.setText((msg.obj as YoutubeReq).sm!![0].type)
             }
         }
     }
@@ -86,10 +79,6 @@ class VideoDetailFragment : BaseFragment(),AdapterView.OnItemClickListener,MainH
 
     override fun update(observable: Observable, data: Any) {
         super.update(observable, data)
-        if (data is YoutubeReq) {
-            var msg = MainHandler.get().obtainMessage(Constant.Msg.SHOW_YOUTUBE_DETAIL,data)
-            MainHandler.get().sendMessage(msg)
-        }
     }
 
     override fun onDestroyView() {

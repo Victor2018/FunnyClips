@@ -6,7 +6,7 @@ import android.util.Log
 import com.victor.clips.data.YoutubeInfo
 import com.victor.clips.data.YoutubeReq
 import com.victor.clips.module.DataObservable
-import com.victor.kplayer.library.util.PlayUtil
+import com.victor.player.library.util.PlayUtil
 import org.json.JSONException
 import org.json.JSONObject
 import org.jsoup.Jsoup

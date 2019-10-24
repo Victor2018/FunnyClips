@@ -9,19 +9,52 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.AdapterView
 import com.victor.clips.adapter.RelatedVideoAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 import com.victor.clips.data.HomeItemInfo
 import com.victor.clips.data.TrendingReq
 import com.victor.clips.presenter.RelatedVideoPresenterImpl
 import com.victor.clips.util.*
 import com.victor.clips.view.RelatedVideoView
 import kotlinx.android.synthetic.main.activity_video_detail.*
+import android.support.design.widget.AppBarLayout
+import android.view.ViewGroup
+import com.victor.clips.util.StatusBarUtil
+import android.content.pm.ActivityInfo
+import android.os.Message
+import org.victor.khttp.library.util.MainHandler
+import android.content.res.Configuration
+import android.support.design.widget.CoordinatorLayout
+import com.victor.player.library.module.Player
 
 
-class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoView,AdapterView.OnItemClickListener {
+class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoView,
+        AdapterView.OnItemClickListener,MainHandler.OnMainHandlerImpl {
+
+    override fun handleMainMessage(message: Message?) {
+        when (message?.what) {
+            Player.PLAYER_PREPARING -> {
+            }
+            Player.PLAYER_PREPARED -> {
+                mIvVideoPoster.setVisibility(View.INVISIBLE)
+            }
+            Player.PLAYER_ERROR -> {
+            }
+            Player.PLAYER_BUFFERING_START -> {
+            }
+            Player.PLAYER_BUFFERING_END -> {
+            }
+            Player.PLAYER_PROGRESS_INFO -> {
+            }
+            Player.PLAYER_COMPLETE -> {
+            }
+        }
+    }
 
     var relatedVideoPresenter:RelatedVideoPresenterImpl? = null
     var relatedVideoAdapter: RelatedVideoAdapter? = null
+    var mPlayer: Player? = null
+    var isSmallScreenPlay: Boolean = false
+    var isFullScreenPlay: Boolean = false
+
 
     companion object {
         fun  intentStart (activity: AppCompatActivity, data: HomeItemInfo, sharedElement: View, sharedElementName: String) {
@@ -48,6 +81,7 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
         setSupportActionBar(mVideoToolbar);
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
 
+        MainHandler.get().register(this)
         relatedVideoPresenter = RelatedVideoPresenterImpl(this)
 
         relatedVideoAdapter = RelatedVideoAdapter(this,this)
@@ -56,14 +90,43 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
 
         mRvRelatedVideo.adapter = relatedVideoAdapter
 
+        mPlayer = Player(mTvPlay,MainHandler.get())
+
+
+        mFabFullScreen.setOnClickListener(this)
+
+        appbar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener{
+            override fun onOffsetChanged(appBarLayout: AppBarLayout?, yOffset: Int) {
+                if (isFullScreenPlay) return
+                if (yOffset == 0) {
+                    //展开状态
+                    mIvVideoPoster.setVisibility(View.INVISIBLE);
+                    mPlSmallPlay.setVisibility(View.GONE);
+                    removePlayViewFormParent();
+                    mCtlVideoTitle.addView(mTvPlay,2);
+                    isSmallScreenPlay = false;
+                } else if (Math.abs(yOffset) >= appBarLayout!!.totalScrollRange) {
+                    //折叠状态
+                    mIvVideoPoster.setVisibility(View.VISIBLE);
+                    mPlSmallPlay.setVisibility(View.VISIBLE);
+                    removePlayViewFormParent();
+                    mPlSmallPlay.addView(mTvPlay);
+                    isSmallScreenPlay = true;
+                } else {
+                    //中间状态
+                }
+            }
+        })
     }
 
     fun initData (){
         var data = intent.extras.getSerializable(Constant.INTENT_DATA_KEY) as HomeItemInfo
-        ImageUtils.instance.imageGauss(this,mIvVideoPoster,data.data!!.cover!!.feed)
+        ImageUtils.instance.loadImage(this,mIvVideoPoster,data.data!!.cover!!.feed)
         ImageUtils.instance.loadAvatar(this,mIvAvatar,data.data!!.author!!.icon)
         mCtlVideoTitle.title = data.data!!.title
         mTvVideoDescription.setText(data.data!!.description)
+
+        mPlayer?.playUrl(data!!.data!!.playUrl!!,false)
 
         sendRelatedVideoRequest(data.data!!.id)
     }
@@ -83,6 +146,58 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
         relatedVideoAdapter?.notifyDataSetChanged()
     }
 
+    private fun removePlayViewFormParent() {
+        val parent = mTvPlay.getParent()
+        if (parent != null && parent is ViewGroup) {
+            parent.removeView(mTvPlay)
+        }
+    }
+
+    fun fullScreen () {
+        mNscrollView.fling(0);
+        mNscrollView.smoothScrollTo(0, 0);
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        StatusBarUtil.hideStatusBar(this)
+        val layoutParams = appbar.getLayoutParams() as CoordinatorLayout.LayoutParams
+        layoutParams.height = CoordinatorLayout.LayoutParams.MATCH_PARENT
+        layoutParams.width = CoordinatorLayout.LayoutParams.MATCH_PARENT
+        appbar.layoutParams = layoutParams
+
+        isSmallScreenPlay = !isSmallScreenPlay
+        isFullScreenPlay = !isFullScreenPlay
+        mFabFullScreen.setImageResource(R.mipmap.ic_exit_fullscreen)
+    }
+
+    fun exitFullScreen () {
+        val mConfiguration = this.resources.configuration //获取设置的配置信息
+        val ori = mConfiguration.orientation //获取屏幕方向
+        if (ori == Configuration.ORIENTATION_LANDSCAPE) {
+            //横屏
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT//强制为竖屏
+            StatusBarUtil.showStatusBar(this)
+
+            val layoutParams = appbar.getLayoutParams() as CoordinatorLayout.LayoutParams
+            layoutParams.width = CoordinatorLayout.LayoutParams.MATCH_PARENT
+            layoutParams.height = resources.getDimension(R.dimen.dp_456).toInt()
+            appbar.layoutParams = layoutParams
+
+            removePlayViewFormParent()
+            if (isSmallScreenPlay) {
+                mIvVideoPoster.setVisibility(View.VISIBLE)
+                mPlSmallPlay.visibility = View.VISIBLE
+                mPlSmallPlay.removeAllViews()
+                mPlSmallPlay.addView(mTvPlay)
+            } else {
+                mIvVideoPoster.setVisibility(View.INVISIBLE)
+                mPlSmallPlay.visibility = View.GONE
+                mCtlVideoTitle.addView(mTvPlay, 2)
+            }
+        }
+        isSmallScreenPlay = !isSmallScreenPlay
+        isFullScreenPlay = !isFullScreenPlay
+        mFabFullScreen.setImageResource(R.mipmap.ic_fullscreen)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.getItemId()) {
             android.R.id.home -> {
@@ -96,8 +211,12 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
 
     override fun onClick(v: View?) {
         when(v?.id) {
-            R.id.fab -> {
-                SnackbarUtil.ShortSnackbar(drawer,"github").show()
+            R.id.mFabFullScreen -> {
+                if (isFullScreenPlay) {
+                    exitFullScreen()
+                } else {
+                    fullScreen()
+                }
             }
         }
     }
@@ -105,10 +224,31 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
     }
 
+    override fun onBackPressed() {
+        if (isFullScreenPlay) {
+            exitFullScreen()
+            return
+        }
+        super.onBackPressed()
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        mPlayer?.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+//        mPlayer?.pause()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         relatedVideoPresenter!!.detachView()
         relatedVideoPresenter = null
+        MainHandler.get().unregister(this)
+//        mPlayer?.stop()
+//        mPlayer = null
     }
 
 }

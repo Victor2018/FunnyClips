@@ -10,19 +10,25 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dp_456"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/mCtlVideoTitle"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_456"
+            android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginStart="@dimen/dp_50"
             app:expandedTitleMarginEnd="@dimen/dp_65">
+            <TextureView
+                android:id="@+id/mTvPlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_collapseMode="parallax"
+                android:fitsSystemWindows="true"/>
             <ImageView
                 android:id="@+id/mIvVideoPoster"
                 android:layout_width="match_parent"
@@ -32,17 +38,6 @@
                 android:scaleType="centerCrop"
                 android:background="@mipmap/img_header"
                 android:transitionName="@string/transition_video_img"/>
-            <ImageView
-                android:id="@+id/mIvAvatar"
-                android:layout_width="@dimen/dp_128"
-                android:layout_height="@dimen/dp_128"
-                android:layout_marginLeft="@dimen/dp_50"
-                android:scaleType="centerCrop"
-                android:layout_margin="@dimen/dp_20"
-                android:src="@mipmap/img_header"
-                app:layout_anchor="@id/appbar"
-                android:layout_gravity="center"
-                app:layout_collapseMode="parallax"/>
             <android.support.v7.widget.Toolbar
                 android:id="@+id/mVideoToolbar"
                 android:layout_width="match_parent"
@@ -54,44 +49,65 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/mNscrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dp_50"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/dp_52"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20"
-                android:textColor="@color/gray"
-                android:text="Description"/>
-            <TextView
+            android:layout_marginTop="@dimen/dp_10">
+            <ImageView
+                android:id="@+id/mIvAvatar"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:layout_marginLeft="@dimen/dp_30"/>
+            <com.victor.clips.widget.ColorMovingTextView
                 android:id="@+id/mTvVideoDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp_20"
+                android:padding="@dimen/dp_10"
+                android:layout_toRightOf="@+id/mIvAvatar"
                 android:textSize="@dimen/dp_28"
-                android:textColor="@color/gray"
-                android:lineSpacingMultiplier="1.5"
-                tools:text="不管男女都好，只要肩旁宽一点都能够把一个人的外观改变，男生看起来就比较壮跟有型，女生肩膀稍微宽一点，穿起衣服性感又迷人。既可以健康，又可以好看，这一举两得的好事就让我们马上进行练习吧！"/>
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:textColor="?attr/colorPrimary"
+                android:textColorLink="?attr/colorPrimaryDark"
+                tools:text="不管男女都好，只要肩旁宽一点都能够把一个人的外观改变"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/mRvRelatedVideo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="@dimen/dp_30"
+                android:layout_below="@+id/mTvVideoDescription"
                 android:scrollbars="vertical"
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-        </LinearLayout>
+        </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <com.victor.clips.widget.PlayLayout
+        android:id="@+id/mPlSmallPlay"
+        android:layout_width="@dimen/dp_480"
+        android:layout_height="@dimen/dp_320"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_20"
+        android:visibility="visible"
+        android:layout_gravity="center|bottom|right"
+        android:background="@mipmap/img_live"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/mFabFullScreen"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|right|end"
+        android:src="@mipmap/ic_fullscreen"
+        android:layout_margin="@dimen/fab_margin"
+        android:transitionName="@string/transition_fab_icon"
+        android:clickable="true"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -47,7 +47,8 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".VideoDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
     </application>
 
 </manifest>
