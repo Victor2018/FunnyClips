@@ -17,6 +17,7 @@ class Constant {
         const val BG_COLOR_MIN = 232f
         const val INTENT_DATA_KEY = "INTENT_DATA_KEY"
         const val INTENT_ACTION_KEY = "INTENT_ACTION_KEY"
+        const val MA_DATA = "madata"
 
         const val YOUTUBE_IMG_URL: String = "https://i.ytimg.com/vi/%s/hqdefault.jpg?sqp=-oaymwEWCMQBEG5IWvKriqkDCQgBFQAAiEIYAQ==&rs=AOn4CLBTZi8JCWrkzvXrj3TsxNGrbkmzpw"
         const val YOUTUBE_HOST = "www.youtube.com"

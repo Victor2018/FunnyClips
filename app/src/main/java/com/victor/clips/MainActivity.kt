@@ -145,7 +145,7 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
                 SnackbarUtil.ShortSnackbar(drawer,"copy right").show()
             }
             R.id.nav_theme -> {
-                SnackbarUtil.ShortSnackbar(drawer,"theme").show()
+                ThemeSettingActivity.intentStart(this)
             }
             R.id.nav_about -> {
                 SnackbarUtil.ShortSnackbar(drawer,"about").show()

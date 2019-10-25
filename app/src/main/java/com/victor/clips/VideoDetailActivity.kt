@@ -234,12 +234,12 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
 
     override fun onResume() {
         super.onResume()
-//        mPlayer?.resume()
+        mPlayer?.resume()
     }
 
     override fun onPause() {
         super.onPause()
-//        mPlayer?.pause()
+        mPlayer?.pause()
     }
 
     override fun onDestroy() {
@@ -247,8 +247,8 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
         relatedVideoPresenter!!.detachView()
         relatedVideoPresenter = null
         MainHandler.get().unregister(this)
-//        mPlayer?.stop()
-//        mPlayer = null
+        mPlayer?.stop()
+        mPlayer = null
     }
 
 }

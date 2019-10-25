@@ -38,4 +38,22 @@
 		<item>@mipmap/beauty13</item>
 	</integer-array>
 
+	<integer-array name="color_list">
+		<item>@color/colorBluePrimary</item>
+		<item>@color/colorRedPrimary</item>
+		<item>@color/colorBrownPrimary</item>
+		<item>@color/colorGreenPrimary</item>
+		<item>@color/colorPurplePrimary</item>
+		<item>@color/colorTealPrimary</item>
+		<item>@color/colorPinkPrimary</item>
+		<item>@color/colorDeepPurplePrimary</item>
+		<item>@color/colorOrangePrimary</item>
+		<item>@color/colorIndigoPrimary</item>
+		<item>@color/colorLightGreenPrimary</item>
+		<item>@color/colorDeepOrangePrimary</item>
+		<item>@color/colorLimePrimary</item>
+		<item>@color/colorBlueGreyPrimary</item>
+		<item>@color/colorCyanPrimary</item>
+	</integer-array>
+
 </resources>
