@@ -22,6 +22,7 @@ import android.content.pm.ActivityInfo
 import android.os.Message
 import org.victor.khttp.library.util.MainHandler
 import android.content.res.Configuration
+import android.graphics.Typeface
 import android.support.design.widget.CoordinatorLayout
 import com.victor.player.library.module.Player
 
@@ -34,6 +35,8 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
             Player.PLAYER_PREPARING -> {
             }
             Player.PLAYER_PREPARED -> {
+                mTvPlay.startAnimation(AnimUtil.topEnter())
+                mIvVideoPoster.startAnimation(AnimUtil.bottomExit())
                 mIvVideoPoster.setVisibility(View.INVISIBLE)
             }
             Player.PLAYER_ERROR -> {
@@ -55,6 +58,7 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
     var isSmallScreenPlay: Boolean = false
     var isFullScreenPlay: Boolean = false
 
+    var fontStyle: Typeface? = null
 
     companion object {
         fun  intentStart (activity: AppCompatActivity, data: HomeItemInfo, sharedElement: View, sharedElementName: String) {
@@ -81,6 +85,7 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
         setSupportActionBar(mVideoToolbar);
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
 
+        fontStyle = Typeface.createFromAsset(getAssets(), "fonts/ZuoAnLianRen.ttf");
         MainHandler.get().register(this)
         relatedVideoPresenter = RelatedVideoPresenterImpl(this)
 
@@ -125,6 +130,7 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
         ImageUtils.instance.loadAvatar(this,mIvAvatar,data.data!!.author!!.icon)
         mCtlVideoTitle.title = data.data!!.title
         mTvVideoDescription.setText(data.data!!.description)
+        mTvVideoDescription.setTypeface(fontStyle);
 
         mPlayer?.playUrl(data!!.data!!.playUrl!!,false)
 
@@ -222,6 +228,7 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        mPlayer?.playUrl(relatedVideoAdapter?.getItem(position)?.data?.playUrl,false)
     }
 
     override fun onBackPressed() {

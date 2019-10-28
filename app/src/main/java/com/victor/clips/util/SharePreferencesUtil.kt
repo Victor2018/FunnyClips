@@ -81,7 +81,7 @@ class SharePreferencesUtil {
 
         fun getCurrentTheme(context: Context): Theme {
             return Theme.valueOf(getString(context, "app_theme", Theme
-                    .LightGreen.name))
+                    .DeepOrange.name))
         }
 
         fun setCurrentTheme(context: Context, currentTheme: Theme) {

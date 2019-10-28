@@ -8,20 +8,17 @@ import android.view.Menu
 import android.view.MenuItem
 import com.victor.clips.data.ProgramReq
 import com.victor.clips.presenter.ProgramPresenterImpl
-import com.victor.clips.util.WebConfig
 import com.victor.clips.view.ProgramView
 import kotlinx.android.synthetic.main.toolbar.*
-import com.victor.clips.util.DensityUtil
 import android.support.v4.view.ViewCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.KeyEvent
 import android.view.View
-import com.victor.clips.util.SnackbarUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import android.view.animation.DecelerateInterpolator
 import com.victor.clips.fragment.CategoryFragment
-import com.victor.clips.util.Constant
+import com.victor.clips.util.*
 
 
 class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListener,
@@ -136,13 +133,14 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.nav_auto_update -> {
-                SnackbarUtil.ShortSnackbar(drawer,"auto update").show()
+                SnackbarUtil.ShortSnackbar(drawer,getString(R.string.auto_update_opened)).show();
             }
             R.id.nav_clear -> {
-                SnackbarUtil.ShortSnackbar(drawer,"clear memory").show()
+                DataCleanManager.cleanApplicationData(this);
+                SnackbarUtil.ShortSnackbar(drawer,getString(R.string.all_cache_cleaned)).show()
             }
             R.id.nav_copyright -> {
-                SnackbarUtil.ShortSnackbar(drawer,"copy right").show()
+                SnackbarUtil.ShortSnackbar(drawer,getString(R.string.copyright_content)).show()
             }
             R.id.nav_theme -> {
                 ThemeSettingActivity.intentStart(this)

@@ -31,7 +31,7 @@ class CategoryAdapter(context: Context, listener: AdapterView.OnItemClickListene
     var fontStyle: Typeface? = null
 
     init {
-        fontStyle = Typeface.createFromAsset(mContext?.getAssets(), "fonts/roboto_thinitalic.ttf");
+        fontStyle = Typeface.createFromAsset(mContext?.getAssets(), "fonts/ZuoAnLianRen.ttf");
     }
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         return null

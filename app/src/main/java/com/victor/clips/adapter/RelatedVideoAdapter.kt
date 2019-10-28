@@ -1,16 +1,14 @@
 package com.victor.clips.adapter
 
 import android.content.Context
+import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.widget.AdapterView
 import com.victor.clips.R
 import com.victor.clips.data.HomeItemInfo
-import com.victor.clips.data.YoutubeInfo
 import com.victor.clips.holder.ContentViewHolder
-import com.victor.clips.holder.YoutubeContentViewHolder
 import com.victor.clips.util.ImageUtils
-import kotlinx.android.synthetic.main.rv_home_item.view.*
 import kotlinx.android.synthetic.main.rv_related_video_cell.view.*
 
 /*
@@ -24,6 +22,13 @@ import kotlinx.android.synthetic.main.rv_related_video_cell.view.*
  * -----------------------------------------------------------------
  */
 class RelatedVideoAdapter(context: Context, listener: AdapterView.OnItemClickListener): BaseRecycleAdapter<HomeItemInfo, RecyclerView.ViewHolder>(context,listener) {
+
+    var fontStyle: Typeface? = null
+
+    init {
+        fontStyle = Typeface.createFromAsset(mContext?.getAssets(), "fonts/ZuoAnLianRen.ttf");
+    }
+
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         return null
     }
@@ -39,6 +44,10 @@ class RelatedVideoAdapter(context: Context, listener: AdapterView.OnItemClickLis
         val contentViewHolder = viewHolder as ContentViewHolder
 
         contentViewHolder.itemView.mTvRelatedVideoName.setText(data.data?.title)
+        contentViewHolder.itemView.mTvRelatedVideoName.setTypeface(fontStyle);
+        contentViewHolder.itemView.mTvRelatedVideoVideoLikes.setTypeface(fontStyle);
+        contentViewHolder.itemView.mTvRelatedVideoVideoShare.setTypeface(fontStyle);
+        contentViewHolder.itemView.mTvRelatedVideoVideoComment.setTypeface(fontStyle);
         ImageUtils.instance.loadImage(mContext!!,contentViewHolder.itemView.mIvRelatedVideoPoster, data.data?.cover!!.feed)
         ImageUtils.instance.loadAvatar(mContext!!,contentViewHolder.itemView.mIvRelatedVideoAvatar, data.data?.author!!.icon)
         contentViewHolder.itemView.mTvRelatedVideoVideoLikes.setText(data.data?.consumption?.collectionCount.toString())
