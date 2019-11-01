@@ -96,4 +96,17 @@
             <flag name="end" value="5" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="RoundRectImageView">
+        <attr name="rriv_CornerRadius" format="reference|dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="ArcImageView">
+        <attr name="arcHeight"/>
+    </declare-styleable>
+
+    <declare-styleable name="ArcView">
+        <attr name="arcHeight"/>
+        <attr name="bgColor" format="color"/>
+    </declare-styleable>
 </resources>

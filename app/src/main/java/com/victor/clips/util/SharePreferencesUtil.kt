@@ -33,6 +33,12 @@ class SharePreferencesUtil {
             Log.e(TAG, "putInt()-$key=$value")
             return value
         }
+        fun getInt(context: Context, key: String,defaultValue: Int): Int {
+            val sp = context.getSharedPreferences(Constant.MA_DATA, Context.MODE_PRIVATE)
+            val value = sp.getInt(key, defaultValue)
+            Log.e(TAG, "putInt()-$key=$value")
+            return value
+        }
 
         fun putLong(context: Context, key: String, value: Long) {
             Log.e(TAG, "putLong()-$key=$value")

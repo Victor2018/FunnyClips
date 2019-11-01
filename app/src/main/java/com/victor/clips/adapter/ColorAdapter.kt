@@ -1,18 +1,12 @@
 package com.victor.clips.adapter
 
 import android.content.Context
-import android.graphics.Typeface
-import android.opengl.Visibility
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import com.victor.clips.R
-import com.victor.clips.data.CategoryReq
 import com.victor.clips.holder.ContentViewHolder
-import com.victor.clips.util.ImageUtils
-import kotlinx.android.synthetic.main.rv_category_cell.view.mTvTitle
-import kotlinx.android.synthetic.main.rv_category_cell.view.mIvPoster
 import kotlinx.android.synthetic.main.rv_color_cell.view.*
 
 

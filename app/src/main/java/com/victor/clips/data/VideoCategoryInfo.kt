@@ -4,13 +4,13 @@ package com.victor.clips.data
  * -----------------------------------------------------------------
  * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
- * File: CategoryInfo.java
+ * File: VideoCategoryInfo.java
  * Author: Victor
- * Date: 2019/10/31 11:47
- * Description:
+ * Date: 2018/8/30 14:29
+ * Description: 
  * -----------------------------------------------------------------
  */
-class CategoryInfo {
-    var categoryName: String? = null
-    var categoryImgRes: Int = 0
+class VideoCategoryInfo {
+    var channel_category: String? = null
+    var channels: List<LiveInfo>? = null
 }

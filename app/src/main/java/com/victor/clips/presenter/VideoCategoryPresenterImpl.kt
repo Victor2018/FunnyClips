@@ -11,21 +11,21 @@ import org.victor.khttp.library.presenter.impl.BasePresenterImpl
  * -----------------------------------------------------------------
  * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
- * File: CategoryPresenterImpl.kt
+ * File: VideoCategoryPresenterImplrImpl.kt
  * Author: Victor
  * Date: 2018/8/24 13:49
  * Description: 
  * -----------------------------------------------------------------
  */
-class CategoryPresenterImpl(var videoCategoryView: VideoCategoryView?): BasePresenterImpl() {
-    var TAG = "CategoryPresenterImpl"
+class VideoCategoryPresenterImpl(var categoryView: VideoCategoryView?): BasePresenterImpl() {
+    var TAG = "VideoCategoryPresenterImpl"
     /*Presenter作为中间层，持有View和Model的引用*/
     override fun onComplete(data: Any?, msg: String) {
-        videoCategoryView?.OnVideoCategory(data,msg)
+        categoryView?.OnVideoCategory(data,msg)
     }
 
     override fun detachView() {
-        videoCategoryView = null
+        categoryView = null
     }
 
     @HttpParms (method = Request.GET,responseCls = CategoryReq::class)

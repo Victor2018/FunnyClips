@@ -30,11 +30,11 @@ class WebConfig {
         const val RELATED_VIDEO_URL: String = "v4/video/related?&id=%d&udid=d2807c895f0348a180148c9dfa6f2feeac0781b5&deviceModel=%s"
         const val BANNER_URL: String = "v2/feed?num=1&udid=%s&deviceModel=%s"//首页banner
         const val DAILY_SELECTION_URL: String = "v4/tabs/selected"//每日精选
-        const val FIND_FOLLOW_URL: String = "v4/tabs/follow?udid=%s&deviceModel=%s"//发现-关注
+        const val FIND_FOLLOW_URL: String = "v4/tabs/follow?udid=d2807c895f0348a180148c9dfa6f2feeac0781b5&deviceModel=%s"//发现-关注
         const val FIND_CATEGORIES_URL: String = "v4/categories?udid=%s&deviceModel=%s"//发现-分类
-        const val HOT_WEEKLY_URL: String = "v4/rankList/videos?strategy=weekly&udid=%s&deviceModel=%s"//热门-周排行
-        const val HOT_MONTHLY_URL: String = "v4/rankList/videos?strategy=monthly&udid=%s&deviceModel=%s"//热门-月排行
-        const val HOT_TOTAL_RANKING_URL: String = "v4/rankList/videos?strategy=historical&udid=%s&deviceModel=%s"//热门-总排行
+        const val HOT_WEEKLY_URL: String = "v4/rankList/videos?strategy=weekly&udid=d2807c895f0348a180148c9dfa6f2feeac0781b5&deviceModel=%s"//热门-周排行
+        const val HOT_MONTHLY_URL: String = "v4/rankList/videos?strategy=monthly&udid=d2807c895f0348a180148c9dfa6f2feeac0781b5&deviceModel=%s"//热门-月排行
+        const val HOT_TOTAL_RANKING_URL: String = "v4/rankList/videos?strategy=historical&udid=d2807c895f0348a180148c9dfa6f2feeac0781b5&deviceModel=%s"//热门-总排行
 
         fun getServer(): String? {
             if (BuildConfig.MODEL_ONLINE) {

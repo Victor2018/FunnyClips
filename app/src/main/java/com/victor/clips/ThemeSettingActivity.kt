@@ -2,41 +2,16 @@ package com.victor.clips
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.ActivityOptionsCompat
 import android.view.MenuItem
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.AdapterView
-import com.victor.clips.adapter.RelatedVideoAdapter
-import com.victor.clips.data.HomeItemInfo
-import com.victor.clips.data.TrendingReq
-import com.victor.clips.presenter.RelatedVideoPresenterImpl
 import com.victor.clips.util.*
-import com.victor.clips.view.RelatedVideoView
-import kotlinx.android.synthetic.main.activity_video_detail.*
-import android.support.design.widget.AppBarLayout
-import android.view.ViewGroup
-import com.victor.clips.util.StatusBarUtil
-import android.content.pm.ActivityInfo
-import android.os.Message
-import org.victor.khttp.library.util.MainHandler
-import android.content.res.Configuration
-import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.design.widget.CoordinatorLayout
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
-import android.util.Log
-import android.widget.RadioGroup
-import android.widget.SeekBar
-import com.victor.clips.adapter.CategoryAdapter
 import com.victor.clips.adapter.ColorAdapter
 import com.victor.clips.data.Theme
-import com.victor.player.library.module.Player
 import kotlinx.android.synthetic.main.activity_theme_setting.*
 import kotlinx.android.synthetic.main.activity_video_detail.mVideoToolbar
-import kotlinx.android.synthetic.main.fragment_category.*
 
 class ThemeSettingActivity : BaseActivity(),View.OnClickListener,AdapterView.OnItemClickListener {
 

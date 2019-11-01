@@ -97,7 +97,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     override fun onClick(view: View) {
         when(view.id) {
-            R.id.fab -> {
+            R.id.mFabCategory -> {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
             }

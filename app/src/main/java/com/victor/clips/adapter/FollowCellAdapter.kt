@@ -1,33 +1,28 @@
 package com.victor.clips.adapter
 
 import android.content.Context
-import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.widget.AdapterView
 import com.victor.clips.R
 import com.victor.clips.data.HomeItemInfo
 import com.victor.clips.holder.ContentViewHolder
+import com.victor.clips.holder.FollowCellContentViewHolder
 import com.victor.clips.util.ImageUtils
-import kotlinx.android.synthetic.main.rv_category_detail_cell.view.*
-import kotlinx.android.synthetic.main.rv_category_detail_cell.view.mTvTitle
+import kotlinx.android.synthetic.main.rv_follow_item_cell.view.*
 
 /*
  * -----------------------------------------------------------------
  * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
- * File: CategoryDetailAdapter.java
+ * File: FollowCellAdapter.java
  * Author: Victor
- * Date: 2018/9/28 14:52
+ * Date: 2018/8/30 17:57
  * Description: 
  * -----------------------------------------------------------------
  */
-class CategoryDetailAdapter(context: Context, listener: AdapterView.OnItemClickListener): BaseRecycleAdapter<HomeItemInfo, RecyclerView.ViewHolder>(context,listener) {
-    var fontStyle: Typeface? = null
-
-    init {
-        fontStyle = Typeface.createFromAsset(mContext?.getAssets(), "fonts/ZuoAnLianRen.ttf");
-    }
+class FollowCellAdapter(context: Context, listener: AdapterView.OnItemClickListener,var parentPosition: Int) :
+        BaseRecycleAdapter<HomeItemInfo, RecyclerView.ViewHolder>(context, listener) {
 
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         return null
@@ -37,15 +32,13 @@ class CategoryDetailAdapter(context: Context, listener: AdapterView.OnItemClickL
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ContentViewHolder(mLayoutInflater!!.inflate(R.layout.rv_category_detail_cell, parent, false))
+        return FollowCellContentViewHolder(mLayoutInflater!!.inflate(R.layout.rv_follow_item_cell ,parent, false),parentPosition)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo, position: Int) {
-        val contentViewHolder = viewHolder as ContentViewHolder
-        contentViewHolder.itemView.mTvTitle.setTypeface(fontStyle);
-        contentViewHolder.itemView.mTvTitle.setText(data.data!!.title)
-        ImageUtils.instance.loadImage(mContext!!,contentViewHolder.itemView.mIvCategoryDetailPoster, data.data!!.cover!!.feed)
+        val contentViewHolder = viewHolder as FollowCellContentViewHolder
+        ImageUtils.instance.loadImage(mContext!!,contentViewHolder.itemView.mIvFollowCellPoster, data.data?.cover?.feed)
+        contentViewHolder.itemView.mTvFollowCellTitle.setText(data.data?.title)
         contentViewHolder.setOnItemClickListener(mOnItemClickListener)
     }
-
 }

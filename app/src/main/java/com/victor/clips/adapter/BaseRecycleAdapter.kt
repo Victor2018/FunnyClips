@@ -21,7 +21,7 @@ import java.util.ArrayList
  * Description: 
  * -----------------------------------------------------------------
  */
-abstract class BaseRecycleAdapter<T,VH:RecyclerView.ViewHolder>(context: Context,listener:AdapterView.OnItemClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class BaseRecycleAdapter<T,VH:RecyclerView.ViewHolder>(context: Context,listener:AdapterView.OnItemClickListener?): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var TAG = "BaseRecycleAdapter"
     val LOADING = 0x0001//正在加载
     val LOADING_COMPLETE = 0x0002//加载完毕

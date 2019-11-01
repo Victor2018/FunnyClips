@@ -12,5 +12,5 @@ package com.victor.clips.data
  */
 class LiveReq {
     var count: Int = 0
-    var categorys: List<CategoryInfo>? = null
+    var categorys: List<VideoCategoryInfo>? = null
 }

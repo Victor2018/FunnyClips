@@ -27,11 +27,11 @@ open class ContentViewHolder: RecyclerView.ViewHolder,View.OnClickListener,View.
     }
 
     override fun onClick(view: View) {
-        mOnItemClickListener!!.onItemClick(null, view, getAdapterPosition(), 0)
+        mOnItemClickListener?.onItemClick(null, view, getAdapterPosition(), 0)
     }
 
     override fun onLongClick(v: View): Boolean {
-        mOnItemClickListener!!.onItemClick(null, v, getAdapterPosition(), -1)
+        mOnItemClickListener?.onItemClick(null, v, getAdapterPosition(), -1)
         return false
     }
 }

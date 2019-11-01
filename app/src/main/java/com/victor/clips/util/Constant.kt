@@ -17,6 +17,7 @@ class Constant {
         const val BG_COLOR_MIN = 232f
         const val INTENT_DATA_KEY = "INTENT_DATA_KEY"
         const val INTENT_ACTION_KEY = "INTENT_ACTION_KEY"
+        const val CATEGORY_POSITION_KEY = "CATEGORY_POSITION_KEY"
         const val MA_DATA = "madata"
 
         const val YOUTUBE_IMG_URL: String = "https://i.ytimg.com/vi/%s/hqdefault.jpg?sqp=-oaymwEWCMQBEG5IWvKriqkDCQgBFQAAiEIYAQ==&rs=AOn4CLBTZi8JCWrkzvXrj3TsxNGrbkmzpw"
@@ -36,7 +37,15 @@ class Constant {
             const val NETWORK_ERROR    = 0x1004
             const val SHOW_HOME_DATA    = 0x1005
             const val SHOW_YOUTUBE_DETAIL    = 0x1006
-
+        }
+    }
+    class Action {
+        companion object {
+            const val CATEGORY          = 0x2001
+            const val WEEKLY_RANKING    = 0x2002
+            const val MONTHLY_RANKING   = 0x2003
+            const val TOTAL_RANKING     = 0x2004
+            const val FOLLOW            = 0x1005
         }
     }
 

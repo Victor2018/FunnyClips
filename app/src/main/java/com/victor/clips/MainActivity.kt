@@ -7,7 +7,6 @@ import android.support.v4.view.GravityCompat
 import android.view.Menu
 import android.view.MenuItem
 import com.victor.clips.data.ProgramReq
-import com.victor.clips.presenter.ProgramPresenterImpl
 import com.victor.clips.view.ProgramView
 import kotlinx.android.synthetic.main.toolbar.*
 import android.support.v4.view.ViewCompat
@@ -17,15 +16,17 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import android.view.animation.DecelerateInterpolator
-import com.victor.clips.fragment.CategoryFragment
+import com.victor.clips.fragment.*
 import com.victor.clips.util.*
+import java.util.*
 
 
 class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListener,
-        View.OnClickListener,ProgramView {
+        View.OnClickListener {
 
     var currentFragment: Fragment? = null
     var actionBarShown = true
+    var isInitialize = true
 
     override fun getLayoutResource(): Int {
         return R.layout.activity_main
@@ -34,12 +35,15 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initialize()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        switchFragment(getCurrentFrag())
         initData()
     }
 
     fun initialize () {
-        switchFragment(CategoryFragment())
-
         setSupportActionBar(toolbar);
 
         injectViewsAndSetUpToolbar();
@@ -50,7 +54,7 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
         toggle.syncState()
 
         navigationView.setNavigationItemSelectedListener(this);
-        fab.setOnClickListener(this)
+        mFabMain.setOnClickListener(this)
     }
 
     fun injectViewsAndSetUpToolbar() {
@@ -155,19 +159,37 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
 
     override fun onClick(v: View?) {
         when(v?.id) {
-            R.id.fab -> {
-                SnackbarUtil.ShortSnackbar(drawer,"github").show()
+            R.id.mFabMain -> {
+                CategoryActivity.intentStart(this,mFabMain,getString(R.string.transition_fab_icon))
             }
         }
     }
 
-    override fun OnProgram(data: Any?, msg: String) {
-        if (data != null) {
-            var mProgramReq = data!! as ProgramReq
-//            liveAdapter!!.clear()
-//            liveAdapter!!.add(mLiveReq.categorys)
-//            liveAdapter!!.notifyDataSetChanged()
+
+    fun getCurrentFrag ():Fragment {
+        if (isInitialize) {
+            isInitialize = false
+            return VideoCategoryFragment()
         }
+        var position = SharePreferencesUtil.getInt(this,Constant.CATEGORY_POSITION_KEY,-1)
+        when(position) {
+            0 -> {
+                return VideoCategoryFragment()
+            }
+            1 -> {
+                return WeeklyRankingFragment()
+            }
+            2 -> {
+                return MonthlyRankingFragment()
+            }
+            3 -> {
+                return TotalRankingFragment()
+            }
+            4 -> {
+                return FollowFragment()
+            }
+        }
+        return VideoCategoryFragment()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

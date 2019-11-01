@@ -1,50 +1,51 @@
 package com.victor.clips.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import com.victor.clips.R
-import com.victor.clips.adapter.CategoryAdapter
-import com.victor.clips.presenter.CategoryPresenterImpl
-import com.victor.clips.util.DeviceUtils
-import com.victor.clips.util.WebConfig
-import com.victor.clips.view.CategoryView
-import android.support.v7.widget.GridLayoutManager
-import com.victor.clips.data.CategoryReq
-import kotlinx.android.synthetic.main.fragment_category.*
 import com.victor.clips.MainActivity
 import android.support.v7.widget.RecyclerView
 import android.graphics.Color
-import com.victor.clips.CategoryActivity
 import com.victor.clips.util.Constant
 import kotlinx.android.synthetic.main.content_main.*
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import com.victor.clips.VideoDetailActivity
+import com.victor.clips.adapter.RankingAdapter
+import com.victor.clips.data.HomeItemInfo
+import com.victor.clips.data.TrendingReq
+import com.victor.clips.presenter.RankingPresenterImpl
+import com.victor.clips.util.DeviceUtils
+import com.victor.clips.util.WebConfig
+import com.victor.clips.view.RankingView
+import kotlinx.android.synthetic.main.activity_category.*
+import kotlinx.android.synthetic.main.fragment_weekly_ranking.*
 
 
 /*
  * -----------------------------------------------------------------
  * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
- * File: CategoryFragment.java
+ * File: WeeklyRankingFragment.java
  * Author: Victor
  * Date: 2018/8/30 15:40
  * Description: 
  * -----------------------------------------------------------------
  */
-class CategoryFragment : BaseFragment(),AdapterView.OnItemClickListener,CategoryView {
+class WeeklyRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,RankingView {
+
     var actionbarScrollPoint: Float = 0f
     var summaryScrolled: Float = 0f
     var maxScroll: Float = 0f
 
-    var categoryPresenter: CategoryPresenterImpl? = null
-    var categoryAdapter: CategoryAdapter? = null
-    var gridLayoutManager: GridLayoutManager? = null
+    var rankingAdapter: RankingAdapter? = null
+    var linearLayoutManager: LinearLayoutManager? = null
+
+    var rankingPresenter: RankingPresenterImpl? = null
 
     override fun getLayoutResource(): Int {
-        return R.layout.fragment_category
+        return R.layout.fragment_weekly_ranking
     }
     override fun handleBackEvent(): Boolean {
         return false
@@ -59,36 +60,28 @@ class CategoryFragment : BaseFragment(),AdapterView.OnItemClickListener,Category
     }
 
     fun initialize () {
-        categoryPresenter = CategoryPresenterImpl(this)
+        (activity as MainActivity).toolbar.setTitle("Weekly ranking")
 
-        mRvCategory.setHasFixedSize(true)
-        gridLayoutManager = GridLayoutManager(activity, 2)//这里用线性宫格显示 类似于瀑布流
-        mRvCategory.setLayoutManager(gridLayoutManager)
+        rankingPresenter = RankingPresenterImpl(this)
 
-        categoryAdapter = CategoryAdapter(activity!!,this)
-        categoryAdapter?.setHeaderVisible(false)
-        categoryAdapter?.setFooterVisible(false)
-        mRvCategory.adapter = categoryAdapter
+        linearLayoutManager = mRvWeeklyRanking.layoutManager as LinearLayoutManager
 
-        gridLayoutManager?.setSpanSizeLookup(object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                if ((position + 2) % 5 == 4) {
-                    return 2;
-                } else {
-                    return 1;
-                }
+        mRvWeeklyRanking.setHasFixedSize(true)
 
-            }
-        })
+        rankingAdapter = RankingAdapter(activity!!,this)
+        rankingAdapter?.setHeaderVisible(false)
+        rankingAdapter?.setFooterVisible(false)
+        mRvWeeklyRanking.adapter = rankingAdapter
 
-        mRvCategory.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+        mRvWeeklyRanking.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
             }
 
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-               val lastVisibleItemPosition = gridLayoutManager?.findLastVisibleItemPosition()
+               val lastVisibleItemPosition = linearLayoutManager?.findLastVisibleItemPosition()
 
                 if (dy > actionbarScrollPoint) {
                     (activity as MainActivity).showActionbar(false, true)
@@ -113,31 +106,31 @@ class CategoryFragment : BaseFragment(),AdapterView.OnItemClickListener,Category
     }
 
     fun initData () {
-        sendCategoryRequest()
+        sendWeeklyRankingRequest()
     }
 
-    fun sendCategoryRequest () {
-        categoryPresenter?.sendRequest(String.format(WebConfig.getRequestUrl(WebConfig.FIND_CATEGORIES_URL),
-                DeviceUtils.getUDID(),DeviceUtils.getPhoneModel()),null,null)
+    fun sendWeeklyRankingRequest () {
+        rankingPresenter?.sendRequest(String.format(WebConfig.getRequestUrl(WebConfig.HOT_WEEKLY_URL),
+                DeviceUtils.getPhoneModel()),null,null)
     }
 
-    override fun OnCategory(data: Any?, msg: String) {
-        var category = data!! as List<CategoryReq>
-        categoryAdapter?.add(category)
-        categoryAdapter?.notifyDataSetChanged()
+    override fun OnRanking(data: Any?, msg: String) {
+        var weeklyRankingReq = data!! as TrendingReq
+        rankingAdapter?.add(weeklyRankingReq.itemList)
+        rankingAdapter?.notifyDataSetChanged()
     }
 
     override fun onItemClick(parentView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        CategoryActivity.intentStart(activity as AppCompatActivity,
-                categoryAdapter?.getItem(position) as CategoryReq,
-                view?.findViewById(R.id.mIvPoster) as View,
-                getString(R.string.transition_album_img))
+        VideoDetailActivity.intentStart(activity as AppCompatActivity,
+                rankingAdapter?.getItem(position) as HomeItemInfo,
+                view?.findViewById(R.id.mIvRankingPoster) as View,
+                getString(R.string.transition_video_img))
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        categoryPresenter!!.detachView()
-        categoryPresenter = null
+        rankingPresenter?.detachView()
+        rankingPresenter = null
     }
 
 }

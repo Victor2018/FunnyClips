@@ -52,6 +52,9 @@
             android:name=".CategoryActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+            android:name=".VideoCategoryActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".ThemeSettingActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity

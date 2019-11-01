@@ -4,13 +4,16 @@ package com.victor.clips.data
  * -----------------------------------------------------------------
  * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
- * File: CategoryInfo.java
+ * File: FollowItem.java
  * Author: Victor
- * Date: 2019/10/31 11:47
+ * Date: 2019/11/1 9:55
  * Description:
  * -----------------------------------------------------------------
  */
-class CategoryInfo {
-    var categoryName: String? = null
-    var categoryImgRes: Int = 0
+class FollowItem {
+    var id: Int = 0
+    var adIndex: Int = 0
+    var type: String? = null
+    var tag: String? = null
+    var data: FollowInfo? = null
 }

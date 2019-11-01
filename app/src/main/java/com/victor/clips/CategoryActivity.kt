@@ -1,6 +1,5 @@
 package com.victor.clips
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -9,30 +8,26 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import com.victor.clips.adapter.CategoryAdapter
 import com.victor.clips.adapter.CategoryDetailAdapter
+import com.victor.clips.data.CategoryInfo
 import com.victor.clips.data.CategoryReq
 import com.victor.clips.data.HomeItemInfo
 import com.victor.clips.data.TrendingReq
+import com.victor.clips.module.DataObservable
 import com.victor.clips.presenter.CategoryDetailPresenterImpl
-import com.victor.clips.util.Constant
-import com.victor.clips.util.DeviceUtils
-import com.victor.clips.util.ImageUtils
-import com.victor.clips.util.WebConfig
+import com.victor.clips.util.*
 import com.victor.clips.view.CategoryDetailView
 import kotlinx.android.synthetic.main.activity_category.*
+import kotlinx.android.synthetic.main.activity_video_category.*
+import kotlinx.android.synthetic.main.activity_video_category.toolbar
 
 
-class CategoryActivity : BaseActivity(),View.OnClickListener,CategoryDetailView,
-        AdapterView.OnItemClickListener {
-    var categoryDetailPresenter: CategoryDetailPresenterImpl? = null
-    var categoryDetailAdapter: CategoryDetailAdapter? = null
-
+class CategoryActivity : BaseActivity(),View.OnClickListener,AdapterView.OnItemClickListener {
+    var categoryAdapter: CategoryAdapter? = null
     companion object {
-        fun  intentStart (activity: AppCompatActivity, category: CategoryReq, sharedElement: View, sharedElementName: String) {
+        fun  intentStart (activity: AppCompatActivity, sharedElement: View, sharedElementName: String) {
             var intent = Intent(activity,CategoryActivity::class.java)
-            var bundle = Bundle()
-            bundle.putSerializable(Constant.INTENT_DATA_KEY,category)
-            intent.putExtras(bundle)
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,sharedElement, sharedElementName)
             ActivityCompat.startActivity(activity!!, intent, options.toBundle())
         }
@@ -52,31 +47,29 @@ class CategoryActivity : BaseActivity(),View.OnClickListener,CategoryDetailView,
         setSupportActionBar(toolbar);
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
 
-        categoryDetailPresenter = CategoryDetailPresenterImpl(this)
+        mRvCategory.setHasFixedSize(true)
+        categoryAdapter = CategoryAdapter(this,this)
+        categoryAdapter?.setHeaderVisible(false)
+        categoryAdapter?.setFooterVisible(false)
+        mRvCategory.adapter = categoryAdapter
 
-        categoryDetailAdapter = CategoryDetailAdapter(this,this)
-        categoryDetailAdapter?.setHeaderVisible(false)
-        categoryDetailAdapter?.setFooterVisible(false)
-
-        mRvCategoryDetail.adapter = categoryDetailAdapter
+        mFabCategory.setOnClickListener(this)
     }
 
     fun initData (){
-        var categoryReq = intent.extras.getSerializable(Constant.INTENT_DATA_KEY) as CategoryReq
-        ImageUtils.instance.loadImage(this,mIvPoster,categoryReq.bgPicture)
-        mCtlTitle.title = categoryReq.name
-        sendCategoryDetailRequest(categoryReq.id)
-    }
+        var categoryTitleList = resources.getStringArray(R.array.category_list)
+        var categoryImgResList = resources.obtainTypedArray(R.array.beautiful)
+        for (index in 0 until categoryTitleList.size) {
+            var info = CategoryInfo()
+            info.categoryName = categoryTitleList[index]
+            info.categoryImgRes = categoryImgResList.getResourceId(index, 0)
+            categoryAdapter?.add(info)
+        }
+        var position = SharePreferencesUtil.getInt(this,Constant.CATEGORY_POSITION_KEY,-1)
+        mIvCategoryPoster.setImageResource(categoryAdapter?.getItem(position)?.categoryImgRes!!)
+        categoryAdapter?.currentPosition = position
 
-    fun sendCategoryDetailRequest (id: Int) {
-        categoryDetailPresenter?.sendRequest(String.format(WebConfig.getRequestUrl(WebConfig.CATEGORY_DETAIL_URL),
-                id, DeviceUtils.getPhoneModel()),null,null)
-    }
-
-    override fun OnCategoryDetail(data: Any?, msg: String) {
-        var category = data!! as TrendingReq
-        categoryDetailAdapter?.add(category.itemList)
-        categoryDetailAdapter?.notifyDataSetChanged()
+        categoryAdapter?.notifyDataSetChanged()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -91,21 +84,21 @@ class CategoryActivity : BaseActivity(),View.OnClickListener,CategoryDetailView,
 
     override fun onClick(v: View?) {
         when(v?.id) {
+            R.id.mFabCategory -> {
+                SharePreferencesUtil.putInt(this,Constant.CATEGORY_POSITION_KEY,categoryAdapter?.currentPosition!!)
+                onBackPressed()
+            }
         }
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        VideoDetailActivity.intentStart(this,
-                categoryDetailAdapter?.getItem(position) as HomeItemInfo,
-                view?.findViewById(R.id.mIvCategoryDetailPoster) as View,
-                getString(R.string.transition_video_img))
+        mIvCategoryPoster.setImageResource(categoryAdapter?.getItem(position)?.categoryImgRes!!)
+        categoryAdapter?.currentPosition = position
+        categoryAdapter?.notifyDataSetChanged()
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
-        categoryDetailPresenter!!.detachView()
-        categoryDetailPresenter = null
     }
 
 }
