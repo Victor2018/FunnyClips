@@ -46,9 +46,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
             android:name=".CategoryActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
@@ -58,9 +55,34 @@
             android:name=".ThemeSettingActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+            android:name=".AboutActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".WebActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".VideoDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <!-- Scheme代理跳转 -->
+        <activity
+            android:name=".SchemaProxyActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="victor" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.victor.clips.scheme" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

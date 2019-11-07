@@ -171,7 +171,8 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
 
         isSmallScreenPlay = !isSmallScreenPlay
         isFullScreenPlay = !isFullScreenPlay
-        mFabFullScreen.setImageResource(R.mipmap.ic_exit_fullscreen)
+
+        setFabBtnVisible(false)
     }
 
     fun exitFullScreen () {
@@ -201,7 +202,18 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
         }
         isSmallScreenPlay = !isSmallScreenPlay
         isFullScreenPlay = !isFullScreenPlay
-        mFabFullScreen.setImageResource(R.mipmap.ic_fullscreen)
+
+        setFabBtnVisible(true)
+    }
+
+    fun setFabBtnVisible (show: Boolean) {
+        if (show) {
+            mFabFullScreen.setImageResource(R.mipmap.ic_fullscreen)
+            mFabFullScreen.visibility = View.VISIBLE
+        } else {
+            mFabFullScreen.setImageResource(R.mipmap.ic_exit_fullscreen)
+            mFabFullScreen.visibility = View.GONE
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

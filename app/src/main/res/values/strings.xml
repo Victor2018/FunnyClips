@@ -12,6 +12,8 @@
     <string name="transition_video_img">transition_video_img</string>
     <string name="transition_gank_img">transition_gank_img</string>
     <string name="transition_fab_icon">transition_fab_icon</string>
+    <string name="transition_about_img">transition_about_img</string>
+    <string name="transition_category_title">transition_category_title</string>
 
     <string name="cd_second_item_image">second item image</string>
     <string name="cd_avatar">avatar</string>
@@ -32,5 +34,12 @@
 
     <string name="gank">干货</string>
     <string name="share">分享</string>
+    <string name="github">Github</string>
     <string name="copyright_content">视频资源来自开眼，版权归源所有者。</string>
+    <string name="current_version">当前版本：</string>
+
+    <string name="github_url">https://github.com/Victor2018</string>
+    <string name="github_project">Project：<a href="victor://openurl?url=https://github.com/Victor2018/FunnyClips">FunnyClips</a></string>
+    <string name="download_app">Download：<a href="victor://openurl?url=https://fir.im/FunnyClips">Poke here</a></string>
+    <string name="share_app">给你分享一个开源视频应用：https://fir.im/FunnyClips</string>
 </resources>

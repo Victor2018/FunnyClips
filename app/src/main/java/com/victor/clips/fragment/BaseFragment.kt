@@ -19,7 +19,10 @@ import java.util.*
  * -----------------------------------------------------------------
  */
 abstract class BaseFragment : Fragment(),Observer {
-    var fragmentId = -1
+    companion object {
+        val ID_KEY = "ID_KEY"
+        var fragmentId = -1
+    }
 
     protected var rootView: View? = null
     //Fragment对用户可见的标记

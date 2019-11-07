@@ -3,11 +3,11 @@
     android:duration="1000">
     <translate
         android:fromYDelta="0"
-        android:toYDelta="100%"></translate>
+        android:toYDelta="-100%"/>
 
     <alpha
         android:fromAlpha="1"
-        android:toAlpha="0"></alpha>
+        android:toAlpha="0"/>
 </set>
 
 

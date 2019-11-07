@@ -11,21 +11,14 @@ import com.victor.clips.MainActivity
 import com.victor.clips.R
 import com.victor.clips.VideoDetailActivity
 import com.victor.clips.adapter.FollowAdapter
-import com.victor.clips.adapter.LiveAdapter
 import com.victor.clips.data.FollowReq
 import com.victor.clips.data.HomeItemInfo
 import com.victor.clips.presenter.FollowPresenterImpl
-import com.victor.clips.presenter.LivePresenterImpl
-import com.victor.clips.util.Constant
 import com.victor.clips.util.DeviceUtils
 import com.victor.clips.util.WebConfig
 import com.victor.clips.view.FollowView
 import kotlinx.android.synthetic.main.activity_category.*
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.fragment_follow.*
-import kotlinx.android.synthetic.main.fragment_live.*
-import kotlinx.android.synthetic.main.fragment_total_ranking.*
-import kotlinx.android.synthetic.main.rv_follow_item_cell.view.*
 
 /*
  * -----------------------------------------------------------------
@@ -38,13 +31,23 @@ import kotlinx.android.synthetic.main.rv_follow_item_cell.view.*
  * -----------------------------------------------------------------
  */
 class FollowFragment: BaseFragment(),FollowView,AdapterView.OnItemClickListener {
-    var actionbarScrollPoint: Float = 0f
-    var summaryScrolled: Float = 0f
-    var maxScroll: Float = 0f
 
     var followPresenter: FollowPresenterImpl? = null
     var linearLayoutManager: LinearLayoutManager? = null
     var followAdapter: FollowAdapter? = null
+
+    companion object {
+        fun newInstance(): FollowFragment {
+            return newInstance(0)
+        }
+        fun newInstance(id: Int): FollowFragment {
+            val fragment = FollowFragment()
+            val bundle = Bundle()
+            bundle.putInt(ID_KEY, id)
+            fragment.setArguments(bundle)
+            return fragment
+        }
+    }
 
     override fun getLayoutResource(): Int {
         return R.layout.fragment_follow
@@ -74,34 +77,7 @@ class FollowFragment: BaseFragment(),FollowView,AdapterView.OnItemClickListener 
         followAdapter = FollowAdapter(context!!,this)
         mRvFollow.adapter = followAdapter
 
-        mRvFollow.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
-
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val lastVisibleItemPosition = linearLayoutManager?.findLastVisibleItemPosition()
-
-                if (dy > actionbarScrollPoint) {
-                    (activity as MainActivity).showActionbar(false, true)
-                }
-
-                if (dy < actionbarScrollPoint * -1) {
-                    (activity as MainActivity).showActionbar(true, true)
-                }
-
-                summaryScrolled += dy
-                (activity as MainActivity).mIvBubbles.setTranslationY(-0.5f * summaryScrolled)
-                var alpha = summaryScrolled / maxScroll
-                alpha = Math.min(1.0f, alpha)
-
-                (activity as MainActivity).setToolbarAlpha(alpha)
-                //change background color on scroll
-                val color = Math.max(Constant.BG_COLOR_MIN, Constant.BG_COLOR_MAX - summaryScrolled * 0.05f)
-                (activity as MainActivity).mRlMainParent.setBackgroundColor(Color.argb(255, color.toInt(), color.toInt(), color.toInt()))
-            }
-        })
+        mRvFollow.addOnScrollListener((activity as MainActivity).OnScrollListener())
     }
 
     fun initData () {

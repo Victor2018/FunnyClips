@@ -1,28 +1,34 @@
 package com.victor.clips
 
+import android.content.Intent
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.view.Menu
 import android.view.MenuItem
-import com.victor.clips.data.ProgramReq
-import com.victor.clips.view.ProgramView
 import kotlinx.android.synthetic.main.toolbar.*
 import android.support.v4.view.ViewCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.RecyclerView
 import android.view.KeyEvent
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import android.view.animation.DecelerateInterpolator
 import com.victor.clips.fragment.*
+import com.victor.clips.module.SchemaModule
 import com.victor.clips.util.*
-import java.util.*
 
 
 class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListener,
         View.OnClickListener {
+
+    var actionbarScrollPoint: Float = 0f
+    var summaryScrolled: Float = 0f
+    var maxScroll: Float = 0f
 
     var currentFragment: Fragment? = null
     var actionBarShown = true
@@ -39,7 +45,7 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
 
     override fun onResume() {
         super.onResume()
-        switchFragment(getCurrentFrag())
+        switchFragment(currentFragment,getCurrentFrag())
         initData()
     }
 
@@ -55,17 +61,32 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
 
         navigationView.setNavigationItemSelectedListener(this);
         mFabMain.setOnClickListener(this)
+
+        SharePreferencesUtil.putInt(this,Constant.CATEGORY_POSITION_KEY,0)
     }
 
     fun injectViewsAndSetUpToolbar() {
         ViewCompat.setElevation(appbar_layout, DensityUtil.dip2px(this@MainActivity, 4.0f).toFloat())
     }
 
-     fun switchFragment(fragment: Fragment) {
-        if (currentFragment == null || fragment.javaClass.name != currentFragment?.javaClass?.name) {
-            supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
-            currentFragment = fragment
-        }
+     fun switchFragment(fromFragment: Fragment?,toFragment: Fragment?) {
+         if (currentFragment?.javaClass?.name == toFragment?.javaClass?.name) {
+             return
+         }
+
+         currentFragment = toFragment
+
+         val ft = supportFragmentManager.beginTransaction()
+         ft.setCustomAnimations(R.anim.anim_fragment_enter, R.anim.anim_fragment_exit)
+         if (toFragment?.isAdded()!!) {
+             ft.show(toFragment)
+         } else {
+             ft.add(R.id.container, toFragment)
+         }
+         if (fromFragment != null) {
+             ft.hide(fromFragment)
+         }
+         ft.commitAllowingStateLoss()
     }
 
     fun showActionbar(show: Boolean, animate: Boolean) {
@@ -127,7 +148,12 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
 
         when(item.itemId) {
             R.id.action_share -> {
-                SnackbarUtil.ShortSnackbar(drawer,"share").show()
+                var intentshare = Intent(Intent.ACTION_SEND);
+                intentshare.setType(Constant.SHARE_TYPE)
+                        .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share))
+                        .putExtra(Intent.EXTRA_TEXT,getString(R.string.share_app));
+                Intent.createChooser(intentshare, getString(R.string.share));
+                startActivity(intentshare);
                 return true
             }
         }
@@ -150,7 +176,7 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
                 ThemeSettingActivity.intentStart(this)
             }
             R.id.nav_about -> {
-                SnackbarUtil.ShortSnackbar(drawer,"about").show()
+                AboutActivity.intentStart(this)
             }
         }
         drawer.closeDrawer(GravityCompat.START);
@@ -169,27 +195,27 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
     fun getCurrentFrag ():Fragment {
         if (isInitialize) {
             isInitialize = false
-            return VideoCategoryFragment()
+            return VideoCategoryFragment.newInstance()
         }
         var position = SharePreferencesUtil.getInt(this,Constant.CATEGORY_POSITION_KEY,-1)
         when(position) {
             0 -> {
-                return VideoCategoryFragment()
+                return VideoCategoryFragment.newInstance()
             }
             1 -> {
-                return WeeklyRankingFragment()
+                return WeeklyRankingFragment.newInstance()
             }
             2 -> {
-                return MonthlyRankingFragment()
+                return MonthlyRankingFragment.newInstance()
             }
             3 -> {
-                return TotalRankingFragment()
+                return TotalRankingFragment.newInstance()
             }
             4 -> {
-                return FollowFragment()
+                return FollowFragment.newInstance()
             }
         }
-        return VideoCategoryFragment()
+        return VideoCategoryFragment.newInstance()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -199,6 +225,10 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
                     drawer.closeDrawer(GravityCompat.START);
                     return true;
                 }
+                if (currentFragment !is VideoCategoryFragment) {
+                    switchFragment(currentFragment,VideoCategoryFragment.newInstance())
+                    return true
+                }
             }
         }
         return super.onKeyDown(keyCode, event)
@@ -206,6 +236,31 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    internal inner class OnScrollListener : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            //        val lastVisibleItemPosition = gridLayoutManager?.findLastVisibleItemPosition()
+
+            if (dy > actionbarScrollPoint) {
+                showActionbar(false, true)
+            }
+
+            if (dy < actionbarScrollPoint * -1) {
+                showActionbar(true, true)
+            }
+
+            summaryScrolled += dy
+            mIvBubbles.setTranslationY(-0.5f * summaryScrolled)
+            var alpha = summaryScrolled / maxScroll
+            alpha = Math.min(1.0f, alpha)
+
+            setToolbarAlpha(alpha)
+            //change background color on scroll
+            val color = Math.max(Constant.BG_COLOR_MIN, Constant.BG_COLOR_MAX - summaryScrolled * 0.05f)
+            mRlMainParent.setBackgroundColor(Color.argb(255, color.toInt(), color.toInt(), color.toInt()))
+        }
     }
 
 }

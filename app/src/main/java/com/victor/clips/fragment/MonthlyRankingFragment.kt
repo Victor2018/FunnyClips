@@ -36,14 +36,23 @@ import kotlinx.android.synthetic.main.fragment_weekly_ranking.*
  */
 class MonthlyRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,RankingView {
 
-    var actionbarScrollPoint: Float = 0f
-    var summaryScrolled: Float = 0f
-    var maxScroll: Float = 0f
-
     var rankingAdapter: RankingAdapter? = null
     var linearLayoutManager: LinearLayoutManager? = null
 
     var rankingPresenter: RankingPresenterImpl? = null
+
+    companion object {
+        fun newInstance(): MonthlyRankingFragment {
+            return newInstance(0)
+        }
+        fun newInstance(id: Int): MonthlyRankingFragment {
+            val fragment = MonthlyRankingFragment()
+            val bundle = Bundle()
+            bundle.putInt(ID_KEY, id)
+            fragment.setArguments(bundle)
+            return fragment
+        }
+    }
 
     override fun getLayoutResource(): Int {
         return R.layout.fragment_monthly_ranking
@@ -74,35 +83,7 @@ class MonthlyRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,Ra
         rankingAdapter?.setFooterVisible(false)
         mRvMonthlyRanking.adapter = rankingAdapter
 
-
-        mRvMonthlyRanking.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
-
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-               val lastVisibleItemPosition = linearLayoutManager?.findLastVisibleItemPosition()
-
-                if (dy > actionbarScrollPoint) {
-                    (activity as MainActivity).showActionbar(false, true)
-                }
-
-                if (dy < actionbarScrollPoint * -1) {
-                    (activity as MainActivity).showActionbar(true, true)
-                }
-
-                summaryScrolled += dy
-                (activity as MainActivity).mIvBubbles.setTranslationY(-0.5f * summaryScrolled)
-                var alpha = summaryScrolled / maxScroll
-                alpha = Math.min(1.0f, alpha)
-
-                (activity as MainActivity).setToolbarAlpha(alpha)
-                //change background color on scroll
-                val color = Math.max(Constant.BG_COLOR_MIN, Constant.BG_COLOR_MAX - summaryScrolled * 0.05f)
-                (activity as MainActivity).mRlMainParent.setBackgroundColor(Color.argb(255, color.toInt(), color.toInt(), color.toInt()))
-            }
-        })
+        mRvMonthlyRanking.addOnScrollListener((activity as MainActivity).OnScrollListener())
 
     }
 

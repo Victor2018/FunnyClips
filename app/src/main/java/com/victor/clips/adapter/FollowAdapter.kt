@@ -7,20 +7,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.widget.AdapterView
 import com.victor.clips.R
-import com.victor.clips.app.App
-import com.victor.clips.data.FollowInfo
 import com.victor.clips.data.FollowItem
-import com.victor.clips.data.VideoCategoryInfo
 import com.victor.clips.holder.ContentViewHolder
-import com.victor.clips.holder.LiveContentViewHolder
 import com.victor.clips.util.ImageUtils
 import com.victor.clips.util.Loger
 import com.victor.clips.widget.GravitySnapHelper
-import kotlinx.android.synthetic.main.activity_video_detail.*
-import kotlinx.android.synthetic.main.adapter_media_type_item.view.*
 import kotlinx.android.synthetic.main.adapter_media_type_item.view.recyclerView
 import kotlinx.android.synthetic.main.rv_follow_cell.view.*
-import kotlinx.android.synthetic.main.rv_video_category_cell.view.*
 
 /*
  * -----------------------------------------------------------------

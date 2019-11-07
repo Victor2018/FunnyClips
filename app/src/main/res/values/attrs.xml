@@ -13,46 +13,6 @@
     <attr name="md_link_color" format="reference" />
     <attr name="md_positive_color" format="reference" />
 
-    <declare-styleable name="NavigationToolBarr">
-        <attr name="headerBackgroundLayout" format="reference"/>
-        <attr name="headerOnScreenItemCount" format="integer"/>
-        <attr name="headerCollapsingBySelectDuration" format="integer"/>
-        <attr name="headerTopBorderAtSystemBar" format="boolean"/>
-        <attr name="headerVerticalItemWidth" format="dimension">
-            <enum name="fill_parent" value="-1"/>
-            <enum name="match_parent" value="-1"/>
-        </attr>
-        <attr name="headerVerticalGravity" format="enum">
-            <enum name="left" value="-1"/>
-            <enum name="center" value="-2"/>
-            <enum name="right" value="-3"/>
-        </attr>
-    </declare-styleable>
-
-    <declare-styleable name="GalleryRecyclerView">
-        <attr name="helper" format="string">
-            <enum name="LinearSnapHelper" value="0" />
-            <enum name="PagerSnapHelper" value="1" />
-        </attr>
-
-    </declare-styleable>
-
-    <declare-styleable name="VerticalTextView">
-        <attr name="text" format="string|reference"/>
-        <attr name="textColor" format="color|reference"/>
-        <attr name="textSize" format="dimension|reference"/>
-        <attr name="rowSpacing" format="dimension|reference"/>
-        <attr name="columnSpacing" format="dimension|reference"/>
-        <attr name="columnLength" format="integer"/>
-        <attr name="maxColumns" format="integer"/>
-        <attr name="atMostHeight" format="boolean"/>
-        <attr name="isCharCenter" format="boolean"/>
-        <attr name="textStyle">
-            <flag name="normal" value="0" />
-            <flag name="bold" value="1" />
-            <flag name="italic" value="2" />
-        </attr>
-    </declare-styleable>
 
     <declare-styleable name="CircleBorderImageView">
         <attr name="aiv_TextSizeRatio" format="reference|float" />
@@ -62,39 +22,6 @@
         <attr name="aiv_BoarderWidth" format="reference|dimension" />
         <attr name="aiv_ShowBoarder" format="reference|boolean" />
         <attr name="aiv_CornerRadius" format="reference|dimension" />
-    </declare-styleable>
-
-    <declare-styleable name="CircleView">
-        <attr name="cv_color" format="color" />
-        <attr name="cv_color_start" format="color" />
-        <attr name="cv_color_end" format="color" />
-        <attr name="cv_color_direction">
-            <flag name="left_to_right" value="1" />
-            <flag name="right_to_left" value="2" />
-            <flag name="top_to_bottom" value="3" />
-            <flag name="bottom_to_top" value="4" />
-        </attr>
-        <attr name="cv_border" format="boolean" />
-        <attr name="cv_border_width" format="dimension" />
-        <attr name="cv_border_color" format="color" />
-        <attr name="cv_border_color_start" format="color" />
-        <attr name="cv_border_color_end" format="color" />
-        <attr name="cv_border_color_direction">
-            <flag name="left_to_right" value="1" />
-            <flag name="right_to_left" value="2" />
-            <flag name="top_to_bottom" value="3" />
-            <flag name="bottom_to_top" value="4" />
-        </attr>
-        <attr name="cv_shadow" format="boolean" />
-        <attr name="cv_shadow_color" format="color" />
-        <attr name="cv_shadow_radius" format="float" />
-        <attr name="cv_shadow_gravity">
-            <flag name="center" value="1" />
-            <flag name="top" value="2" />
-            <flag name="bottom" value="3" />
-            <flag name="start" value="4" />
-            <flag name="end" value="5" />
-        </attr>
     </declare-styleable>
 
     <declare-styleable name="RoundRectImageView">

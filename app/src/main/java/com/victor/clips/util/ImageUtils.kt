@@ -189,6 +189,22 @@ class ImageUtils {
                     }
                 })
     }
+    fun imageGauss(context: Context,imageView: ImageView?, resId: Int, radius: Int) {
+        if (imageView == null) {
+            Loger.e(TAG, "imageView == null")
+            return
+        }
+        Glide.with(context)
+                .load(resId)
+                .apply(options!!.placeholder(ColorUtil.getDefaultRandomColor())
+                        .error(ColorUtil.getDefaultRandomColor()))
+                .into(object : SimpleTarget<Drawable>() {
+                    override fun onResourceReady(resource: Drawable, transition: com.bumptech.glide.request.transition.Transition<in Drawable>?) {
+                        imageGauss(imageView, drawableToBitmap(resource!!), radius)
+                    }
+                })
+
+    }
 
     fun drawableToBitmap(drawable: Drawable): Bitmap {
 
@@ -213,6 +229,13 @@ class ImageUtils {
             return
         }
         imageGauss(context,imageView, url, 10)
+    }
+    fun imageGauss(context: Context,imageView: ImageView?, resId: Int) {
+        if (imageView == null) {
+            Loger.e(TAG, "imageView == null")
+            return
+        }
+        imageGauss(context,imageView, resId, 10)
     }
 
     fun imageGauss(imageView: ImageView, bitmap: Bitmap) {

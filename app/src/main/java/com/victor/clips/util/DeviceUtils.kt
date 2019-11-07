@@ -23,7 +23,7 @@ import kotlin.experimental.and
  * -----------------------------------------------------------------
  * Copyright (C) 2018-2028, by Victor, All rights reserved.
  * -----------------------------------------------------------------
- * File: DeviceUtils.java
+ * File: DeviceUtils.kt
  * Author: Victor
  * Date: 2019/4/2 16:29
  * Description:

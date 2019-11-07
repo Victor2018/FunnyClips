@@ -1,5 +1,6 @@
 package com.victor.clips
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.victor.clips.module.DataObservable
@@ -88,5 +89,15 @@ abstract class BaseActivity: AppCompatActivity(),Observer {
     }
 
     override fun update(observable: Observable?, data: Any?) {
+    }
+
+    override fun startActivity(intent: Intent?) {
+        super.startActivity(intent)
+        overridePendingTransition(R.anim.anim_activity_enter, R.anim.anim_activity_exit);
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.anim_activity_enter_back, R.anim.anim_activity_exit_back);
     }
 }

@@ -1,9 +1,6 @@
 package com.victor.clips.presenter
 
-import com.victor.clips.data.HomeReq
 import com.victor.clips.data.TrendingReq
-import com.victor.clips.util.Loger
-import com.victor.clips.view.BannerView
 import com.victor.clips.view.RelatedVideoView
 import org.victor.khttp.library.annotation.HttpParms
 import org.victor.khttp.library.data.Request
