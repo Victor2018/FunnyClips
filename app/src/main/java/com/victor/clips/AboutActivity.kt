@@ -1,6 +1,7 @@
 package com.victor.clips
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -14,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_about.*
 import kotlinx.android.synthetic.main.activity_video_detail.mVideoToolbar
 
 class AboutActivity : BaseActivity(),View.OnClickListener {
+
+    var fontStyle: Typeface? = null
 
     companion object {
         fun  intentStart (activity: AppCompatActivity) {
@@ -33,8 +36,16 @@ class AboutActivity : BaseActivity(),View.OnClickListener {
     }
 
     fun initialize () {
-        setSupportActionBar(mVideoToolbar);
+        setSupportActionBar(mAboutToolbar);
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
+
+        fontStyle = Typeface.createFromAsset(getAssets(), "fonts/ZuoAnLianRen.ttf");
+
+        mCtvVersion.setTypeface(fontStyle)
+        mTvGmail.setTypeface(fontStyle)
+        mTvGithub.setTypeface(fontStyle)
+        mTvDownloadApp.setTypeface(fontStyle)
+        mTvSupport.setTypeface(fontStyle)
 
         mTvGithub.movementMethod = LinkMovementMethod.getInstance()
         mTvDownloadApp.movementMethod = LinkMovementMethod.getInstance()

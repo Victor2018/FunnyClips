@@ -30,7 +30,7 @@ class GravityDelegate {
     var listener: GravitySnapHelper.SnapListener? = null
     var snapping: Boolean = false
     val mScrollListener = object : RecyclerView.OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             if (newState == RecyclerView.SCROLL_STATE_SETTLING) {
                 snapping = false

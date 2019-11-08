@@ -12,7 +12,6 @@ import com.victor.clips.holder.ContentViewHolder
 import com.victor.clips.util.ImageUtils
 import com.victor.clips.util.Loger
 import com.victor.clips.widget.GravitySnapHelper
-import kotlinx.android.synthetic.main.adapter_media_type_item.view.recyclerView
 import kotlinx.android.synthetic.main.rv_follow_cell.view.*
 
 /*

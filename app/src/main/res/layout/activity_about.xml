@@ -52,7 +52,7 @@
                 android:textColorLink="?attr/colorPrimaryDark"
                 tools:text="v1.0.0"/>
             <android.support.v7.widget.Toolbar
-                android:id="@+id/mVideoToolbar"
+                android:id="@+id/mAboutToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/transparent"
@@ -79,6 +79,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 app:cardElevation="@dimen/dp_5">
                 <TextView
+                    android:id="@+id/mTvGmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_30"
@@ -130,6 +131,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 app:cardElevation="@dimen/dp_5">
                 <TextView
+                    android:id="@+id/mTvSupport"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mRvFollow"
     app:layoutManager="LinearLayoutManager"
-    tools:listitem="@layout/adapter_media_type_item"
+    tools:listitem="@layout/rv_follow_cell"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/dp_175"

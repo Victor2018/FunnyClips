@@ -10,7 +10,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:textSize="@dimen/dp_28"
-        android:textColor="@drawable/color_red_primary_rbtn_selector"
-        android:text="SchemaProxyActivity content"/>
+        android:text="SchemaProxyActivity content                   "/>
 
 </android.support.constraint.ConstraintLayout>
