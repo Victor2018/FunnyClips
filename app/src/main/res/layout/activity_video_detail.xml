@@ -63,7 +63,7 @@
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginLeft="@dimen/dp_30"/>
-            <com.victor.clips.widget.ColorMovingTextView
+            <com.victor.clips.ui.widget.ColorMovingTextView
                 android:id="@+id/mTvVideoDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <com.victor.clips.widget.PlayLayout
+    <com.victor.clips.ui.widget.PlayLayout
         android:id="@+id/mPlSmallPlay"
         android:layout_width="@dimen/dp_480"
         android:layout_height="@dimen/dp_320"

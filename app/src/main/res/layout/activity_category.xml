@@ -22,7 +22,7 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginStart="@dimen/dp_50"
             app:expandedTitleMarginEnd="@dimen/dp_65"
-            app:title="Select category">
+            app:title="@string/select_category">
             <ImageView
                 android:id="@+id/mIvCategoryPoster"
                 android:layout_width="match_parent"

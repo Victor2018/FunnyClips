@@ -1,7 +1,7 @@
 package com.victor.clips.presenter
 
 import com.victor.clips.data.CategoryReq
-import com.victor.clips.view.VideoCategoryView
+import com.victor.clips.ui.view.VideoCategoryView
 import org.victor.khttp.library.annotation.HttpParms
 import org.victor.khttp.library.data.Request
 import org.victor.khttp.library.inject.HttpInject

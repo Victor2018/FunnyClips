@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.victor.clips.widget.InsetsCoordinatorLayout
+<com.victor.clips.ui.widget.InsetsCoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@android:color/transparent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
     <RelativeLayout
         android:id="@+id/mRlMainParent"
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:layout_height="match_parent"/>
     </RelativeLayout>
     <include layout="@layout/toolbar"/>
-    <com.victor.clips.widget.ColorFloatingActionButton
+    <com.victor.clips.ui.widget.ColorFloatingActionButton
         android:id="@+id/mFabMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,6 +34,6 @@
         android:clickable="true"
         android:background="?attr/colorPrimary"
         android:transitionName="@string/transition_fab_icon"
-        app:layout_behavior="com.victor.clips.widget.FABBehaviour"/>
+        app:layout_behavior=".ui.widget.FABBehaviour"/>
 
-</com.victor.clips.widget.InsetsCoordinatorLayout>
+</com.victor.clips.ui.widget.InsetsCoordinatorLayout>

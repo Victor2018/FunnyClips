@@ -37,7 +37,7 @@
             android:value="${BUGLY_ENABLE_DEBUG}" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,28 +46,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CategoryActivity"
+            android:name=".ui.CategoryActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".VideoCategoryActivity"
+            android:name=".ui.VideoCategoryActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".ThemeSettingActivity"
+            android:name=".ui.ThemeSettingActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".AboutActivity"
+            android:name=".ui.AboutActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".WebActivity"
+            android:name=".ui.WebActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".VideoDetailActivity"
+            android:name=".ui.VideoDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <!-- Scheme代理跳转 -->
         <activity
-            android:name=".SchemaProxyActivity"
+            android:name=".ui.SchemaProxyActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

@@ -4,8 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.text.TextUtils
-import android.util.Log
-import com.victor.clips.WebActivity
+import com.victor.clips.ui.WebActivity
 import com.victor.clips.util.Loger
 
 /*
@@ -38,13 +37,11 @@ class SchemaModule {
             Loger.e(TAG, "dispatchSchema()-uri = $uri")
             if (uri == null) return
             val domain = uri.authority
-            val url = uri.getQueryParameter("url")
-            Loger.e(TAG, "dispatchSchema()-domain = $domain")
             try {
                 when (domain) {
                     DOMAIN_OPEN_URL -> {
                         //打开浏览器
-                        schemaWeb(ctx, uri, "")
+                        schemaWeb(ctx, uri)
                     }
                 }
             } catch (e: UnsupportedOperationException) {
@@ -60,13 +57,13 @@ class SchemaModule {
          * @param uri
          */
 
-        private fun schemaWeb(context: Context, uri: Uri, title: String) {
+        private fun schemaWeb(context: Context, uri: Uri) {
+            val title = uri.getQueryParameter("title")
             val url = uri.getQueryParameter("url")
             Loger.e(TAG, "schemaWeb()-url = " + url)
             if (TextUtils.isEmpty(url)) return
             WebActivity.intentStart(context, title, url)
         }
-
     }
 
 

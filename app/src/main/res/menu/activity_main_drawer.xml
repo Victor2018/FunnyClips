@@ -4,15 +4,15 @@
         <item
             android:id="@+id/nav_auto_update"
             android:icon="@mipmap/ic_update"
-            android:title="自动更新" />
+            android:title="@string/auto_update" />
         <item
             android:id="@+id/nav_clear"
             android:icon="@mipmap/ic_clear"
-            android:title="清理缓存" />
+            android:title="@string/clean_cache" />
         <item
             android:id="@+id/nav_copyright"
             android:icon="@mipmap/ic_copyright"
-            android:title="版权声明" />
+            android:title="@string/copy_right" />
     </group>
 
     <item android:title="">
@@ -20,11 +20,11 @@
             <item
                 android:id="@+id/nav_theme"
                 android:icon="@android:drawable/ic_dialog_dialer"
-                android:title="主题" />
+                android:title="@string/theme" />
             <item
                 android:id="@+id/nav_about"
                 android:icon="@mipmap/ic_about"
-                android:title="关于" />
+                android:title="@string/about" />
         </menu>
     </item>
 

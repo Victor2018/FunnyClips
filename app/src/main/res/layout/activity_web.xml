@@ -36,7 +36,7 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.victor.clips.widget.ProgressWebView
+    <com.victor.clips.ui.widget.ProgressWebView
         android:id="@+id/mPWeb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

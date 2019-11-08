@@ -16,7 +16,7 @@
         android:transitionName="@string/transition_video_img"
         android:scaleType="centerCrop"
         android:layout_gravity="center_vertical"/>
-    <com.victor.clips.widget.ColorTextView
+    <com.victor.clips.ui.widget.ColorTextView
         android:id="@+id/mTvRankingTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

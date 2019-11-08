@@ -11,7 +11,7 @@
     app:cardCornerRadius="@dimen/dp_5"
     app:cardElevation="@dimen/dp_5">
 
-    <com.victor.clips.widget.CircleBorderImageView
+    <com.victor.clips.ui.widget.CircleBorderImageView
         android:id="@+id/mCivCategoryAvatar"
         android:layout_width="@dimen/dp_100"
         android:layout_height="@dimen/dp_100"
@@ -22,7 +22,7 @@
         app:aiv_BoarderWidth="@dimen/dp_0"
         app:aiv_ShowBoarder="false"/>
 
-    <com.victor.clips.widget.ColorTextView
+    <com.victor.clips.ui.widget.ColorTextView
         android:id="@+id/mTvCategoryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
