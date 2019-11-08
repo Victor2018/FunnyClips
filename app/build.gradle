@@ -84,6 +84,8 @@ android {
 
         buildConfigField "int", "BUILD_CODE", mBuildCode
 
+        multiDexEnabled true
+
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath true
