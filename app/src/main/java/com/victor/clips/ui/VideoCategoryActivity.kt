@@ -60,6 +60,8 @@ class VideoCategoryActivity : BaseActivity(),View.OnClickListener,CategoryDetail
         categoryDetailAdapter?.setFooterVisible(false)
 
         mRvCategoryDetail.adapter = categoryDetailAdapter
+
+        mVideoCategoryGithub.setOnClickListener(this)
     }
 
     fun initData (){
@@ -92,6 +94,9 @@ class VideoCategoryActivity : BaseActivity(),View.OnClickListener,CategoryDetail
 
     override fun onClick(v: View?) {
         when(v?.id) {
+            R.id.mVideoCategoryGithub -> {
+                WebActivity.intentStart(this, getString(R.string.github), getString(R.string.github_url), false)
+            }
         }
     }
 

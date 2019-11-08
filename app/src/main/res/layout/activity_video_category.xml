@@ -52,7 +52,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_fullscreen"
+        android:id="@+id/mVideoCategoryGithub"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         app:layout_anchor="@id/appbar"
