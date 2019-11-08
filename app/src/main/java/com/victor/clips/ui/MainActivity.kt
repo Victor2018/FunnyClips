@@ -11,6 +11,7 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.toolbar.*
 import android.support.v4.view.ViewCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.KeyEvent
 import android.view.View
@@ -32,6 +33,13 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
     var currentFragment: Fragment? = null
     var actionBarShown = true
     var isInitialize = true
+
+    companion object {
+        fun  intentStart (activity: AppCompatActivity) {
+            var intent = Intent(activity, MainActivity::class.java)
+            activity.startActivity(intent)
+        }
+    }
 
     override fun getLayoutResource(): Int {
         return R.layout.activity_main

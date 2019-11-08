@@ -84,6 +84,12 @@ class SharePreferencesUtil {
             Log.e(TAG, "getBoolean()-$key=$value")
             return value
         }
+        fun getBoolean(context: Context, key: String,defaultValue: Boolean): Boolean {
+            val sp = context.getSharedPreferences(Constant.MA_DATA, Context.MODE_PRIVATE)
+            val value = sp.getBoolean(key, defaultValue)
+            Log.e(TAG, "getBoolean()-$key=$value")
+            return value
+        }
 
         fun getCurrentTheme(context: Context): Theme {
             return Theme.valueOf(getString(context, "app_theme", Theme

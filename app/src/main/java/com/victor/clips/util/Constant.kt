@@ -22,14 +22,10 @@ class Constant {
         const val SHARE_TYPE                        = "text/plain";
 
     }
+
     class Msg {
         companion object {
-            const val REQUEST_YOUTUBE               = 0x1001
-            const val REQUEST_VIMEO                 = 0x1002
-            const val SOCKET_TIME_OUT               = 0x1003
-            const val NETWORK_ERROR                 = 0x1004
-            const val SHOW_HOME_DATA                = 0x1005
-            const val SHOW_YOUTUBE_DETAIL           = 0x1006
+            const val ENTER_HAPPY_COAST             = 0x1001
         }
     }
     class Action {

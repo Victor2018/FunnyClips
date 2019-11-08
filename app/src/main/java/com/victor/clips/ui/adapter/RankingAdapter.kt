@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import com.victor.clips.R
 import com.victor.clips.data.HomeItemInfo
 import com.victor.clips.ui.holder.ContentViewHolder
+import com.victor.clips.ui.widget.parallaximageview.VerticalMovingStyle
 import com.victor.clips.util.ImageUtils
 import kotlinx.android.synthetic.main.rv_ranking_cell.view.*
 
@@ -41,6 +42,7 @@ class RankingAdapter(context: Context, listener: AdapterView.OnItemClickListener
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo, position: Int) {
         val contentViewHolder = viewHolder as ContentViewHolder
+        contentViewHolder.itemView.mIvRankingPoster.setParallaxStyles(VerticalMovingStyle())
         contentViewHolder.itemView.mTvRankingTitle.setTypeface(fontStyle);
         contentViewHolder.itemView.mTvRankingTitle.setText(data.data!!.title)
         ImageUtils.instance.loadImage(mContext!!,contentViewHolder.itemView.mIvRankingPoster, data.data!!.cover!!.feed)

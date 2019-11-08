@@ -101,14 +101,14 @@ android {
             signingConfig signingConfigs.release
             buildConfigField "boolean", "MODEL_ONLINE", "true"
             buildConfigField "boolean", "MODEL_DEBUG", "false"
-            manifestPlaceholders = [BUGLY_APPID : "${mBuglyAppID}", BUGLY_APP_VERSION: "${mVersionName}",
+            manifestPlaceholders = [BUGLY_APPID      : "${mBuglyAppID}", BUGLY_APP_VERSION: "${mVersionName}",
                                     BUGLY_APP_CHANNEL: "main", BUGLY_ENABLE_DEBUG: "false"]
         }
         debug {
             signingConfig signingConfigs.release
             buildConfigField "boolean", "MODEL_ONLINE", "false"
             buildConfigField "boolean", "MODEL_DEBUG", "true"
-            manifestPlaceholders = [BUGLY_APPID : "${mBuglyAppID}dev", BUGLY_APP_VERSION: "${mVersionName}",
+            manifestPlaceholders = [BUGLY_APPID      : "${mBuglyAppID}dev", BUGLY_APP_VERSION: "${mVersionName}",
                                     BUGLY_APP_CHANNEL: "main", BUGLY_ENABLE_DEBUG: "true"]
         }
     }
@@ -138,7 +138,7 @@ android {
             // 动态修改 常量 字段
             buildConfigField "boolean", "MODEL_ONLINE", "true"
             buildConfigField "boolean", "MODEL_DEBUG", "false"
-            manifestPlaceholders = [BUGLY_APPID : "${mBuglyAppID}", BUGLY_APP_VERSION: "${mVersionName}",
+            manifestPlaceholders = [BUGLY_APPID      : "${mBuglyAppID}", BUGLY_APP_VERSION: "${mVersionName}",
                                     BUGLY_APP_CHANNEL: "main", BUGLY_ENABLE_DEBUG: "false"]
         }
     }
@@ -246,7 +246,7 @@ build {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support:design:27.1.0'

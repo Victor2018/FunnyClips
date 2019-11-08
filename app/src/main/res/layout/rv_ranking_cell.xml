@@ -8,7 +8,7 @@
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="@dimen/dp_0"
     app:cardElevation="@dimen/dp_5">
-    <ImageView
+    <com.victor.clips.ui.widget.parallaximageview.ScrollParallaxImageView
         android:id="@+id/mIvRankingPoster"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

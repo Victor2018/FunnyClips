@@ -37,7 +37,7 @@
     <string name="copyright_content">The video resources come from an open eye and the copyright is owned by the owner.</string>
     <string name="current_version">Current version：</string>
 
-<!--about us-->
+    <!--about us-->
     <string name="gmail">Gmail: victor423099@gmail.com</string>
     <string name="github_url">https://github.com/Victor2018</string>
     <string name="github_project">Project：<a href="victor://openurl?title=Github project&amp;url=https://github.com/Victor2018/FunnyClips">FunnyClips</a></string>
