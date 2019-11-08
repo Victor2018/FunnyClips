@@ -55,4 +55,7 @@
     <string name="about">About</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
+    <string name="copy_to_clipboard">Copied to the clipboard</string>
+    <string name="cope_the_url">Cope the url</string>
+    <string name="open_in_browser">Open in browser</string>
 </resources>

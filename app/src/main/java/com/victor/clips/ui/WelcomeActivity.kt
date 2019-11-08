@@ -4,11 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Message
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import com.victor.clips.R
 import com.victor.clips.util.Constant.Msg.Companion.ENTER_HAPPY_COAST
 import org.victor.khttp.library.util.MainHandler
 import android.view.animation.AnimationUtils
 import com.victor.clips.util.AppUtil
+import com.victor.clips.util.Constant
 import kotlinx.android.synthetic.main.activity_welcome.*
 
 

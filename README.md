@@ -1,5 +1,10 @@
 # Introduction：
-	This is a short video application of MaterialDesign design style. The video resources are from open source. This application is only for learning and use. Please do not use it!
+This is a short video application of MaterialDesign design style coding by kotlin.
+The video resources are from open source. This application is only for learning and use.
+Please do not use it!
+
+# Rendering:
+![image](https://github.com/Victor2018/FunnyClips/raw/master/SrceenShot/rendering.gif)
 
 # Screenshot：
 ![image](https://github.com/Victor2018/FunnyClips/raw/master/SrceenShot/st_1.png)
@@ -11,7 +16,6 @@
 ![image](https://github.com/Victor2018/FunnyClips/raw/master/SrceenShot/st_7.png)
 ![image](https://github.com/Victor2018/FunnyClips/raw/master/SrceenShot/st_8.png)
 ![image](https://github.com/Victor2018/FunnyClips/raw/master/SrceenShot/st_9.png)
-![image](https://github.com/Victor2018/FunnyClips/raw/master/SrceenShot/st_10.png)
 
 # Download app
 ![image](https://github.com/Victor2018/FunnyClips/raw/master/SrceenShot/download.png)
@@ -25,7 +29,7 @@
 
 ## License
 
-Copyright (c) 2017 Victor
+Copyright (c) 2019 Victor
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
