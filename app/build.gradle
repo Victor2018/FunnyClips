@@ -94,11 +94,11 @@ android {
     }
     buildTypes {
         release {
-            zipAlignEnabled true
-            //去掉无用资源
-            shrinkResources true
+//            zipAlignEnabled true
+//            //去掉无用资源
+//            shrinkResources true
 
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             buildConfigField "boolean", "MODEL_ONLINE", "true"
