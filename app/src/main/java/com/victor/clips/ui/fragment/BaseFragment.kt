@@ -21,6 +21,7 @@ import java.util.*
 abstract class BaseFragment : Fragment(),Observer {
     companion object {
         val ID_KEY = "ID_KEY"
+        val TAG = javaClass.simpleName
         var fragmentId = -1
     }
 

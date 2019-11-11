@@ -1,6 +1,7 @@
 package com.victor.clips.ui.fragment
 
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import android.widget.AdapterView
 import com.victor.clips.R
@@ -12,6 +13,7 @@ import com.victor.clips.ui.adapter.RankingAdapter
 import com.victor.clips.data.HomeItemInfo
 import com.victor.clips.data.TrendingReq
 import com.victor.clips.presenter.RankingPresenterImpl
+import com.victor.clips.ui.adapter.ScaleInAnimatorAdapter
 import com.victor.clips.util.DeviceUtils
 import com.victor.clips.util.WebConfig
 import com.victor.clips.ui.view.RankingView
@@ -29,7 +31,8 @@ import kotlinx.android.synthetic.main.fragment_weekly_ranking.*
  * Description: 
  * -----------------------------------------------------------------
  */
-class WeeklyRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,RankingView {
+class WeeklyRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,RankingView,
+        SwipeRefreshLayout.OnRefreshListener {
 
     var rankingAdapter: RankingAdapter? = null
     var linearLayoutManager: LinearLayoutManager? = null
@@ -65,9 +68,14 @@ class WeeklyRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,Ran
     }
 
     fun initialize () {
-        (activity as MainActivity).toolbar.setTitle("Weekly ranking")
+        (activity as MainActivity).toolbar.setTitle(getString(R.string.weekly_ranking))
 
         rankingPresenter = RankingPresenterImpl(this)
+
+        //设置 进度条的颜色变化，最多可以设置4种颜色
+        mSrlWeeklyRanking.setColorSchemeResources(android.R.color.holo_purple, android.R.color.holo_blue_bright,
+                android.R.color.holo_orange_light, android.R.color.holo_red_light);
+        mSrlWeeklyRanking.setOnRefreshListener(this);
 
         linearLayoutManager = mRvWeeklyRanking.layoutManager as LinearLayoutManager
 
@@ -76,7 +84,9 @@ class WeeklyRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,Ran
         rankingAdapter = RankingAdapter(activity!!,this)
         rankingAdapter?.setHeaderVisible(false)
         rankingAdapter?.setFooterVisible(false)
-        mRvWeeklyRanking.adapter = rankingAdapter
+
+        val animatorAdapter = ScaleInAnimatorAdapter(rankingAdapter!!,mRvWeeklyRanking)
+        mRvWeeklyRanking.adapter = animatorAdapter
 
         mRvWeeklyRanking.addOnScrollListener((activity as MainActivity).OnScrollListener())
 
@@ -86,13 +96,20 @@ class WeeklyRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,Ran
         sendWeeklyRankingRequest()
     }
 
+    override fun onRefresh() {
+        sendWeeklyRankingRequest()
+    }
+
     fun sendWeeklyRankingRequest () {
         rankingPresenter?.sendRequest(String.format(WebConfig.getRequestUrl(WebConfig.HOT_WEEKLY_URL),
                 DeviceUtils.getPhoneModel()),null,null)
+        mSrlWeeklyRanking.isRefreshing = true
     }
 
     override fun OnRanking(data: Any?, msg: String) {
+        mSrlWeeklyRanking.isRefreshing = false
         var weeklyRankingReq = data!! as TrendingReq
+        rankingAdapter?.clear()
         rankingAdapter?.add(weeklyRankingReq.itemList)
         rankingAdapter?.notifyDataSetChanged()
     }

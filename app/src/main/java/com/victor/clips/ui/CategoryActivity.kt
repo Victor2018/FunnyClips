@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import com.victor.clips.R
 import com.victor.clips.ui.adapter.CategoryAdapter
 import com.victor.clips.data.CategoryInfo
+import com.victor.clips.ui.adapter.SlideInRightAnimatorAdapter
 import com.victor.clips.util.*
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_video_category.toolbar
@@ -44,7 +45,9 @@ class CategoryActivity : BaseActivity(),View.OnClickListener,AdapterView.OnItemC
         categoryAdapter = CategoryAdapter(this,this)
         categoryAdapter?.setHeaderVisible(false)
         categoryAdapter?.setFooterVisible(false)
-        mRvCategory.adapter = categoryAdapter
+
+        val animatorAdapter = SlideInRightAnimatorAdapter(categoryAdapter!!,mRvCategory)
+        mRvCategory.adapter = animatorAdapter
 
         mFabCategory.setOnClickListener(this)
     }

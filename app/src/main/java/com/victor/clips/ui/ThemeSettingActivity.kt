@@ -11,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager
 import com.victor.clips.R
 import com.victor.clips.ui.adapter.ColorAdapter
 import com.victor.clips.data.Theme
+import com.victor.clips.ui.adapter.ScaleInAnimatorAdapter
 import kotlinx.android.synthetic.main.activity_theme_setting.*
 import kotlinx.android.synthetic.main.activity_video_detail.mVideoToolbar
 
@@ -49,7 +50,9 @@ class ThemeSettingActivity : BaseActivity(),View.OnClickListener,AdapterView.OnI
         colorAdapter = ColorAdapter(this,this)
         colorAdapter?.setHeaderVisible(false)
         colorAdapter?.setFooterVisible(false)
-        mRvColor.adapter = colorAdapter
+
+        var animationAdapter = ScaleInAnimatorAdapter(colorAdapter!!,mRvColor)
+        mRvColor.adapter = animationAdapter
 
         mBtnCancel.setOnClickListener(this)
         mBtnOk.setOnClickListener(this)

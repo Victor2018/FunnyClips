@@ -4,6 +4,7 @@ import com.victor.clips.app.App
 import android.view.animation.AnimationUtils
 import android.view.animation.Animation
 import com.victor.clips.R
+import android.animation.Animator
 
 
 /*
@@ -38,5 +39,18 @@ class AnimUtil {
             animation.fillAfter = true
             return animation
         }
+
+        fun concatAnimators(animators: Array<Animator>, alphaAnimator: Animator): Array<Animator?> {
+            val allAnimators = arrayOfNulls<Animator>(animators.size + 1)
+            var i = 0
+
+            for (animator in animators) {
+                allAnimators[i] = animator
+                ++i
+            }
+            allAnimators[allAnimators.size - 1] = alphaAnimator
+            return allAnimators
+        }
+
     }
 }

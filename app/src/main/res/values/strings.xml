@@ -58,4 +58,9 @@
     <string name="copy_to_clipboard">Copied to the clipboard</string>
     <string name="cope_the_url">Cope the url</string>
     <string name="open_in_browser">Open in browser</string>
+    <string name="category">Category</string>
+    <string name="follow">Follow</string>
+    <string name="weekly_ranking">Weekly ranking</string>
+    <string name="monthly_ranking">Monthly ranking</string>
+    <string name="total_ranking">Total ranking</string>
 </resources>

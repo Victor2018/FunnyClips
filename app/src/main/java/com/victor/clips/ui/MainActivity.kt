@@ -233,6 +233,7 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
                     return true;
                 }
                 if (currentFragment !is VideoCategoryFragment) {
+                    SharePreferencesUtil.putInt(this,Constant.CATEGORY_POSITION_KEY,0)
                     switchFragment(currentFragment,VideoCategoryFragment.newInstance())
                     return true
                 }

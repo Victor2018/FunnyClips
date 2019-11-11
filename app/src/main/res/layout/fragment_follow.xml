@@ -1,11 +1,17 @@
-<android.support.v7.widget.RecyclerView
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mRvFollow"
-    app:layoutManager="LinearLayoutManager"
-    tools:listitem="@layout/rv_follow_cell"
+    android:id="@+id/mSrlFollow"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="@dimen/dp_175"
-    android:clipToPadding="false"/>
+    android:layout_height="match_parent">
+
+    <com.victor.clips.ui.widget.LMRecyclerView
+        android:id="@+id/mRvFollow"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/rv_follow_cell"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/dp_175"
+        android:clipToPadding="false"/>
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -25,11 +25,15 @@ import android.content.res.Configuration
 import android.graphics.Typeface
 import android.support.design.widget.CoordinatorLayout
 import com.victor.clips.R
+import com.victor.clips.ui.adapter.SlideInLeftAnimatorAdapter
+import com.victor.clips.ui.adapter.SlideInRightAnimatorAdapter
+import com.victor.clips.ui.adapter.SwingBottomInAnimationAdapter
 import com.victor.player.library.module.Player
 
 
 class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoView,
-        AdapterView.OnItemClickListener,MainHandler.OnMainHandlerImpl {
+        AdapterView.OnItemClickListener,MainHandler.OnMainHandlerImpl,
+        AppBarLayout.OnOffsetChangedListener {
 
     override fun handleMainMessage(message: Message?) {
         when (message?.what) {
@@ -94,35 +98,15 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
         relatedVideoAdapter?.setHeaderVisible(false)
         relatedVideoAdapter?.setFooterVisible(false)
 
-        mRvRelatedVideo.adapter = relatedVideoAdapter
+        val animatorAdapter = SlideInLeftAnimatorAdapter(relatedVideoAdapter!!,mRvRelatedVideo)
+        mRvRelatedVideo.adapter = animatorAdapter
 
         mPlayer = Player(mTvPlay,MainHandler.get())
 
 
         mFabFullScreen.setOnClickListener(this)
 
-        appbar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener{
-            override fun onOffsetChanged(appBarLayout: AppBarLayout?, yOffset: Int) {
-                if (isFullScreenPlay) return
-                if (yOffset == 0) {
-                    //展开状态
-                    mIvVideoPoster.setVisibility(View.INVISIBLE);
-                    mPlSmallPlay.setVisibility(View.GONE);
-                    removePlayViewFormParent();
-                    mCtlVideoTitle.addView(mTvPlay,2);
-                    isSmallScreenPlay = false;
-                } else if (Math.abs(yOffset) >= appBarLayout!!.totalScrollRange) {
-                    //折叠状态
-                    mIvVideoPoster.setVisibility(View.VISIBLE);
-                    mPlSmallPlay.setVisibility(View.VISIBLE);
-                    removePlayViewFormParent();
-                    mPlSmallPlay.addView(mTvPlay);
-                    isSmallScreenPlay = true;
-                } else {
-                    //中间状态
-                }
-            }
-        })
+        appbar.addOnOffsetChangedListener(this)
     }
 
     fun initData (){
@@ -141,6 +125,27 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
     fun sendRelatedVideoRequest (id: Int) {
         relatedVideoPresenter?.sendRequest(String.format(WebConfig.getRequestUrl(WebConfig.RELATED_VIDEO_URL),
                 id,DeviceUtils.getPhoneModel()),null,null)
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+        if (isFullScreenPlay) return
+        if (verticalOffset == 0) {
+            //展开状态
+            mIvVideoPoster.setVisibility(View.INVISIBLE);
+            mPlSmallPlay.setVisibility(View.GONE);
+            removePlayViewFormParent();
+            mCtlVideoTitle.addView(mTvPlay,2);
+            isSmallScreenPlay = false;
+        } else if (Math.abs(verticalOffset) >= appBarLayout!!.totalScrollRange) {
+            //折叠状态
+            mIvVideoPoster.setVisibility(View.VISIBLE);
+            mPlSmallPlay.setVisibility(View.VISIBLE);
+            removePlayViewFormParent();
+            mPlSmallPlay.addView(mTvPlay);
+            isSmallScreenPlay = true;
+        } else {
+            //中间状态
+        }
     }
 
     override fun OnRelatedVideo(data: Any?, msg: String) {
