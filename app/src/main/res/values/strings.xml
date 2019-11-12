@@ -63,4 +63,5 @@
     <string name="weekly_ranking">Weekly ranking</string>
     <string name="monthly_ranking">Monthly ranking</string>
     <string name="total_ranking">Total ranking</string>
+    <string name="description">Description:\nThis is a short video application of MaterialDesign design style coding by kotlin. The video resources are from open source. This application is only for learning and use. Please do not use it!</string>
 </resources>

@@ -124,7 +124,6 @@ class VideoCategoryFragment : BaseFragment(),AdapterView.OnItemClickListener,Vid
     }
 
     override fun OnVideoCategory(data: Any?, msg: String) {
-//        initRecyclerViewCellAnim()
         mSrlVideoCategory.isRefreshing = false;
         var category = data!! as List<CategoryReq>
         categoryAdapter?.add(category)

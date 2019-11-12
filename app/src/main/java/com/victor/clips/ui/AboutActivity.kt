@@ -38,6 +38,7 @@ class AboutActivity : BaseActivity(),View.OnClickListener {
 
         fontStyle = Typeface.createFromAsset(getAssets(), "fonts/ZuoAnLianRen.ttf");
 
+        mTvDescription.setTypeface(fontStyle)
         mCtvVersion.setTypeface(fontStyle)
         mTvGmail.setTypeface(fontStyle)
         mTvGithub.setTypeface(fontStyle)
@@ -48,6 +49,9 @@ class AboutActivity : BaseActivity(),View.OnClickListener {
         mTvDownloadApp.movementMethod = LinkMovementMethod.getInstance()
 
         mFabGitHub.setOnClickListener(this)
+
+        mIvAboutPoster.startAnimation(AnimUtil.topEnter())
+        mNsvAbout.startAnimation(AnimUtil.bottomEnter())
     }
 
     fun initData (){
