@@ -1,59 +1,65 @@
-<android.support.constraint.ConstraintLayout
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_1"
+    app:contentPadding="@dimen/dp_20"
+    app:cardCornerRadius="@dimen/dp_0"
+    app:cardElevation="@dimen/dp_5">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/mIvFollowAvatar"
-        android:layout_width="@dimen/dp_100"
-        android:layout_height="@dimen/dp_100"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="@dimen/dp_30"
-        android:layout_gravity="center_vertical"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/default_img"
-        tools:ignore="MissingConstraints" />
-    <TextView
-        android:id="@+id/mTvFollowTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@+id/mIvFollowAvatar"
-        app:layout_constraintRight_toLeftOf="@+id/mTvFollow"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_10"
-        app:layout_constraintHorizontal_bias="0.05"
-        android:textColor="@color/color_8A000000"
-        android:textSize="@dimen/dp_28"
-        android:gravity="center_vertical"
-        tools:text="Title"/>
-    <TextView
-        android:id="@+id/mTvFollowDes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/mTvFollowTitle"
-        app:layout_constraintLeft_toRightOf="@+id/mIvFollowAvatar"
-        app:layout_constraintRight_toLeftOf="@+id/mTvFollow"
-        android:layout_marginTop="@dimen/dp_5"
-        android:layout_marginLeft="@dimen/dp_20"
-        app:layout_constraintHorizontal_bias="0.05"
-        android:lines="1"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/dp_22"
-        android:textColor="@color/color_8A000000"
-        tools:text="Des"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/dp_20"
-        app:layoutManager="LinearLayoutManager"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mIvFollowAvatar" />
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/mIvFollowAvatar"
+            android:layout_width="@dimen/dp_90"
+            android:layout_height="@dimen/dp_90"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/default_img"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/mTvFollowTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@+id/mIvFollowAvatar"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            app:layout_constraintHorizontal_bias="0.05"
+            android:textColor="@color/color_8A000000"
+            android:textSize="@dimen/dp_28"
+            android:gravity="center_vertical"
+            tools:text="Title"/>
+        <TextView
+            android:id="@+id/mTvFollowDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/mTvFollowTitle"
+            app:layout_constraintLeft_toRightOf="@+id/mIvFollowAvatar"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginLeft="@dimen/dp_20"
+            app:layout_constraintHorizontal_bias="0.05"
+            android:lines="1"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dp_22"
+            android:textColor="@color/color_8A000000"
+            tools:text="Des"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/dp_10"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mIvFollowAvatar" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

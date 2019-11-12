@@ -1,6 +1,7 @@
 package com.victor.clips.ui.adapter
 
 import android.content.Context
+import android.graphics.Typeface
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
@@ -28,6 +29,12 @@ class FollowAdapter(context: Context, listener: AdapterView.OnItemClickListener?
         BaseRecycleAdapter<FollowItem, RecyclerView.ViewHolder>(context, listener),
         GravitySnapHelper.SnapListener{
 
+    var fontStyle: Typeface? = null
+
+    init {
+        fontStyle = Typeface.createFromAsset(mContext?.assets, "fonts/ZuoAnLianRen.ttf");
+    }
+
     override fun onSnap(position: Int) {
         Loger.d("onSnap()-position = ", position.toString())
     }
@@ -45,6 +52,10 @@ class FollowAdapter(context: Context, listener: AdapterView.OnItemClickListener?
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: FollowItem, position: Int) {
         val contentViewHolder = viewHolder as ContentViewHolder
+
+        contentViewHolder.itemView.mTvFollowTitle.typeface = fontStyle
+        contentViewHolder.itemView.mTvFollowDes.typeface = fontStyle
+
         contentViewHolder.itemView.mTvFollowTitle.setText(data.data?.header?.title)
         contentViewHolder.itemView.mTvFollowDes.setText(data.data?.header?.description)
         ImageUtils.instance.loadAvatar(mContext!!,contentViewHolder.itemView.mIvFollowAvatar, data.data?.header?.icon)

@@ -31,7 +31,7 @@ class VideoCategoryAdapter(context: Context, listener: AdapterView.OnItemClickLi
     var fontStyle: Typeface? = null
 
     init {
-        fontStyle = Typeface.createFromAsset(mContext?.getAssets(), "fonts/ZuoAnLianRen.ttf");
+        fontStyle = Typeface.createFromAsset(mContext?.assets, "fonts/ZuoAnLianRen.ttf");
     }
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         return null
@@ -50,7 +50,7 @@ class VideoCategoryAdapter(context: Context, listener: AdapterView.OnItemClickLi
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: CategoryReq, position: Int) {
         val contentViewHolder = viewHolder as ContentViewHolder
 
-        contentViewHolder.itemView.mTvTitle.setTypeface(fontStyle);
+        contentViewHolder.itemView.mTvTitle.typeface = fontStyle;
 
         contentViewHolder.itemView.mTvTitle.setText(data.name)
         ImageUtils.instance.loadImage(mContext!!,contentViewHolder.itemView.mIvPoster, data.bgPicture)

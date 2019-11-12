@@ -35,7 +35,6 @@ class TotalRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,Rank
         SwipeRefreshLayout.OnRefreshListener {
 
     var rankingAdapter: RankingAdapter? = null
-    var linearLayoutManager: LinearLayoutManager? = null
 
     var rankingPresenter: RankingPresenterImpl? = null
 
@@ -76,8 +75,6 @@ class TotalRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,Rank
         mSrlTotalRanking.setColorSchemeResources(android.R.color.holo_purple, android.R.color.holo_blue_bright,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
         mSrlTotalRanking.setOnRefreshListener(this);
-
-        linearLayoutManager = mRvTotalRanking.layoutManager as LinearLayoutManager
 
         mRvTotalRanking.setHasFixedSize(true)
 

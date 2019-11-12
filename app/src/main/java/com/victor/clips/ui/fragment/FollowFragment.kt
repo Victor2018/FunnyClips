@@ -35,7 +35,6 @@ class FollowFragment: BaseFragment(),FollowView,AdapterView.OnItemClickListener,
         SwipeRefreshLayout.OnRefreshListener,LMRecyclerView.OnLoadMoreListener {
 
     var followPresenter: FollowPresenterImpl? = null
-    var linearLayoutManager: LinearLayoutManager? = null
     var followAdapter: FollowAdapter? = null
     var currentPage = 0
 
@@ -78,8 +77,6 @@ class FollowFragment: BaseFragment(),FollowView,AdapterView.OnItemClickListener,
         mSrlFollow.setColorSchemeResources(android.R.color.holo_purple, android.R.color.holo_blue_bright,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
         mSrlFollow.setOnRefreshListener(this);
-
-        linearLayoutManager = mRvFollow.layoutManager as LinearLayoutManager
 
         mRvFollow.setHasFixedSize(true)
         followAdapter = FollowAdapter(context!!,this)

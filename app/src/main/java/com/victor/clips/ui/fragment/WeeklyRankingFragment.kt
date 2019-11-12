@@ -35,7 +35,6 @@ class WeeklyRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,Ran
         SwipeRefreshLayout.OnRefreshListener {
 
     var rankingAdapter: RankingAdapter? = null
-    var linearLayoutManager: LinearLayoutManager? = null
 
     var rankingPresenter: RankingPresenterImpl? = null
 
@@ -77,7 +76,6 @@ class WeeklyRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,Ran
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
         mSrlWeeklyRanking.setOnRefreshListener(this);
 
-        linearLayoutManager = mRvWeeklyRanking.layoutManager as LinearLayoutManager
 
         mRvWeeklyRanking.setHasFixedSize(true)
 

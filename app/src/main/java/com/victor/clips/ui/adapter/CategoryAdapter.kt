@@ -26,7 +26,7 @@ class CategoryAdapter(context: Context, listener: AdapterView.OnItemClickListene
     var currentPosition: Int = -1
 
     init {
-        fontStyle = Typeface.createFromAsset(mContext?.getAssets(), "fonts/ZuoAnLianRen.ttf");
+        fontStyle = Typeface.createFromAsset(mContext?.assets, "fonts/ZuoAnLianRen.ttf");
     }
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         return null
@@ -42,7 +42,7 @@ class CategoryAdapter(context: Context, listener: AdapterView.OnItemClickListene
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: CategoryInfo, position: Int) {
         val contentViewHolder = viewHolder as ContentViewHolder
 
-        contentViewHolder.itemView.mTvCategoryTitle.setTypeface(fontStyle);
+        contentViewHolder.itemView.mTvCategoryTitle.typeface = fontStyle;
 
         contentViewHolder.itemView.mTvCategoryTitle.setText(data.categoryName)
         contentViewHolder.itemView.mCivCategoryAvatar.setImageResource(data.categoryImgRes)

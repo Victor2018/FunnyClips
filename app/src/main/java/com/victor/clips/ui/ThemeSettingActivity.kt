@@ -1,6 +1,7 @@
 package com.victor.clips.ui
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.MenuItem
 import android.support.v7.app.AppCompatActivity
@@ -21,6 +22,7 @@ class ThemeSettingActivity : BaseActivity(),View.OnClickListener,AdapterView.OnI
     var colorAdapter: ColorAdapter? = null
     var gridLayoutManager: GridLayoutManager? = null
     var lastTheme: Int = 0;
+    var fontStyle: Typeface? = null
 
     companion object {
         fun  intentStart (activity: AppCompatActivity) {
@@ -42,6 +44,11 @@ class ThemeSettingActivity : BaseActivity(),View.OnClickListener,AdapterView.OnI
     fun initialize () {
         setSupportActionBar(mVideoToolbar);
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
+
+        fontStyle = Typeface.createFromAsset(assets, "fonts/ZuoAnLianRen.ttf")
+        mCtvThemeSelection.typeface = fontStyle
+        mBtnOk.typeface = fontStyle
+        mBtnCancel.typeface = fontStyle
 
         mRvColor.setHasFixedSize(true)
         gridLayoutManager = GridLayoutManager(this, 5)//这里用线性宫格显示 类似于瀑布流

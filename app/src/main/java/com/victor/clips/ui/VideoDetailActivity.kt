@@ -115,7 +115,7 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
         ImageUtils.instance.loadAvatar(this,mIvAvatar,data.data!!.author!!.icon)
         mCtlVideoTitle.title = data.data!!.title
         mTvVideoDescription.setText(data.data!!.description)
-        mTvVideoDescription.setTypeface(fontStyle);
+        mTvVideoDescription.typeface = fontStyle;
 
         mPlayer?.playUrl(data!!.data!!.playUrl!!,false)
 

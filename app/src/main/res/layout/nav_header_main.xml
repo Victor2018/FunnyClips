@@ -16,6 +16,7 @@
         android:src="@mipmap/ic_avatar" />
 
     <TextView
+        android:id="@+id/mTvOurOriginalIntention"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_avatar"

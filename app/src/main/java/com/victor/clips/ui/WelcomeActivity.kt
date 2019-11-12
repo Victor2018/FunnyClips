@@ -1,6 +1,7 @@
 package com.victor.clips.ui
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Message
 import android.support.v7.app.AppCompatActivity
@@ -16,7 +17,9 @@ import kotlinx.android.synthetic.main.activity_welcome.*
 
 
 class WelcomeActivity : BaseActivity(),MainHandler.OnMainHandlerImpl {
-    var delayMillis: Long = 1000;
+    val delayMillis: Long = 1000;
+
+    var fontStyle: Typeface? = null
 
     override fun handleMainMessage(message: Message?) {
         when (message?.what) {
@@ -45,6 +48,11 @@ class WelcomeActivity : BaseActivity(),MainHandler.OnMainHandlerImpl {
     fun initialize () {
         MainHandler.get().register(this)
 
+        fontStyle = Typeface.createFromAsset(assets, "fonts/ZuoAnLianRen.ttf");
+        mTvAppName.typeface = fontStyle
+        mTvVersion.typeface = fontStyle
+
+        mTvAppName.setText(AppUtil.getAppName(this))
         mTvVersion.setText(getString(R.string.current_version) + AppUtil.getAppVersionName(this))
         val animation = AnimationUtils.loadAnimation(this, R.anim.anim_welcome)
         mClWelcome.startAnimation(animation)

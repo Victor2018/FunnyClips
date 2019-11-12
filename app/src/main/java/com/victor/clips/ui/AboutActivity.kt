@@ -36,14 +36,14 @@ class AboutActivity : BaseActivity(),View.OnClickListener {
         setSupportActionBar(mAboutToolbar);
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
 
-        fontStyle = Typeface.createFromAsset(getAssets(), "fonts/ZuoAnLianRen.ttf");
+        fontStyle = Typeface.createFromAsset(assets, "fonts/ZuoAnLianRen.ttf");
 
-        mTvDescription.setTypeface(fontStyle)
-        mCtvVersion.setTypeface(fontStyle)
-        mTvGmail.setTypeface(fontStyle)
-        mTvGithub.setTypeface(fontStyle)
-        mTvDownloadApp.setTypeface(fontStyle)
-        mTvSupport.setTypeface(fontStyle)
+        mCtvVersion.typeface = fontStyle
+        mTvDescription.typeface = fontStyle
+        mTvGmail.typeface = fontStyle
+        mTvGithub.typeface = fontStyle
+        mTvDownloadApp.typeface = fontStyle
+        mTvSupport.typeface = fontStyle
 
         mTvGithub.movementMethod = LinkMovementMethod.getInstance()
         mTvDownloadApp.movementMethod = LinkMovementMethod.getInstance()

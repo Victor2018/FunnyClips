@@ -35,7 +35,6 @@ class MonthlyRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,Ra
         SwipeRefreshLayout.OnRefreshListener {
 
     var rankingAdapter: RankingAdapter? = null
-    var linearLayoutManager: LinearLayoutManager? = null
 
     var rankingPresenter: RankingPresenterImpl? = null
 
@@ -76,8 +75,6 @@ class MonthlyRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,Ra
         mSrlMonthlyRanking.setColorSchemeResources(android.R.color.holo_purple, android.R.color.holo_blue_bright,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
         mSrlMonthlyRanking.setOnRefreshListener(this);
-
-        linearLayoutManager = mRvMonthlyRanking.layoutManager as LinearLayoutManager
 
         mRvMonthlyRanking.setHasFixedSize(true)
 

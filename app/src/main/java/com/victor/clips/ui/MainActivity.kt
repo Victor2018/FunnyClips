@@ -2,6 +2,7 @@ package com.victor.clips.ui
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -21,6 +22,8 @@ import android.view.animation.DecelerateInterpolator
 import com.victor.clips.R
 import com.victor.clips.ui.fragment.*
 import com.victor.clips.util.*
+import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 
 class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListener,
@@ -33,6 +36,7 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
     var currentFragment: Fragment? = null
     var actionBarShown = true
     var isInitialize = true
+    var fontStyle: Typeface? = null
 
     companion object {
         fun  intentStart (activity: AppCompatActivity) {
@@ -70,6 +74,10 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
         mFabMain.setOnClickListener(this)
 
         SharePreferencesUtil.putInt(this,Constant.CATEGORY_POSITION_KEY,0)
+
+        fontStyle = Typeface.createFromAsset(assets, "fonts/ZuoAnLianRen.ttf");
+        navigationView.getHeaderView(0).mTvOurOriginalIntention.typeface = fontStyle
+
     }
 
     fun injectViewsAndSetUpToolbar() {

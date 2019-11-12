@@ -1,6 +1,7 @@
 package com.victor.clips.ui.adapter
 
 import android.content.Context
+import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -23,6 +24,12 @@ import kotlinx.android.synthetic.main.rv_follow_item_cell.view.*
 class FollowCellAdapter(context: Context, listener: AdapterView.OnItemClickListener,var parentPosition: Int) :
         BaseRecycleAdapter<HomeItemInfo, RecyclerView.ViewHolder>(context, listener) {
 
+    var fontStyle: Typeface? = null
+
+    init {
+        fontStyle = Typeface.createFromAsset(mContext?.assets, "fonts/ZuoAnLianRen.ttf");
+    }
+
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         return null
     }
@@ -36,6 +43,9 @@ class FollowCellAdapter(context: Context, listener: AdapterView.OnItemClickListe
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo, position: Int) {
         val contentViewHolder = viewHolder as FollowCellContentViewHolder
+
+        contentViewHolder.itemView.mTvFollowCellTitle.typeface = fontStyle
+
         ImageUtils.instance.loadImage(mContext!!,contentViewHolder.itemView.mIvFollowCellPoster, data.data?.cover?.feed)
         contentViewHolder.itemView.mTvFollowCellTitle.setText(data.data?.title)
         contentViewHolder.setOnItemClickListener(mOnItemClickListener)

@@ -26,7 +26,7 @@ class RankingAdapter(context: Context, listener: AdapterView.OnItemClickListener
     var fontStyle: Typeface? = null
 
     init {
-        fontStyle = Typeface.createFromAsset(mContext?.getAssets(), "fonts/ZuoAnLianRen.ttf");
+        fontStyle = Typeface.createFromAsset(mContext?.assets, "fonts/ZuoAnLianRen.ttf");
     }
 
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
@@ -43,9 +43,9 @@ class RankingAdapter(context: Context, listener: AdapterView.OnItemClickListener
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo, position: Int) {
         val contentViewHolder = viewHolder as ContentViewHolder
         contentViewHolder.itemView.mIvRankingPoster.setParallaxStyles(VerticalMovingStyle())
-        contentViewHolder.itemView.mTvRankingTitle.setTypeface(fontStyle);
-        contentViewHolder.itemView.mTvRankingTitle.setText(data.data!!.title)
-        ImageUtils.instance.loadImage(mContext!!,contentViewHolder.itemView.mIvRankingPoster, data.data!!.cover!!.feed)
+        contentViewHolder.itemView.mTvRankingTitle.typeface = fontStyle;
+        contentViewHolder.itemView.mTvRankingTitle.setText(data.data?.title)
+        ImageUtils.instance.loadImage(mContext!!,contentViewHolder.itemView.mIvRankingPoster, data.data?.cover?.feed)
         contentViewHolder.setOnItemClickListener(mOnItemClickListener)
     }
 

@@ -45,7 +45,7 @@
             android:layout_height="match_parent"
             android:padding="@dimen/dp_50">
             <com.victor.clips.ui.widget.ColorTextView
-                android:id="@+id/mCtvTitle"
+                android:id="@+id/mCtvThemeSelection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
