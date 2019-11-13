@@ -30,7 +30,7 @@ class SlideInLeftAnimatorAdapter<T: RecyclerView.ViewHolder>
     private val TRANSLATION_X = "translationX"
 
     override fun getAnimators(view: View): Array<Animator> {
-        var anim = ObjectAnimator.ofFloat(view, TRANSLATION_X, 0f - mRecyclerView.getLayoutManager().getWidth(), 0f)
+        var anim = ObjectAnimator.ofFloat(view, TRANSLATION_X, 0f - mRecyclerView.layoutManager!!.getWidth(), 0f)
         return arrayOf(anim)
     }
 }

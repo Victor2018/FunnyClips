@@ -7,6 +7,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -16,11 +17,8 @@ import com.victor.clips.data.HomeItemInfo
 import com.victor.clips.data.TrendingReq
 import com.victor.clips.presenter.CategoryDetailPresenterImpl
 import com.victor.clips.ui.adapter.*
-import com.victor.clips.util.Constant
-import com.victor.clips.util.DeviceUtils
-import com.victor.clips.util.ImageUtils
-import com.victor.clips.util.WebConfig
 import com.victor.clips.ui.view.CategoryDetailView
+import com.victor.clips.util.*
 import kotlinx.android.synthetic.main.activity_video_category.*
 import kotlinx.android.synthetic.main.activity_video_category.appbar
 

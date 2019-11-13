@@ -76,7 +76,7 @@ class LMRecyclerView: RecyclerView {
     override fun onScrollStateChanged(screenState: Int) {
         Log.e(TAG, "onScrollStateChanged()......screenState = $screenState")
         if (screenState == RecyclerView.SCROLL_STATE_IDLE) {
-            val totalItemCount = layoutManager.itemCount
+            val totalItemCount = layoutManager!!.itemCount
             Log.e(TAG, "lastVisibleItem------>$lastVisibleItem")
             Log.e(TAG, "totalItemCount------->$totalItemCount")
 

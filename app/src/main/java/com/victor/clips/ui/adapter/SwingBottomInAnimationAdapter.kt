@@ -39,7 +39,7 @@ class SwingBottomInAnimationAdapter<T: RecyclerView.ViewHolder>
     private val TRANSLATION_Y = "translationY"
 
     override fun getAnimators(view: View): Array<Animator> {
-        val mOriginalY = mRecyclerView.layoutManager.getDecoratedTop(view).toFloat()
+        val mOriginalY = mRecyclerView.layoutManager!!.getDecoratedTop(view).toFloat()
         val mDeltaY = mRecyclerView.height - mOriginalY
         var anim = ObjectAnimator.ofFloat(view, TRANSLATION_Y, mDeltaY.toFloat(), 0f)
         return arrayOf(anim)
