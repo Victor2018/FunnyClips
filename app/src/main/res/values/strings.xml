@@ -38,9 +38,9 @@
     <string name="current_version">Current version：</string>
 
     <!--about us-->
-    <string name="gmail">Gmail: victor423099@gmail.com</string>
+    <string name="gmail">Gmail：<a href="victor://mail?gmail=victor423099@gmail.com">victor423099@gmail.com</a></string>
     <string name="github_url">https://github.com/Victor2018</string>
-    <string name="github_project">Project：<a href="victor://openurl?title=Github project&amp;url=https://github.com/Victor2018/FunnyClips">FunnyClips</a></string>
+    <string name="github_issues">Issues：<a href="victor://openurl?title=Github Issues&amp;url=https://github.com/Victor2018/FunnyClips/issues">Feedback problem</a></string>
     <string name="download_app">Download：<a href="victor://openurl?title=Download app&amp;url=https://fir.im/FunnyClips">Poke here</a></string>
     <string name="about_us">About us</string>
     <string name="support_us">Support us</string>
@@ -63,5 +63,6 @@
     <string name="weekly_ranking">Weekly ranking</string>
     <string name="monthly_ranking">Monthly ranking</string>
     <string name="total_ranking">Total ranking</string>
+    <string name="mail_to_me_tip">Please select the mail application</string>
     <string name="description">Description:\nThis is a short video application of MaterialDesign design style coding by kotlin. The video resources are from open source. This application is only for learning and use. Please do not use it!</string>
 </resources>

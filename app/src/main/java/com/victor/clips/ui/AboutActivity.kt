@@ -2,6 +2,7 @@ package com.victor.clips.ui
 
 import android.content.Intent
 import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.support.v7.app.AppCompatActivity
@@ -41,12 +42,13 @@ class AboutActivity : BaseActivity(),View.OnClickListener {
         mCtvVersion.typeface = fontStyle
         mTvDescription.typeface = fontStyle
         mTvGmail.typeface = fontStyle
-        mTvGithub.typeface = fontStyle
         mTvDownloadApp.typeface = fontStyle
+        mTvIssues.typeface = fontStyle
         mTvSupport.typeface = fontStyle
 
-        mTvGithub.movementMethod = LinkMovementMethod.getInstance()
         mTvDownloadApp.movementMethod = LinkMovementMethod.getInstance()
+        mTvGmail.movementMethod = LinkMovementMethod.getInstance()
+        mTvIssues.movementMethod = LinkMovementMethod.getInstance()
 
         mFabGitHub.setOnClickListener(this)
 

@@ -20,6 +20,7 @@ class Constant {
         const val CATEGORY_POSITION_KEY             = "CATEGORY_POSITION_KEY"
         const val MA_DATA = "madata"
         const val SHARE_TYPE                        = "text/plain";
+        const val MAIL_TO                           = "mailto:%s";
 
     }
 
