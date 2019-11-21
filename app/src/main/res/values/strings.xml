@@ -32,6 +32,7 @@
     <string name="title_library">Library</string>
     <string name="transition_poster">movie_poster</string>
 
+    <string name="search">Search</string>
     <string name="share">Share</string>
     <string name="github">Github</string>
     <string name="copyright_content">The video resources come from an open eye and the copyright is owned by the owner.</string>
@@ -64,5 +65,6 @@
     <string name="monthly_ranking">Monthly ranking</string>
     <string name="total_ranking">Total ranking</string>
     <string name="mail_to_me_tip">Please select the mail application</string>
+    <string name="search_tip">Enter search keywords</string>
     <string name="description">Description:\nThis is a short video application of MaterialDesign design style coding by kotlin. The video resources are from open source. This application is only for learning and use. Please do not use it!</string>
 </resources>

@@ -24,6 +24,7 @@ import com.victor.clips.ui.fragment.*
 import com.victor.clips.util.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
+import org.victor.funny.util.ToastUtils
 
 
 class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListener,
@@ -162,6 +163,9 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
         // as you specify a parent activity in AndroidManifest.xml.
 
         when(item.itemId) {
+            R.id.action_search -> {
+                SearchActivity.intentStart(this)
+            }
             R.id.action_share -> {
                 var intentshare = Intent(Intent.ACTION_SEND);
                 intentshare.setType(Constant.SHARE_TYPE)
