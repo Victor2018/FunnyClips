@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.text.method.LinkMovementMethod
 import android.view.View
 import com.victor.clips.R
+import com.victor.clips.ui.widget.ElasticDragDismissFrameLayout
 import com.victor.clips.util.*
 import kotlinx.android.synthetic.main.activity_about.*
 

@@ -10,6 +10,12 @@ import com.victor.clips.data.HomeItemInfo
 import com.victor.clips.ui.holder.ContentViewHolder
 import com.victor.clips.util.ImageUtils
 import kotlinx.android.synthetic.main.rv_related_video_cell.view.*
+import kotlinx.android.synthetic.main.rv_related_video_cell.view.mIvRelatedVideoAvatar
+import kotlinx.android.synthetic.main.rv_related_video_cell.view.mTvRelatedVideoName
+import kotlinx.android.synthetic.main.rv_related_video_cell.view.mTvRelatedVideoVideoComment
+import kotlinx.android.synthetic.main.rv_related_video_cell.view.mTvRelatedVideoVideoLikes
+import kotlinx.android.synthetic.main.rv_related_video_cell.view.mTvRelatedVideoVideoShare
+import kotlinx.android.synthetic.main.rv_search_video_cell.view.*
 
 /*
  * -----------------------------------------------------------------
@@ -43,17 +49,10 @@ class SearchVideoAdapter(context: Context, listener: AdapterView.OnItemClickList
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo, position: Int) {
         val contentViewHolder = viewHolder as ContentViewHolder
 
-        contentViewHolder.itemView.mTvRelatedVideoName.typeface = fontStyle;
-        contentViewHolder.itemView.mTvRelatedVideoVideoLikes.typeface = fontStyle;
-        contentViewHolder.itemView.mTvRelatedVideoVideoShare.typeface = fontStyle;
-        contentViewHolder.itemView.mTvRelatedVideoVideoComment.typeface = fontStyle;
+        contentViewHolder.itemView.mTvSearchTitle.typeface = fontStyle;
 
-        contentViewHolder.itemView.mTvRelatedVideoName.setText(data.data?.title)
-        ImageUtils.instance.loadImage(mContext!!,contentViewHolder.itemView.mIvRelatedVideoPoster, data.data?.cover?.feed)
-        ImageUtils.instance.loadAvatar(mContext!!,contentViewHolder.itemView.mIvRelatedVideoAvatar, data.data?.author?.icon)
-        contentViewHolder.itemView.mTvRelatedVideoVideoLikes.setText(data.data?.consumption?.collectionCount.toString())
-        contentViewHolder.itemView.mTvRelatedVideoVideoShare.setText(data.data?.consumption?.shareCount.toString())
-        contentViewHolder.itemView.mTvRelatedVideoVideoComment.setText(data.data?.consumption?.replyCount.toString())
+        contentViewHolder.itemView.mTvSearchTitle.setText(data.data?.title)
+        ImageUtils.instance.loadImage(mContext!!,contentViewHolder.itemView.mIvSearchPoster, data.data?.cover?.feed)
 
         contentViewHolder.setOnItemClickListener(mOnItemClickListener)
     }

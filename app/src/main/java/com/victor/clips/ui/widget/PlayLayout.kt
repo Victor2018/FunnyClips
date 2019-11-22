@@ -18,6 +18,7 @@ import android.widget.FrameLayout
 class PlayLayout: FrameLayout {
     private var mLastX: Int = 0
     private var mLastY: Int = 0
+    var mOnPlayViewTouchListener: OnPlayViewTouchListener? = null;
 
     constructor(context: Context) : this(context,null)
 
@@ -28,13 +29,12 @@ class PlayLayout: FrameLayout {
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         var x = event?.getX()?.toInt()
         var y = event?.getY()?.toInt()
-
+        mOnPlayViewTouchListener?.OnPlayViewTouch(event?.getAction())
         when (event?.getAction()) {
             MotionEvent.ACTION_DOWN -> {
                 mLastX = x!!
                 mLastY = y!!
             }
-
             MotionEvent.ACTION_MOVE -> {
                 var offsetX = x!! - mLastX
                 var offsetY = y!! - mLastY
@@ -44,10 +44,18 @@ class PlayLayout: FrameLayout {
                         (right + offsetX),
                         (bottom + offsetY))
             }
+            MotionEvent.ACTION_CANCEL -> {
 
-            else -> {
+            }
+            MotionEvent.ACTION_UP -> {
+
             }
         }
         return true
     }
+
+    public interface OnPlayViewTouchListener{
+        fun OnPlayViewTouch(action: Int?)
+    }
+
 }

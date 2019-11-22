@@ -18,21 +18,21 @@
             android:id="@+id/mCtlVideoTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:fitsSystemWindows="true"
-            app:contentScrim="@color/transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginStart="@dimen/dp_50"
             app:expandedTitleMarginEnd="@dimen/dp_65"
-            app:title="@string/about_us">
+            app:title="@string/about_us"
+            android:fitsSystemWindows="true">
             <ImageView
                 android:id="@+id/mIvAboutPoster"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/img_about_bg"
-                android:transitionName="@string/transition_about_img"/>
+                android:transitionName="@string/transition_about_img"
+                android:fitsSystemWindows="true"/>
             <ImageView
                 android:layout_width="@dimen/dp_100"
                 android:layout_height="@dimen/dp_100"

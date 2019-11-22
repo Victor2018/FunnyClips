@@ -53,11 +53,6 @@
             android:name=".ui.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.PlayActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme.FullScreen" />
-        <activity
             android:name=".ui.VideoDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- Scheme代理跳转 -->

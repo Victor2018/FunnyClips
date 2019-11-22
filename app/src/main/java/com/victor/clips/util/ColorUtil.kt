@@ -1,5 +1,7 @@
 package com.victor.clips.util
 
+import android.support.annotation.ColorInt
+import android.support.annotation.FloatRange
 import com.victor.clips.R
 import com.victor.clips.app.App
 import java.util.*
@@ -24,6 +26,20 @@ class ColorUtil {
                     App.get().getResources().getColor(R.color.color_E5F9FE))
             val random = Random()
             return colors[random.nextInt(colors.size)]
+        }
+
+        /**
+         * Set the alpha component of `color` to be `alpha`.
+         */
+        fun modifyAlpha(@ColorInt color: Int, alpha: Int): Int {
+            return color and 0x00ffffff or (alpha shl 24)
+        }
+
+        /**
+         * Set the alpha component of `color` to be `alpha`.
+         */
+        fun modifyAlpha(@ColorInt color: Int, alpha: Float): Int {
+            return modifyAlpha(color, (255f * alpha).toInt())
         }
     }
 }

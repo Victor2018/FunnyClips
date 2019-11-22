@@ -3,8 +3,6 @@ package com.victor.clips.ui
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.text.TextUtils
@@ -15,17 +13,16 @@ import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import com.victor.clips.R
+import com.victor.clips.data.HomeItemInfo
 import com.victor.clips.data.TrendingReq
 import com.victor.clips.presenter.SearchVideoPresenterImpl
+import com.victor.clips.ui.adapter.ScaleInAnimatorAdapter
 import com.victor.clips.ui.adapter.SearchVideoAdapter
 import com.victor.clips.ui.adapter.SlideInLeftAnimatorAdapter
 import com.victor.clips.ui.view.SearchVideoView
 import com.victor.clips.util.DeviceUtils
 import com.victor.clips.util.WebConfig
-import com.victor.player.library.module.Player
-import kotlinx.android.synthetic.main.activity_play.*
 import kotlinx.android.synthetic.main.activity_search.*
-import org.victor.khttp.library.util.MainHandler
 
 
 class SearchActivity : BaseActivity(),SearchView.OnQueryTextListener,AdapterView.OnItemClickListener,
@@ -60,7 +57,7 @@ class SearchActivity : BaseActivity(),SearchView.OnQueryTextListener,AdapterView
         searchVideoAdapter?.setHeaderVisible(false)
         searchVideoAdapter?.setFooterVisible(false)
 
-        val animatorAdapter = SlideInLeftAnimatorAdapter(searchVideoAdapter!!,mRvSearch)
+        val animatorAdapter = ScaleInAnimatorAdapter(searchVideoAdapter!!,mRvSearch)
         mRvSearch.adapter = animatorAdapter
     }
 
@@ -129,7 +126,10 @@ class SearchActivity : BaseActivity(),SearchView.OnQueryTextListener,AdapterView
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        PlayActivity.intentStart(this,searchVideoAdapter?.getItem(position)?.data?.playUrl)
+        VideoDetailActivity.intentStart(this,
+                searchVideoAdapter?.getItem(position) as HomeItemInfo,
+                view?.findViewById(R.id.mIvSearchPoster) as View,
+                getString(R.string.transition_video_img))
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {

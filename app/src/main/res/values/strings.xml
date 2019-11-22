@@ -14,6 +14,7 @@
     <string name="transition_fab_icon">transition_fab_icon</string>
     <string name="transition_about_img">transition_about_img</string>
     <string name="transition_category_title">transition_category_title</string>
+    <string name="transition_avatar">transition_avatar</string>
 
     <string name="cd_second_item_image">second item image</string>
     <string name="cd_avatar">avatar</string>

@@ -4,102 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_220"
-    android:layout_marginTop="@dimen/dp_8"
-    android:layout_marginBottom="@dimen/dp_8"
+    android:layout_height="@dimen/dp_456"
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="@dimen/dp_0"
     app:cardElevation="@dimen/dp_5">
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/mIvSearchPoster"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/mIvRelatedVideoPoster"
-            android:layout_width="@dimen/dp_300"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/img_header"/>
-        <ImageView
-            android:id="@+id/mIvRelatedVideoAvatar"
-            android:layout_width="@dimen/dp_80"
-            android:layout_height="@dimen/dp_80"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_260"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/default_img"/>
-
-        <com.victor.clips.ui.widget.ColorTextView
-            android:id="@+id/mTvRelatedVideoName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/mIvRelatedVideoPoster"
-            android:layout_marginLeft="@dimen/dp_50"
-            android:padding="@dimen/dp_20"
-            android:text="从你的全世界路过"
-            android:textColor="?attr/colorPrimary"
-            android:textColorLink="?attr/colorPrimaryDark"
-            android:textSize="@dimen/dp_28"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center|right"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:padding="@dimen/dp_20"
-            android:layout_toRightOf="@+id/mIvRelatedVideoPoster">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_video_likes"/>
-            <com.victor.clips.ui.widget.ColorTextView
-                android:id="@+id/mTvRelatedVideoVideoLikes"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:gravity="center"
-                android:text="66"
-                android:textColor="?attr/colorPrimary"
-                android:textColorLink="?attr/colorPrimaryDark"
-                android:textSize="@dimen/dp_28"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_50"
-                android:src="@mipmap/ic_video_comment"/>
-            <com.victor.clips.ui.widget.ColorTextView
-                android:id="@+id/mTvRelatedVideoVideoComment"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:gravity="center"
-                android:text="168"
-                android:textColor="?attr/colorPrimary"
-                android:textColorLink="?attr/colorPrimaryDark"
-                android:textSize="@dimen/dp_28"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_50"
-                android:src="@mipmap/ic_video_share"/>
-            <com.victor.clips.ui.widget.ColorTextView
-                android:id="@+id/mTvRelatedVideoVideoShare"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:gravity="center"
-                android:text="198"
-                android:textColor="?attr/colorPrimary"
-                android:textColorLink="?attr/colorPrimaryDark"
-                android:textSize="@dimen/dp_28"/>
-        </LinearLayout>
-    </RelativeLayout>
-
-
+        android:layout_height="match_parent"
+        android:src="@mipmap/default_img"
+        android:transitionName="@string/transition_video_img"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center_vertical"/>
+    <com.victor.clips.ui.widget.ColorTextView
+        android:id="@+id/mTvSearchTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/dp_20"
+        android:gravity="center"
+        android:text="从你的全世界路过"
+        android:textColor="?attr/colorPrimary"
+        android:textColorLink="?attr/colorPrimaryDark"
+        android:textSize="@dimen/dp_52"/>
 </android.support.v7.widget.CardView>
 
 

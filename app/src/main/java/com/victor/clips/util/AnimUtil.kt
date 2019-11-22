@@ -5,6 +5,8 @@ import android.view.animation.AnimationUtils
 import android.view.animation.Animation
 import com.victor.clips.R
 import android.animation.Animator
+import android.content.Context
+import android.view.animation.Interpolator
 
 
 /*
@@ -19,6 +21,9 @@ import android.animation.Animator
  */
 class AnimUtil {
     companion object {
+        private var fastOutSlowIn: Interpolator? = null
+        private var fastOutLinearIn: Interpolator? = null
+
         fun topEnter(): Animation {
             val animation = AnimationUtils.loadAnimation(App.get(), R.anim.anim_top_enter)
             animation.fillAfter = true
@@ -50,6 +55,14 @@ class AnimUtil {
             }
             allAnimators[allAnimators.size - 1] = alphaAnimator
             return allAnimators
+        }
+
+        fun getFastOutSlowInInterpolator(context: Context): Interpolator? {
+            if (fastOutSlowIn == null) {
+                fastOutSlowIn = AnimationUtils.loadInterpolator(context,
+                        android.R.interpolator.fast_out_slow_in)
+            }
+            return fastOutSlowIn
         }
 
     }

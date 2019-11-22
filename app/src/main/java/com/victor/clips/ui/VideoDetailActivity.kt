@@ -24,16 +24,18 @@ import org.victor.khttp.library.util.MainHandler
 import android.content.res.Configuration
 import android.graphics.Typeface
 import android.support.design.widget.CoordinatorLayout
+import android.view.MotionEvent
 import com.victor.clips.R
 import com.victor.clips.ui.adapter.SlideInLeftAnimatorAdapter
 import com.victor.clips.ui.adapter.SlideInRightAnimatorAdapter
 import com.victor.clips.ui.adapter.SwingBottomInAnimationAdapter
+import com.victor.clips.ui.widget.PlayLayout
 import com.victor.player.library.module.Player
 
 
 class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoView,
         AdapterView.OnItemClickListener,MainHandler.OnMainHandlerImpl,
-        AppBarLayout.OnOffsetChangedListener {
+        AppBarLayout.OnOffsetChangedListener, PlayLayout.OnPlayViewTouchListener {
 
     override fun handleMainMessage(message: Message?) {
         when (message?.what) {
@@ -42,7 +44,7 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
             Player.PLAYER_PREPARED -> {
                 mTvPlay.startAnimation(AnimUtil.topEnter())
                 mIvVideoPoster.startAnimation(AnimUtil.bottomExit())
-                mIvVideoPoster.setVisibility(View.INVISIBLE)
+                mIvVideoPoster.visibility = View.INVISIBLE
             }
             Player.PLAYER_ERROR -> {
             }
@@ -62,6 +64,7 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
     var mPlayer: Player? = null
     var isSmallScreenPlay: Boolean = false
     var isFullScreenPlay: Boolean = false
+    var playViewAction: Int = -1;
 
     var fontStyle: Typeface? = null
 
@@ -90,8 +93,11 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
         setSupportActionBar(mVideoToolbar);
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
 
-        fontStyle = Typeface.createFromAsset(getAssets(), "fonts/ZuoAnLianRen.ttf");
         MainHandler.get().register(this)
+
+        fontStyle = Typeface.createFromAsset(getAssets(), "fonts/ZuoAnLianRen.ttf");
+        mTvVideoDescription.typeface = fontStyle;
+
         relatedVideoPresenter = RelatedVideoPresenterImpl(this)
 
         relatedVideoAdapter = RelatedVideoAdapter(this,this)
@@ -103,10 +109,10 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
 
         mPlayer = Player(mTvPlay,MainHandler.get())
 
-
         mFabFullScreen.setOnClickListener(this)
-
         appbar.addOnOffsetChangedListener(this)
+
+        mPlSmallPlay.mOnPlayViewTouchListener = this
     }
 
     fun initData (){
@@ -115,7 +121,6 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
         ImageUtils.instance.loadAvatar(this,mIvAvatar,data.data!!.author!!.icon)
         mCtlVideoTitle.title = data.data!!.title
         mTvVideoDescription.setText(data.data!!.description)
-        mTvVideoDescription.typeface = fontStyle;
 
         mPlayer?.playUrl(data!!.data!!.playUrl!!,false)
 
@@ -129,6 +134,8 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
         if (isFullScreenPlay) return
+        if (playViewAction == MotionEvent.ACTION_DOWN) return
+
         if (verticalOffset == 0) {
             //展开状态
             mIvVideoPoster.setVisibility(View.INVISIBLE);
@@ -245,7 +252,13 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
         }
     }
 
+    override fun OnPlayViewTouch(action: Int?) {
+        playViewAction = action!!
+    }
+
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        mCtlVideoTitle.title = relatedVideoAdapter?.getItem(position)?.data?.title
+        mTvVideoDescription.setText(relatedVideoAdapter?.getItem(position)?.data?.description)
         mPlayer?.playUrl(relatedVideoAdapter?.getItem(position)?.data?.playUrl,false)
     }
 
