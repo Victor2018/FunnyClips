@@ -18,7 +18,9 @@ import com.victor.clips.util.WebConfig
 import com.victor.clips.ui.view.FollowView
 import com.victor.clips.ui.widget.LMRecyclerView
 import com.victor.clips.util.Loger
+import com.victor.clips.util.SnackbarUtil
 import kotlinx.android.synthetic.main.activity_category.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_follow.*
 
 /*
@@ -110,6 +112,10 @@ class FollowFragment: BaseFragment(),FollowView,AdapterView.OnItemClickListener,
     }
 
     fun showFollowData (data: Any?, msg: String) {
+        if (data == null) {
+            SnackbarUtil.ShortSnackbar(mRvFollow,msg, SnackbarUtil.ALERT).show()
+            return
+        }
         mSrlFollow.isRefreshing = false
         var followReq = data as FollowReq
 
@@ -119,7 +125,7 @@ class FollowFragment: BaseFragment(),FollowView,AdapterView.OnItemClickListener,
             }
         }
         followAdapter?.setFooterVisible(true)
-        mRvFollow.setHasMore(true)
+        mRvFollow?.setHasMore(true)
         if (currentPage == 0) {
             followAdapter?.clear()
         }

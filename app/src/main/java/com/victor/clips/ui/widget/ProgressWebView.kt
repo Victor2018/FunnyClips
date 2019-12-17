@@ -14,7 +14,11 @@ import android.view.View
 import android.webkit.*
 import com.victor.clips.R
 import com.victor.clips.util.Loger
-
+import android.support.v4.content.ContextCompat.startActivity
+import android.webkit.DownloadListener
+import android.app.DownloadManager
+import android.os.Environment
+import android.os.Environment.getExternalStorageDirectory
 
 /*
  * -----------------------------------------------------------------
@@ -26,7 +30,8 @@ import com.victor.clips.util.Loger
  * Description: 带进度的WebView
  * -----------------------------------------------------------------
  */
-class ProgressWebView constructor(context: Context, attributeset: AttributeSet) : ConstraintLayout(context, attributeset) {
+class ProgressWebView constructor(context: Context, attributeset: AttributeSet) : ConstraintLayout(context, attributeset),DownloadListener {
+
     val TAG = "ProgressWebView"
     var progress: ProgressBar
     var webview: WebView
@@ -42,6 +47,7 @@ class ProgressWebView constructor(context: Context, attributeset: AttributeSet) 
         webview.settings.setJavaScriptEnabled(true)
         webview.settings.setDomStorageEnabled(true)
         webview.settings.cacheMode = WebSettings.LOAD_NO_CACHE
+        webview.setDownloadListener(this)
     }
 
     private inner class MyWebChromeClient : WebChromeClient() {
@@ -126,6 +132,42 @@ class ProgressWebView constructor(context: Context, attributeset: AttributeSet) 
 
         }
 
+    }
+
+    fun downloadFile(url: String?,contentDisposition: String?,mimeType: String?) {
+        val request = DownloadManager.Request(Uri.parse(url))
+        // 允许媒体扫描，根据下载的文件类型被加入相册、音乐等媒体库
+        request.allowScanningByMediaScanner()
+        // 设置通知的显示类型，下载进行时和完成后显示通知
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        // 设置通知栏的标题，如果不设置，默认使用文件名
+        request.setTitle("下载完成")
+        // 设置通知栏的描述
+//                    request.setDescription("This is description");
+        // 允许在计费流量下下载
+        request.setAllowedOverMetered(true)
+        // 允许该记录在下载管理界面可见
+        request.setVisibleInDownloadsUi(true)
+        // 允许漫游时下载
+        request.setAllowedOverRoaming(true)
+
+        val fileName = URLUtil.guessFileName(url, contentDisposition, mimeType)
+        Loger.e(TAG, "downloadFile()-fileName = $fileName")
+        request.setDestinationInExternalPublicDir(Environment.getExternalStorageDirectory().toString() + "/Download/", fileName)
+
+
+        val downloadManager = webview.context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        // 添加一个下载任务
+        val downloadId = downloadManager.enqueue(request)
+    }
+
+    override fun onDownloadStart(url: String?, userAgent: String?, contentDisposition: String?, mimeType: String?, contentLength: Long) {
+        Loger.e(TAG,"onDownloadStart()......url = $url")
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        context.startActivity(intent)
+
+//        downloadFile(url,contentDisposition,mimeType)
     }
 
     fun canGoBack(): Boolean {

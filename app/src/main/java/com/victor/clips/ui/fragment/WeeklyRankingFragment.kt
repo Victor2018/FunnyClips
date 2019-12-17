@@ -17,7 +17,9 @@ import com.victor.clips.ui.adapter.ScaleInAnimatorAdapter
 import com.victor.clips.util.DeviceUtils
 import com.victor.clips.util.WebConfig
 import com.victor.clips.ui.view.RankingView
+import com.victor.clips.util.SnackbarUtil
 import kotlinx.android.synthetic.main.activity_category.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_weekly_ranking.*
 
 
@@ -105,6 +107,10 @@ class WeeklyRankingFragment : BaseFragment(),AdapterView.OnItemClickListener,Ran
     }
 
     override fun OnRanking(data: Any?, msg: String) {
+        if (data == null) {
+            SnackbarUtil.ShortSnackbar(mRvWeeklyRanking,msg, SnackbarUtil.ALERT).show()
+            return
+        }
         mSrlWeeklyRanking.isRefreshing = false
         var weeklyRankingReq = data!! as TrendingReq
         rankingAdapter?.clear()

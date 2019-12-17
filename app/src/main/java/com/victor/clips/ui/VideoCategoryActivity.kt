@@ -21,6 +21,7 @@ import com.victor.clips.ui.view.CategoryDetailView
 import com.victor.clips.util.*
 import kotlinx.android.synthetic.main.activity_video_category.*
 import kotlinx.android.synthetic.main.activity_video_category.appbar
+import kotlinx.android.synthetic.main.fragment_weekly_ranking.*
 
 
 class VideoCategoryActivity : BaseActivity(),View.OnClickListener,CategoryDetailView,
@@ -112,6 +113,10 @@ class VideoCategoryActivity : BaseActivity(),View.OnClickListener,CategoryDetail
     }
 
     override fun OnCategoryDetail(data: Any?, msg: String) {
+        if (data == null) {
+            SnackbarUtil.ShortSnackbar(mRvCategoryDetail,msg, SnackbarUtil.ALERT).show()
+            return
+        }
         mSrlCategory.isRefreshing = false
         var category = data!! as TrendingReq
         categoryDetailAdapter?.clear()

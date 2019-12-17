@@ -19,6 +19,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data android:name="UPDATE_URL_KEY" android:value="https://raw.githubusercontent.com/Victor2018/FunnyClips/master/docs/update.json"/>
+
         <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">

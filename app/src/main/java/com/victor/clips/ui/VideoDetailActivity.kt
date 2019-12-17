@@ -31,6 +31,7 @@ import com.victor.clips.ui.adapter.SlideInRightAnimatorAdapter
 import com.victor.clips.ui.adapter.SwingBottomInAnimationAdapter
 import com.victor.clips.ui.widget.PlayLayout
 import com.victor.player.library.module.Player
+import kotlinx.android.synthetic.main.fragment_weekly_ranking.*
 
 
 class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoView,
@@ -156,6 +157,10 @@ class VideoDetailActivity : BaseActivity(), View.OnClickListener,RelatedVideoVie
     }
 
     override fun OnRelatedVideo(data: Any?, msg: String) {
+        if (data == null) {
+            SnackbarUtil.ShortSnackbar(mRvRelatedVideo,msg, SnackbarUtil.ALERT).show()
+            return
+        }
         var relatedVideo = data!! as TrendingReq
         for (item in relatedVideo.itemList!!) {
             if ("videoSmallCard".equals(item.type)) {

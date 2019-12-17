@@ -58,7 +58,7 @@
                 android:id="@+id/mRvColor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/mCtvTitle"
+                android:layout_below="@+id/mCtvThemeSelection"
                 android:layout_marginTop="@dimen/dp_50"
                 android:scrollbars="vertical"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
@@ -73,6 +73,7 @@
                 android:layout_toLeftOf="@+id/mBtnOk"
                 android:padding="@dimen/dp_10"
                 android:gravity="center"
+                android:textSize="@dimen/dp_32"
                 android:textColor="?attr/colorPrimary"
                 android:textColorLink="?attr/colorPrimaryDark"
                 android:text="@string/cancel"/>
@@ -85,6 +86,7 @@
                 android:layout_marginTop="@dimen/dp_50"
                 android:padding="@dimen/dp_10"
                 android:gravity="center"
+                android:textSize="@dimen/dp_32"
                 android:textColor="?attr/colorPrimary"
                 android:textColorLink="?attr/colorPrimaryDark"
                 android:text="@string/ok"/>

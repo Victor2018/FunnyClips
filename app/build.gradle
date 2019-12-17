@@ -260,12 +260,16 @@ dependencies {
 
     implementation 'com.android.support:cardview-v7:27.1.1'
 
+    //app自动检测升级库
+    implementation 'com.github.Victor2018:AppUpdateLib:v1.9'
     //屏幕适配库
     implementation 'com.github.Victor2018:ScreenMatchLib:v1.1'
     //kotlin 网络请求库
-    implementation 'com.github.Victor2018:KHttpLib:v1.8'
+    implementation 'com.github.Victor2018:KHttpLib:v2.0'
     //播放器
     implementation 'com.github.Victor2018:SeagullPlayer:v1.7'
+    //6.0权限动态申请库
+    implementation 'com.github.Victor2018:PermissionHelper:v1.0'
     //fastjson库
     implementation 'com.alibaba:fastjson:1.1.56.android'
     //图片加载glide库

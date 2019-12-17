@@ -10,6 +10,7 @@ import java.util.*
 import com.victor.clips.data.Theme
 import com.victor.clips.util.SharePreferencesUtil
 import com.victor.clips.util.ThemeUtils
+import com.victor.update.library.ui.UpdateActivity
 
 
 /*
@@ -22,7 +23,7 @@ import com.victor.clips.util.ThemeUtils
  * Description: 
  * -----------------------------------------------------------------
  */
-abstract class BaseActivity: AppCompatActivity(),Observer {
+abstract class BaseActivity: UpdateActivity (),Observer {
     protected var TAG = javaClass.simpleName
 
     abstract fun getLayoutResource(): Int

@@ -21,8 +21,10 @@ import com.victor.clips.ui.adapter.SearchVideoAdapter
 import com.victor.clips.ui.adapter.SlideInLeftAnimatorAdapter
 import com.victor.clips.ui.view.SearchVideoView
 import com.victor.clips.util.DeviceUtils
+import com.victor.clips.util.SnackbarUtil
 import com.victor.clips.util.WebConfig
 import kotlinx.android.synthetic.main.activity_search.*
+import kotlinx.android.synthetic.main.fragment_weekly_ranking.*
 
 
 class SearchActivity : BaseActivity(),SearchView.OnQueryTextListener,AdapterView.OnItemClickListener,
@@ -120,6 +122,10 @@ class SearchActivity : BaseActivity(),SearchView.OnQueryTextListener,AdapterView
     }
 
     override fun OnSearchVideo(data: Any?, msg: String) {
+        if (data == null) {
+            SnackbarUtil.ShortSnackbar(mRvSearch,msg, SnackbarUtil.ALERT).show()
+            return
+        }
         var relatedVideo = data!! as TrendingReq
         searchVideoAdapter?.add( relatedVideo.itemList!!)
         searchVideoAdapter?.notifyDataSetChanged()

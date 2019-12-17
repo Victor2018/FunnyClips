@@ -18,10 +18,10 @@ import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.fragment_category.*
 import kotlinx.android.synthetic.main.fragment_category.mRvCategory
-import android.view.animation.LayoutAnimationController
-import android.view.animation.AnimationUtils
 import com.victor.clips.ui.adapter.SlideInLeftAnimatorAdapter
-import android.support.v7.widget.RecyclerView
+import com.victor.clips.util.Loger
+import com.victor.clips.util.SnackbarUtil
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 /*
@@ -124,8 +124,14 @@ class VideoCategoryFragment : BaseFragment(),AdapterView.OnItemClickListener,Vid
     }
 
     override fun OnVideoCategory(data: Any?, msg: String) {
+        if (data == null) {
+            SnackbarUtil.ShortSnackbar(mRvCategory,msg,SnackbarUtil.ALERT).show()
+            return
+        }
+
+        Loger.e(TAG,"data = " + data)
         mSrlVideoCategory.isRefreshing = false;
-        var category = data!! as List<CategoryReq>
+        var category = data as List<CategoryReq>
         categoryAdapter?.add(category)
         categoryAdapter?.notifyDataSetChanged()
     }

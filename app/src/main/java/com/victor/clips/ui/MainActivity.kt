@@ -1,5 +1,7 @@
 package com.victor.clips.ui
 
+import android.Manifest
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
@@ -12,6 +14,7 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.toolbar.*
 import android.support.v4.view.ViewCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.KeyEvent
@@ -25,10 +28,23 @@ import com.victor.clips.util.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 import org.victor.funny.util.ToastUtils
+import permission.victor.com.library.OnPermissionCallback
+import permission.victor.com.library.PermissionHelper
+import java.util.*
 
 
 class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListener,
-        View.OnClickListener {
+        View.OnClickListener, OnPermissionCallback {
+
+    private var permissionHelper: PermissionHelper? = null
+    private var neededPermission: Array<String>? = null
+    private var builder: AlertDialog? = null
+    private val MULTI_PERMISSIONS = arrayOf<String>(
+            Manifest.permission.ACCESS_NETWORK_STATE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,
+            Manifest.permission.ACCESS_WIFI_STATE)
 
     var actionbarScrollPoint: Float = 0f
     var summaryScrolled: Float = 0f
@@ -79,6 +95,9 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
         fontStyle = Typeface.createFromAsset(assets, "fonts/ZuoAnLianRen.ttf");
         navigationView.getHeaderView(0).mTvOurOriginalIntention.typeface = fontStyle
 
+        permissionHelper = PermissionHelper.getInstance(this);
+        permissionHelper?.setForceAccepting(false) // default is false. its here so you know that it exists.
+                ?.request(MULTI_PERMISSIONS);
     }
 
     fun injectViewsAndSetUpToolbar() {
@@ -281,6 +300,51 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
             val color = Math.max(Constant.BG_COLOR_MIN, Constant.BG_COLOR_MAX - summaryScrolled * 0.05f)
             mRlMainParent.setBackgroundColor(Color.argb(255, color.toInt(), color.toInt(), color.toInt()))
         }
+    }
+
+    override fun onPermissionPreGranted(permissionsName: String) {
+        Loger.d("onPermissionPreGranted", "Permission( " + permissionsName + " ) preGranted");
+    }
+
+    override fun onPermissionGranted(permissionName: Array<out String>) {
+        Loger.d(TAG, "onPermissionGranted-Permission(s) " + Arrays.toString(permissionName) + " Granted");
+    }
+
+    override fun onNoPermissionNeeded() {
+        Loger.d("onNoPermissionNeeded", "Permission(s) not needed");
+    }
+
+    override fun onPermissionReallyDeclined(permissionName: String) {
+        Loger.d("ReallyDeclined", "Permission " + permissionName + " can only be granted from settingsScreen");
+    }
+
+    override fun onPermissionDeclined(permissionName: Array<out String>) {
+        Loger.d("onPermissionDeclined", "Permission(s) " + Arrays.toString(permissionName) + " Declined");
+    }
+
+    override fun onPermissionNeedExplanation(p0: String) {
+        neededPermission = PermissionHelper.declinedPermissions(this, MULTI_PERMISSIONS)
+        val builder = StringBuilder(neededPermission!!.size)
+        if (neededPermission!!.size > 0) {
+            for (permission in neededPermission!!) {
+                builder.append(permission).append("\n")
+            }
+        }
+        val alert = getAlertDialog(neededPermission!!, builder.toString())
+        if (!alert.isShowing()) {
+            alert.show()
+        }
+    }
+
+    fun getAlertDialog(permissions: Array<String>, permissionName: String): AlertDialog {
+        if (builder == null) {
+            builder = AlertDialog.Builder(this)
+                    .setTitle("Permission Needs Explanation")
+                    .create()
+        }
+        builder?.setButton(DialogInterface.BUTTON_POSITIVE, "Request", DialogInterface.OnClickListener { dialog, which -> permissionHelper?.requestAfterExplanation(permissions) })
+        builder?.setMessage("Permissions need explanation ($permissionName)")
+        return builder!!
     }
 
 }
