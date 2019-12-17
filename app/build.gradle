@@ -265,7 +265,7 @@ dependencies {
     //屏幕适配库
     implementation 'com.github.Victor2018:ScreenMatchLib:v1.1'
     //kotlin 网络请求库
-    implementation 'com.github.Victor2018:KHttpLib:v2.0'
+    implementation 'com.github.Victor2018:KHttpLib:v2.3'
     //播放器
     implementation 'com.github.Victor2018:SeagullPlayer:v1.7'
     //6.0权限动态申请库

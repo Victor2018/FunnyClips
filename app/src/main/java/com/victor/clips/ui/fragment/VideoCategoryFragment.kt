@@ -129,7 +129,6 @@ class VideoCategoryFragment : BaseFragment(),AdapterView.OnItemClickListener,Vid
             return
         }
 
-        Loger.e(TAG,"data = " + data)
         mSrlVideoCategory.isRefreshing = false;
         var category = data as List<CategoryReq>
         categoryAdapter?.add(category)
