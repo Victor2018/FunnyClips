@@ -149,4 +149,11 @@
     <color name="colorBlueGreyPrimaryDark">#455A64</color>
     <color name="colorBlueGreyAccent">#FF4081</color>
     <color name="colorBlueGreyPrimaryCenter">#27373e</color>
+
+    <!--Night-->
+    <color name="colorNightPrimary">#424242</color>
+    <color name="colorNightPrimaryDark">#000000</color>
+    <color name="colorNightAccent">#FFFFFF</color>
+    <color name="colorNightPrimaryCenter">#000000</color>
+
 </resources>

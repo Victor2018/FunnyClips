@@ -8,6 +8,7 @@ import com.victor.clips.module.DataObservable
 import com.victor.clips.util.StatusBarUtil
 import java.util.*
 import com.victor.clips.data.Theme
+import com.victor.clips.util.ConfigLocal
 import com.victor.clips.util.SharePreferencesUtil
 import com.victor.clips.util.ThemeUtils
 import com.victor.update.library.ui.UpdateActivity
@@ -41,6 +42,11 @@ abstract class BaseActivity: UpdateActivity (),Observer {
     }
 
     private fun setTheme() {
+        var showDayNight = ConfigLocal.needShowDayNightThemeGuide(this,"")
+        if (showDayNight) {
+            setTheme(R.style.NightTheme)
+            return
+        }
         val theme = SharePreferencesUtil.getCurrentTheme(this)
         when (theme) {
             Theme.Blue -> setTheme(R.style.BlueTheme)
@@ -64,6 +70,11 @@ abstract class BaseActivity: UpdateActivity (),Observer {
 
     override fun onResume() {
         super.onResume()
+        var showDayNight = ConfigLocal.needShowDayNightThemeGuide(this,"")
+        if (showDayNight) {
+            ThemeUtils.setTheme(this,resources.getColor(R.color.colorNightPrimary))
+            return
+        }
         val theme = SharePreferencesUtil.getCurrentTheme(this)
         when (theme) {
             Theme.Blue -> ThemeUtils.setTheme(this,resources.getColor(R.color.colorBluePrimary))

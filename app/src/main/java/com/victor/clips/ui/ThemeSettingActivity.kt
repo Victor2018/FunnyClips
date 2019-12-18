@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.AdapterView
 import com.victor.clips.util.*
 import android.support.v7.widget.GridLayoutManager
+import android.widget.CompoundButton
 import com.victor.clips.R
 import com.victor.clips.ui.adapter.ColorAdapter
 import com.victor.clips.data.Theme
@@ -16,7 +17,8 @@ import com.victor.clips.ui.adapter.ScaleInAnimatorAdapter
 import kotlinx.android.synthetic.main.activity_theme_setting.*
 import kotlinx.android.synthetic.main.activity_video_detail.mVideoToolbar
 
-class ThemeSettingActivity : BaseActivity(),View.OnClickListener,AdapterView.OnItemClickListener {
+class ThemeSettingActivity : BaseActivity(),View.OnClickListener,AdapterView.OnItemClickListener,
+        CompoundButton.OnCheckedChangeListener {
 
     var colorRes: Int = 0
     var colorAdapter: ColorAdapter? = null
@@ -63,6 +65,7 @@ class ThemeSettingActivity : BaseActivity(),View.OnClickListener,AdapterView.OnI
 
         mBtnCancel.setOnClickListener(this)
         mBtnOk.setOnClickListener(this)
+        mToggleDayNightsetting.setOnCheckedChangeListener(this)
 
     }
 
@@ -71,6 +74,9 @@ class ThemeSettingActivity : BaseActivity(),View.OnClickListener,AdapterView.OnI
         colorAdapter?.notifyDataSetChanged()
 
         lastTheme = getCurrentTheme()
+
+        var showDayNight = ConfigLocal.needShowDayNightThemeGuide(this,"")
+        mToggleDayNightsetting.isChecked = showDayNight;
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -88,6 +94,20 @@ class ThemeSettingActivity : BaseActivity(),View.OnClickListener,AdapterView.OnI
         colorAdapter?.currentPosition = position
         colorAdapter?.notifyDataSetChanged()
         ThemeUtils.setTheme(this,colorRes)
+        mToggleDayNightsetting.isChecked = false;
+    }
+
+    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+        when(buttonView?.id) {
+            R.id.mToggleDayNightsetting -> {
+                ConfigLocal.updateDayNightThemeGuide(this, "", isChecked)
+                if (isChecked) {
+                    ThemeUtils.setTheme(this,resources.getColor(R.color.colorNightPrimary))
+                } else {
+                    ThemeUtils.setTheme(this,lastTheme)
+                }
+            }
+        }
     }
 
     override fun onClick(v: View?) {
@@ -97,6 +117,7 @@ class ThemeSettingActivity : BaseActivity(),View.OnClickListener,AdapterView.OnI
                 finish()
             }
             R.id.mBtnOk -> {
+                ConfigLocal.updateDayNightThemeGuide(this, "", false)
                 finish()
             }
         }

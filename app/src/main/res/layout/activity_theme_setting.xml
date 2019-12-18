@@ -54,6 +54,18 @@
                 android:textColorLink="?attr/colorPrimaryDark"
                 android:text="Theme selection"/>
 
+            <Switch
+                android:id="@+id/mToggleDayNightsetting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:thumb="@drawable/item_switch_button_circle"
+                android:track="@drawable/item_switch_track_circle"
+                android:showText="true"
+                android:textColor="?attr/colorPrimary"
+                android:textOff="昼"
+                android:textOn="夜"/>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/mRvColor"
                 android:layout_width="match_parent"

@@ -14,7 +14,8 @@ import android.content.Context
  */
 class ConfigLocal {
     companion object {
-        private val WELCOME_VIDEO_PLAY_GUIDE = "WELCOME_VIDEO_PLAY_GUIDE"
+        private val WELCOME_VIDEO_PLAY_GUIDE    = "WELCOME_VIDEO_PLAY_GUIDE"
+        private val DAY_NIGHT_GUIDE             = "DAY_NIGHT_GUIDE"
 
         /**
          * 是否需要播放开场欢迎视频
@@ -27,6 +28,18 @@ class ConfigLocal {
         }
         fun updateWelcomeVideoPlayGuide (context: Context, userId: String,enable: Boolean) {
             return SharePreferencesUtil.putBoolean(context, WELCOME_VIDEO_PLAY_GUIDE + ":" + userId, enable)
+        }
+        /**
+         * 是否需要显示昼夜模式
+         * @param context
+         * @param userId
+         * @return
+         */
+        fun needShowDayNightThemeGuide (context: Context, userId: String): Boolean {
+            return SharePreferencesUtil.getBoolean(context, DAY_NIGHT_GUIDE + ":" + userId, false)
+        }
+        fun updateDayNightThemeGuide (context: Context, userId: String,enable: Boolean) {
+            return SharePreferencesUtil.putBoolean(context, DAY_NIGHT_GUIDE + ":" + userId, enable)
         }
     }
 }

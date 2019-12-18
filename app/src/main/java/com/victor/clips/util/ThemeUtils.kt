@@ -34,65 +34,71 @@ class ThemeUtils {
             if (selectedColor == getThemeColor(activity, R.attr.colorPrimary))
                 return
 
-            if (selectedColor == activity.resources.getColor(R.color.colorBluePrimary)) {
-                activity.setTheme(R.style.BlueTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.Blue)
-
-            } else if (selectedColor == activity.resources.getColor(R.color.colorRedPrimary)) {
-                activity.setTheme(R.style.RedTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.Red)
-
-            } else if (selectedColor == activity.resources.getColor(R.color.colorBrownPrimary)) {
-                activity.setTheme(R.style.BrownTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.Brown)
-
-            } else if (selectedColor == activity.resources.getColor(R.color.colorGreenPrimary)) {
-                activity.setTheme(R.style.GreenTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.Green)
-
-            } else if (selectedColor == activity.resources.getColor(R.color.colorPurplePrimary)) {
-                activity.setTheme(R.style.PurpleTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.Purple)
-
-            } else if (selectedColor == activity.resources.getColor(R.color.colorTealPrimary)) {
-                activity.setTheme(R.style.TealTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.Teal)
-
-            } else if (selectedColor == activity.resources.getColor(R.color.colorPinkPrimary)) {
-                activity.setTheme(R.style.PinkTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.Pink)
-
-            } else if (selectedColor == activity.resources.getColor(R.color.colorDeepPurplePrimary)) {
-                activity.setTheme(R.style.DeepPurpleTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.DeepPurple)
-
-            } else if (selectedColor == activity.resources.getColor(R.color.colorOrangePrimary)) {
-                activity.setTheme(R.style.OrangeTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.Orange)
-
-            } else if (selectedColor == activity.resources.getColor(R.color.colorIndigoPrimary)) {
-                activity.setTheme(R.style.IndigoTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.Indigo)
-
-            } else if (selectedColor == activity.resources.getColor(R.color.colorLightGreenPrimary)) {
-                activity.setTheme(R.style.LightGreenTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.LightGreen)
-
-            } else if (selectedColor == activity.resources.getColor(R.color.colorDeepOrangePrimary)) {
-                activity.setTheme(R.style.DeepOrangeTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.DeepOrange)
-
-            } else if (selectedColor == activity.resources.getColor(R.color.colorLimePrimary)) {
-                activity.setTheme(R.style.LimeTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.Lime)
-
-            } else if (selectedColor == activity.resources.getColor(R.color.colorBlueGreyPrimary)) {
-                activity.setTheme(R.style.BlueGreyTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.BlueGrey)
-
-            } else if (selectedColor == activity.resources.getColor(R.color.colorCyanPrimary)) {
-                activity.setTheme(R.style.CyanTheme)
-                SharePreferencesUtil.setCurrentTheme(activity, Theme.Cyan)
+            when(selectedColor) {
+                activity.resources.getColor(R.color.colorBluePrimary) -> {
+                    activity.setTheme(R.style.BlueTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.Blue)
+                }
+                activity.resources.getColor(R.color.colorRedPrimary) -> {
+                    activity.setTheme(R.style.RedTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.Red)
+                }
+                activity.resources.getColor(R.color.colorBrownPrimary) -> {
+                    activity.setTheme(R.style.BrownTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.Brown)
+                }
+                activity.resources.getColor(R.color.colorGreenPrimary) -> {
+                    activity.setTheme(R.style.GreenTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.Green)
+                }
+                activity.resources.getColor(R.color.colorPurplePrimary) -> {
+                    activity.setTheme(R.style.PurpleTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.Purple)
+                }
+                activity.resources.getColor(R.color.colorTealPrimary) -> {
+                    activity.setTheme(R.style.TealTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.Teal)
+                }
+                activity.resources.getColor(R.color.colorPinkPrimary) -> {
+                    activity.setTheme(R.style.PinkTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.Pink)
+                }
+                activity.resources.getColor(R.color.colorDeepPurplePrimary) -> {
+                    activity.setTheme(R.style.DeepPurpleTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.DeepPurple)
+                }
+                activity.resources.getColor(R.color.colorOrangePrimary) -> {
+                    activity.setTheme(R.style.OrangeTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.Orange)
+                }
+                activity.resources.getColor(R.color.colorIndigoPrimary) -> {
+                    activity.setTheme(R.style.IndigoTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.Indigo)
+                }
+                activity.resources.getColor(R.color.colorLightGreenPrimary) -> {
+                    activity.setTheme(R.style.LightGreenTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.LightGreen)
+                }
+                activity.resources.getColor(R.color.colorDeepOrangePrimary) -> {
+                    activity.setTheme(R.style.DeepOrangeTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.DeepOrange)
+                }
+                activity.resources.getColor(R.color.colorLimePrimary) -> {
+                    activity.setTheme(R.style.LimeTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.Lime)
+                }
+                activity.resources.getColor(R.color.colorBlueGreyPrimary) -> {
+                    activity.setTheme(R.style.BlueGreyTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.BlueGrey)
+                }
+                activity.resources.getColor(R.color.colorCyanPrimary) -> {
+                    activity.setTheme(R.style.CyanTheme)
+                    SharePreferencesUtil.setCurrentTheme(activity, Theme.Cyan)
+                }
+                activity.resources.getColor(R.color.colorNightPrimary) -> {
+                    activity.setTheme(R.style.NightTheme)
+                    ConfigLocal.updateDayNightThemeGuide(activity,"",true)
+                }
             }
             val rootView = activity.window.decorView
             rootView.isDrawingCacheEnabled = true

@@ -213,6 +213,17 @@
         <item name="md_positive_color">@color/colorBlueGreyPrimary</item>
     </style>
 
+    <!--night-->
+    <style name="NightTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorNightPrimary</item>
+        <item name="colorPrimaryDark">@color/colorNightPrimaryDark</item>
+        <item name="colorAccent">@color/colorNightPrimaryDark</item>
+        <item name="menuBackground">@drawable/night_background</item>
+        <item name="md_title_color">@color/colorNightPrimary</item>
+        <item name="md_link_color">@color/colorNightPrimary</item>
+        <item name="md_positive_color">@color/colorNightPrimary</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
