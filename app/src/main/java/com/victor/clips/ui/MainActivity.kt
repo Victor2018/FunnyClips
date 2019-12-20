@@ -3,9 +3,11 @@ package com.victor.clips.ui
 import android.Manifest
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Message
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
@@ -23,18 +25,21 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import android.view.animation.DecelerateInterpolator
 import com.victor.clips.R
+import com.victor.clips.module.TimeChangeReceiver
 import com.victor.clips.ui.fragment.*
 import com.victor.clips.util.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 import org.victor.funny.util.ToastUtils
+import org.victor.khttp.library.util.MainHandler
 import permission.victor.com.library.OnPermissionCallback
 import permission.victor.com.library.PermissionHelper
+import java.text.SimpleDateFormat
 import java.util.*
 
 
 class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListener,
-        View.OnClickListener, OnPermissionCallback {
+        View.OnClickListener, OnPermissionCallback,MainHandler.OnMainHandlerImpl {
 
     private var permissionHelper: PermissionHelper? = null
     private var neededPermission: Array<String>? = null
@@ -54,6 +59,23 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
     var actionBarShown = true
     var isInitialize = true
     var fontStyle: Typeface? = null
+
+    var intentFilter: IntentFilter? = null
+    var timeChangeReceiver:TimeChangeReceiver? = null
+
+    override fun handleMainMessage(message: Message?) {
+        when(message?.what) {
+            Constant.Msg.TIME_CHANGE -> {
+                if (message.arg1 == 1) {
+                    ThemeUtils.setTheme(this,getCurrentTheme())
+                    ConfigLocal.updateDayNightThemeGuide(this, "", false)
+                } else {
+                    ThemeUtils.setTheme(this,resources.getColor(R.color.colorNightPrimary))
+                    ConfigLocal.updateDayNightThemeGuide(this, "", true)
+                }
+            }
+        }
+    }
 
     companion object {
         fun  intentStart (activity: AppCompatActivity) {
@@ -78,6 +100,7 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
     }
 
     fun initialize () {
+        MainHandler.get().register(this)
         setSupportActionBar(toolbar);
 
         injectViewsAndSetUpToolbar();
@@ -98,6 +121,12 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
         permissionHelper = PermissionHelper.getInstance(this);
         permissionHelper?.setForceAccepting(false) // default is false. its here so you know that it exists.
                 ?.request(MULTI_PERMISSIONS);
+
+        intentFilter = IntentFilter();
+        intentFilter?.addAction(Intent.ACTION_TIME_TICK);//每分钟变化
+
+        timeChangeReceiver = TimeChangeReceiver();
+        registerReceiver(timeChangeReceiver, intentFilter);
     }
 
     fun injectViewsAndSetUpToolbar() {
@@ -275,6 +304,8 @@ class MainActivity : BaseActivity(),NavigationView.OnNavigationItemSelectedListe
 
     override fun onDestroy() {
         super.onDestroy()
+        MainHandler.get().unregister(this)
+        unregisterReceiver(timeChangeReceiver);
     }
 
     internal inner class OnScrollListener : RecyclerView.OnScrollListener() {

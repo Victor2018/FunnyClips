@@ -95,6 +95,29 @@ abstract class BaseActivity: UpdateActivity (),Observer {
         }
     }
 
+    fun getCurrentTheme (): Int {
+        var theme = resources.getColor(R.color.colorRedPrimary)
+        val themeName = SharePreferencesUtil.getCurrentTheme(this)
+        when (themeName) {
+            Theme.Blue -> theme = resources.getColor(R.color.colorBluePrimary)
+            Theme.Red -> theme = resources.getColor(R.color.colorRedPrimary)
+            Theme.Brown -> theme = resources.getColor(R.color.colorBrownPrimary)
+            Theme.Green -> theme = resources.getColor(R.color.colorGreenPrimary)
+            Theme.Purple -> theme = resources.getColor(R.color.colorPurplePrimary)
+            Theme.Teal -> theme = resources.getColor(R.color.colorTealPrimary)
+            Theme.Pink -> theme = resources.getColor(R.color.colorPinkPrimary)
+            Theme.DeepPurple -> theme = resources.getColor(R.color.colorDeepPurplePrimary)
+            Theme.Orange -> theme = resources.getColor(R.color.colorOrangePrimary)
+            Theme.Indigo -> theme = resources.getColor(R.color.colorIndigoPrimary)
+            Theme.LightGreen -> theme = resources.getColor(R.color.colorLightGreenPrimary)
+            Theme.Lime -> theme = resources.getColor(R.color.colorLimePrimary)
+            Theme.DeepOrange -> theme = resources.getColor(R.color.colorDeepOrangePrimary)
+            Theme.Cyan -> theme = resources.getColor(R.color.colorCyanPrimary)
+            Theme.BlueGrey -> theme = resources.getColor(R.color.colorBlueGreyPrimary)
+        }
+        return theme
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         DataObservable.instance.deleteObserver(this)

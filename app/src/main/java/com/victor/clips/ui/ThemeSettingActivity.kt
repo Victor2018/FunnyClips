@@ -3,6 +3,7 @@ package com.victor.clips.ui
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Message
 import android.view.MenuItem
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -16,15 +17,32 @@ import com.victor.clips.data.Theme
 import com.victor.clips.ui.adapter.ScaleInAnimatorAdapter
 import kotlinx.android.synthetic.main.activity_theme_setting.*
 import kotlinx.android.synthetic.main.activity_video_detail.mVideoToolbar
+import org.victor.khttp.library.util.MainHandler
 
 class ThemeSettingActivity : BaseActivity(),View.OnClickListener,AdapterView.OnItemClickListener,
-        CompoundButton.OnCheckedChangeListener {
+        CompoundButton.OnCheckedChangeListener,MainHandler.OnMainHandlerImpl {
 
     var colorRes: Int = 0
     var colorAdapter: ColorAdapter? = null
     var gridLayoutManager: GridLayoutManager? = null
     var lastTheme: Int = 0;
     var fontStyle: Typeface? = null
+
+    override fun handleMainMessage(message: Message?) {
+        when(message?.what) {
+            Constant.Msg.TIME_CHANGE -> {
+                if (message.arg1 == 1) {
+                    ThemeUtils.setTheme(this,getCurrentTheme())
+                    ConfigLocal.updateDayNightThemeGuide(this, "", false)
+                    mToggleDayNightsetting.isChecked = false
+                } else {
+                    ThemeUtils.setTheme(this,resources.getColor(R.color.colorNightPrimary))
+                    ConfigLocal.updateDayNightThemeGuide(this, "", true)
+                    mToggleDayNightsetting.isChecked = true
+                }
+            }
+        }
+    }
 
     companion object {
         fun  intentStart (activity: AppCompatActivity) {
@@ -44,6 +62,7 @@ class ThemeSettingActivity : BaseActivity(),View.OnClickListener,AdapterView.OnI
     }
 
     fun initialize () {
+        MainHandler.get().register(this)
         setSupportActionBar(mVideoToolbar);
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
 
@@ -76,7 +95,7 @@ class ThemeSettingActivity : BaseActivity(),View.OnClickListener,AdapterView.OnI
         lastTheme = getCurrentTheme()
 
         var showDayNight = ConfigLocal.needShowDayNightThemeGuide(this,"")
-        mToggleDayNightsetting.isChecked = showDayNight;
+        mToggleDayNightsetting.isChecked = showDayNight
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -123,33 +142,14 @@ class ThemeSettingActivity : BaseActivity(),View.OnClickListener,AdapterView.OnI
         }
     }
 
-    fun getCurrentTheme (): Int {
-        var theme = resources.getColor(R.color.colorRedPrimary)
-        val themeName = SharePreferencesUtil.getCurrentTheme(this)
-        when (themeName) {
-            Theme.Blue -> theme = resources.getColor(R.color.colorBluePrimary)
-            Theme.Red -> theme = resources.getColor(R.color.colorRedPrimary)
-            Theme.Brown -> theme = resources.getColor(R.color.colorBrownPrimary)
-            Theme.Green -> theme = resources.getColor(R.color.colorGreenPrimary)
-            Theme.Purple -> theme = resources.getColor(R.color.colorPurplePrimary)
-            Theme.Teal -> theme = resources.getColor(R.color.colorTealPrimary)
-            Theme.Pink -> theme = resources.getColor(R.color.colorPinkPrimary)
-            Theme.DeepPurple -> theme = resources.getColor(R.color.colorDeepPurplePrimary)
-            Theme.Orange -> theme = resources.getColor(R.color.colorOrangePrimary)
-            Theme.Indigo -> theme = resources.getColor(R.color.colorIndigoPrimary)
-            Theme.LightGreen -> theme = resources.getColor(R.color.colorLightGreenPrimary)
-            Theme.Lime -> theme = resources.getColor(R.color.colorLimePrimary)
-            Theme.DeepOrange -> theme = resources.getColor(R.color.colorDeepOrangePrimary)
-            Theme.Cyan -> theme = resources.getColor(R.color.colorCyanPrimary)
-            Theme.BlueGrey -> theme = resources.getColor(R.color.colorBlueGreyPrimary)
-        }
-        return theme
-    }
-
     override fun onBackPressed() {
         super.onBackPressed()
         ThemeUtils.setTheme(this,lastTheme)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        MainHandler.get().register(this)
+    }
 
 }

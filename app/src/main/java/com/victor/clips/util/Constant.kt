@@ -27,6 +27,7 @@ class Constant {
     class Msg {
         companion object {
             const val ENTER_HAPPY_COAST             = 0x1001
+            const val TIME_CHANGE                   = 0x1002
         }
     }
     class Action {
