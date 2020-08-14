@@ -43,10 +43,10 @@
     <string name="gmail">Gmail：<a href="victor://mail?gmail=victor423099@gmail.com">victor423099@gmail.com</a></string>
     <string name="github_url">https://github.com/Victor2018</string>
     <string name="github_issues">Issues：<a href="victor://openurl?title=Github Issues&amp;url=https://github.com/Victor2018/FunnyClips/issues">Feedback problem</a></string>
-    <string name="download_app">Download：<a href="victor://openurl?title=Download app&amp;url=https://fir.im/FunnyClips">Poke here</a></string>
+    <string name="download_app">Download：<a href="victor://openurl?title=Download app&amp;url=http://d.firim.info/FunnyClips">Poke here</a></string>
     <string name="about_us">About us</string>
     <string name="support_us">Support us</string>
-    <string name="share_app">Share an funny app for you：https://fir.im/FunnyClips</string>
+    <string name="share_app">Share an funny app for you：http://d.firim.info/FunnyClips</string>
 
     <string name="select_category">Select category</string>
     <string name="main_title">Funny, we are serious</string>
